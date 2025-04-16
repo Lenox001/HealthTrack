@@ -20,31 +20,367 @@
       --success: #6bce70;
       --warning: #ffc107;
       --info: #17a2b8;
+      --sidebar-width: 280px;
+      --sidebar-collapsed-width: 80px;
+      --topbar-height: 70px;
+      --transition-speed: 0.3s;
+    }
+
+    [data-theme="light"] {
+      --dark-bg: #f8f9fa;
+      --darker-bg: #e9ecef;
+      --card-bg: #ffffff;
+      --text-primary: #212529;
+      --text-secondary: #495057;
+      --sidebar-bg: #343a40;
+      --sidebar-text: #e9ecef;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
       background: linear-gradient(145deg, var(--darker-bg), var(--dark-bg));
       color: var(--text-primary);
       font-family: 'Poppins', sans-serif;
       animation: fadeIn 0.8s ease-in-out;
       min-height: 100vh;
+      transition: background 0.3s ease;
+      overflow-x: hidden;
     }
 
-    h2 {
+    /* Layout */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+      transition: margin-left var(--transition-speed);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      background-color: var(--darker-bg);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: width var(--transition-speed);
+      overflow: hidden;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    .sidebar-header {
+      height: var(--topbar-height);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-logo {
+      color: var(--primary);
+      font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
-      animation: slideDown 0.8s ease-in-out;
-      color: var(--text-primary);
-      text-shadow: 0 2px 10px rgba(0, 201, 167, 0.3);
+      white-space: nowrap;
+      transition: all var(--transition-speed);
     }
 
+    .sidebar-collapsed .sidebar-logo {
+      font-size: 1.8rem;
+      margin-left: 0.5rem;
+    }
+
+    .sidebar-menu {
+      padding: 1rem 0;
+      height: calc(100vh - var(--topbar-height));
+      overflow-y: auto;
+    }
+
+    .sidebar-menu::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .sidebar-menu::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 5px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      position: relative;
+      margin: 0.2rem 0;
+    }
+
+    .menu-item:hover {
+      color: var(--text-primary);
+      background-color: rgba(0, 201, 167, 0.1);
+    }
+
+    .menu-item.active {
+      color: var(--primary);
+      background-color: rgba(0, 201, 167, 0.2);
+    }
+
+    .menu-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background-color: var(--primary);
+    }
+
+    .menu-icon {
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      min-width: 24px;
+      transition: all var(--transition-speed);
+    }
+
+    .sidebar-collapsed .menu-text {
+      opacity: 0;
+      width: 0;
+      transition: opacity var(--transition-speed), width var(--transition-speed);
+    }
+
+    .sidebar-collapsed .menu-item {
+      justify-content: center;
+      padding: 0.8rem 0;
+    }
+
+    .sidebar-collapsed .menu-icon {
+      margin-right: 0;
+      font-size: 1.4rem;
+    }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      transition: margin-left var(--transition-speed);
+      padding-top: var(--topbar-height);
+      min-height: 100vh;
+    }
+
+    .sidebar-collapsed ~ .main-content {
+      margin-left: var(--sidebar-collapsed-width);
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: var(--sidebar-width);
+      height: var(--topbar-height);
+      background-color: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 900;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: left var(--transition-speed);
+    }
+
+    .sidebar-collapsed ~ .main-content .topbar {
+      left: var(--sidebar-collapsed-width);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-sidebar {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-right: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-sidebar:hover {
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .page-title {
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-right: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--warning);
+      transform: scale(1.1);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      margin-left: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .user-avatar:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 3px rgba(0, 201, 167, 0.3);
+    }
+
+    .user-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: var(--card-bg);
+      border-radius: 0.5rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      padding: 0.5rem 0;
+      min-width: 200px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .user-profile:hover .user-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      padding: 0.5rem 1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(0, 201, 167, 0.1);
+      color: var(--primary);
+    }
+
+    .dropdown-icon {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Dashboard content */
     .dashboard {
-      padding: 2rem 1rem;
+      padding: 2rem;
       max-width: 1400px;
       margin: 0 auto;
     }
 
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .sidebar-collapsed {
+        transform: translateX(0);
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .topbar {
+        left: 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 201, 167, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Card styles */
     .card {
       border: none;
       border-radius: 1rem;
@@ -87,6 +423,7 @@
       padding: 1.5rem;
     }
 
+    /* Form elements */
     .form-control, textarea, .form-select {
       background-color: rgba(13, 17, 23, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -96,12 +433,27 @@
       transition: all 0.3s ease;
     }
 
+    [data-theme="light"] .form-control,
+    [data-theme="light"] textarea,
+    [data-theme="light"] .form-select {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--text-primary);
+    }
+
     .form-control:focus, textarea:focus, .form-select:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 0.2rem rgba(0, 201, 167, 0.25);
       background-color: rgba(13, 17, 23, 0.9);
     }
 
+    [data-theme="light"] .form-control:focus,
+    [data-theme="light"] textarea:focus,
+    [data-theme="light"] .form-select:focus {
+      background-color: white;
+    }
+
+    /* Buttons */
     .btn-custom {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border: none;
@@ -140,6 +492,7 @@
       opacity: 1;
     }
 
+    /* List items */
     .list-group-item {
       background-color: transparent;
       color: var(--text-primary);
@@ -149,9 +502,17 @@
       transition: all 0.3s ease;
     }
 
+    [data-theme="light"] .list-group-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
     .list-group-item:hover {
       background-color: rgba(255, 255, 255, 0.03);
       transform: translateX(5px);
+    }
+
+    [data-theme="light"] .list-group-item:hover {
+      background-color: rgba(0, 0, 0, 0.03);
     }
 
     .reminder-time {
@@ -168,12 +529,17 @@
       color: white;
     }
 
+    /* Vital stats */
     .vital-stat {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 0;
       border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    [data-theme="light"] .vital-stat {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .vital-stat:last-child {
@@ -186,6 +552,7 @@
       color: var(--primary);
     }
 
+    /* Progress bars */
     .progress {
       height: 8px;
       border-radius: 4px;
@@ -193,11 +560,16 @@
       margin-top: 0.5rem;
     }
 
+    [data-theme="light"] .progress {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
     .progress-bar {
       background: linear-gradient(90deg, var(--primary), var(--secondary));
       border-radius: 4px;
     }
 
+    /* Badges */
     .appointment-badge {
       font-size: 0.75rem;
       padding: 0.25rem 0.5rem;
@@ -225,6 +597,7 @@
       background-color: var(--primary) !important;
     }
 
+    /* Icons */
     .icon {
       margin-right: 10px;
       transition: transform 0.3s ease;
@@ -238,66 +611,7 @@
       animation: pulse 2s infinite;
     }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes slideDown {
-      0% { opacity: 0; transform: translateY(-30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(0, 201, 167, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0); }
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    /* Responsive spacing */
-    .card + .card, .row + .row {
-      margin-top: 1.5rem;
-    }
-
-    /* Tooltip styles */
-    .tooltip-inner {
-      background-color: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before, 
-    .bs-tooltip-top .tooltip-arrow::before {
-      border-top-color: var(--card-bg);
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.05);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 4px;
-    }
-
-    /* Health status indicators */
+    /* Health indicators */
     .health-indicator {
       display: inline-block;
       width: 12px;
@@ -338,18 +652,118 @@
       box-shadow: 0 8px 25px rgba(0, 201, 167, 0.6);
     }
 
-    /* Dark mode toggle */
-    .dark-mode-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* Tooltips */
+    .tooltip-inner {
+      background-color: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      color: var(--text-primary);
+    }
+
+    [data-theme="light"] .tooltip-inner {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before, 
+    .bs-tooltip-top .tooltip-arrow::before {
+      border-top-color: var(--card-bg);
+    }
+
+    /* Account page */
+    .account-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .account-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .account-header {
+      position: relative;
+      height: 200px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 70px;
+    }
+
+    .account-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: white;
+      position: absolute;
+      bottom: -70px;
+      border: 5px solid var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: var(--primary);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .account-avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .account-body {
+      padding: 90px 2rem 2rem;
+    }
+
+    .account-info {
+      margin-bottom: 2rem;
+    }
+
+    .info-item {
+      display: flex;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="light"] .info-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .info-label {
+      font-weight: 600;
+      min-width: 150px;
+      color: var(--text-secondary);
+    }
+
+    .info-value {
+      flex: 1;
     }
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
       .dashboard {
-        padding: 1rem 0.5rem;
+        padding: 1.5rem;
       }
       
       .card-header {
@@ -359,395 +773,587 @@
       .card-body {
         padding: 1rem;
       }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        padding: 1rem;
+      }
       
+      .account-body {
+        padding: 90px 1rem 1rem;
+      }
+      
+      .info-item {
+        flex-direction: column;
+      }
+      
+      .info-label {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    /* Loading animation */
+    .loader {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(0, 201, 167, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
+<div class="app-container">
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <i class="fas fa-heartbeat"></i>
+        <span class="menu-text">HealthTrack</span>
+      </div>
+    </div>
+    <div class="sidebar-menu">
+      <a href="#" class="menu-item active">
+        <i class="fas fa-home menu-icon"></i>
+        <span class="menu-text">Dashboard</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-heartbeat menu-icon"></i>
+        <span class="menu-text">Health Data</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-pills menu-icon"></i>
+        <span class="menu-text">Medications</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-calendar-alt menu-icon"></i>
+        <span class="menu-text">Appointments</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-file-medical menu-icon"></i>
+        <span class="menu-text">Medical Records</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-chart-line menu-icon"></i>
+        <span class="menu-text">Analytics</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-bell menu-icon"></i>
+        <span class="menu-text">Reminders</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-cog menu-icon"></i>
+        <span class="menu-text">Settings</span>
+      </a>
+      <a href="#account" class="menu-item">
+        <i class="fas fa-user menu-icon"></i>
+        <span class="menu-text">Account</span>
+      </a>
+    </div>
+  </div>
 
-<div class="container dashboard">
-  <h2 class="text-center mb-4"><i class="fas fa-heartbeat icon"></i>HealthTrack</h2>
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="user-profile">
+          <div class="user-avatar">JD</div>
+          <div class="user-dropdown">
+            <a href="#account" class="dropdown-item">
+              <i class="fas fa-user-circle dropdown-icon"></i>
+              <span>My Account</span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-cog dropdown-icon"></i>
+              <span>Settings</span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-question-circle dropdown-icon"></i>
+              <span>Help</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-sign-out-alt dropdown-icon"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Health Summary -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card mb-4 pulse" style="animation-delay: 0.5s;">
+    <!-- Dashboard Content -->
+    <div class="dashboard" id="dashboardContent">
+      <h2 class="text-center mb-4"><i class="fas fa-heartbeat icon"></i>Health Summary</h2>
+
+      <!-- Health Summary -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4 pulse" style="animation-delay: 0.5s;">
+            <div class="card-header bg-primary text-white">
+              <i class="fas fa-chart-line icon"></i>Health Overview
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3 col-6 text-center">
+                  <h5 class="text-white">Overall Health</h5>
+                  <div class="health-indicator excellent mt-2 mb-3"></div>
+                  <h4>Excellent</h4>
+                  <small class="text-white">Last checked: Today</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                  <h5 class="text-white">Medication Adherence</h5>
+                  <div class="progress mx-auto" style="width: 80%;">
+                    <div class="progress-bar" role="progressbar" style="width: 92%;" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="mt-2">92%</h4>
+                  <small class="text-white">This week</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                  <h5 class="text-white">Activity Level</h5>
+                  <div class="progress mx-auto" style="width: 80%;">
+                    <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="mt-2">75%</h4>
+                  <small class="text-white">Weekly goal</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                  <h5 class="text-white">Next Appointment</h5>
+                  <i class="fas fa-calendar-alt fa-2x mb-2" style="color: var(--primary);"></i>
+                  <h4>Apr 22</h4>
+                  <small class="text-white">3 days from now</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Check-in -->
+      <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-          <i class="fas fa-chart-line icon"></i>Health Summary
+          <i class="fas fa-user-check icon"></i>Daily Health Check-In
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 col-6 text-center">
-              <h5 class="text-white">Overall Health</h5>
-              <div class="health-indicator excellent mt-2 mb-3"></div>
-              <h4>Excellent</h4>
-              <small class="text-white">Last checked: Today</small>
-            </div>
-            <div class="col-md-3 col-6 text-center">
-              <h5 class="text-white">Medication Adherence</h5>
-              <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: 92%;" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+          <form id="checkinForm">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="name" class="form-label text-white">Your Name</label>
+                <input type="text" class="form-control" id="name" placeholder="John Doe" required />
               </div>
-              <h4 class="mt-2">92%</h4>
-              <small class="text-white">This week</small>
-            </div>
-            <div class="col-md-3 col-6 text-center">
-              <h5 class="text-white">Activity Level</h5>
-              <div class="progress mx-auto" style="width: 80%;">
-                <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="col-md-4">
+                <label for="mood" class="form-label text-white">Today's Mood</label>
+                <select class="form-select" id="mood" required>
+                  <option value="" disabled selected>Select your mood</option>
+                  <option value="happy">😊 Happy</option>
+                  <option value="neutral">😐 Neutral</option>
+                  <option value="stressed">😫 Stressed</option>
+                  <option value="tired">😴 Tired</option>
+                  <option value="sad">😢 Sad</option>
+                </select>
               </div>
-              <h4 class="mt-2">75%</h4>
-              <small class="text-white">Weekly goal</small>
-            </div>
-            <div class="col-md-3 col-6 text-center">
-              <h5 class="text-white">Next Appointment</h5>
-              <i class="fas fa-calendar-alt fa-2x mb-2" style="color: var(--primary);"></i>
-              <h4>Apr 22</h4>
-              <small class="text-white">3 days from now</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Check-in -->
-  <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-      <i class="fas fa-user-check icon"></i>Daily Health Check-In
-    </div>
-    <div class="card-body">
-      <form id="checkinForm">
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label for="name" class="form-label text-white">Your Name</label>
-            <input type="text" class="form-control" id="name" placeholder="John Doe" required />
-          </div>
-          <div class="col-md-4">
-            <label for="mood" class="form-label text-white">Today's Mood</label>
-            <select class="form-select" id="mood" required>
-              <option value="" disabled selected>Select your mood</option>
-              <option value="happy">😊 Happy</option>
-              <option value="neutral">😐 Neutral</option>
-              <option value="stressed">😫 Stressed</option>
-              <option value="tired">😴 Tired</option>
-              <option value="sad">😢 Sad</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="energy" class="form-label text-white">Energy Level</label>
-            <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)">
-            <div class="d-flex justify-content-between">
-              <small>Low</small>
-              <span id="energyValue" class="fw-bold">5</span>
-              <small>High</small>
-            </div>
-          </div>
-          <div class="col-12">
-            <label for="symptoms" class="form-label text-white">Symptoms or Notes</label>
-            <textarea class="form-control" id="symptoms" rows="2" placeholder="Any symptoms or notes for today..."></textarea>
-          </div>
-          <div class="col-12 text-end mt-2">
-            <button class="btn btn-custom" type="submit">
-              <i class="fas fa-paper-plane me-2"></i>Submit Check-In
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <style>
-    .form-control, .form-select, .form-control:focus, .form-range {
-      color: white;
-      background-color: #343a40;
-    }
-  
-    ::placeholder {
-      color: #aaa !important;
-    }
-  
-    textarea.form-control {
-      color: white;
-    }
-  </style>
-  
-
-  <!-- Chronic Diseases & Medications -->
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="card h-100">
-        <div class="card-header bg-danger text-white">
-          <i class="fas fa-virus icon"></i>Chronic Conditions
-        </div>
-        <div class="card-body">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-dna me-2" style="color: #ff6b6b;"></i>
-                <strong>Diabetes Type 2</strong>
-                <div class="text-white small">Diagnosed: 2018</div>
-              </div>
-              <span class="badge bg-danger rounded-pill">Active</span>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-heartbeat me-2" style="color: #ff6b6b;"></i>
-                <strong>Hypertension</strong>
-                <div class="text-white small">Diagnosed: 2019</div>
-              </div>
-              <span class="badge bg-danger rounded-pill">Active</span>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-lungs me-2" style="color: #ff6b6b;"></i>
-                <strong>Chronic Asthma</strong>
-                <div class="text-white small">Diagnosed: 2015</div>
-              </div>
-              <span class="badge bg-warning text-dark rounded-pill">Controlled</span>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-chart-line me-2" style="color: #ff6b6b;"></i>
-                <strong>High Cholesterol</strong>
-                <div class="text-white small">Diagnosed: 2020</div>
-              </div>
-              <span class="badge bg-success rounded-pill">Improving</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="card h-100">
-        <div class="card-header bg-success text-white">
-          <i class="fas fa-pills icon"></i>Medication Reminders
-        </div>
-        <div class="card-body p-0">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-capsules me-2" style="color: #6bce70;"></i>
-                <strong>Metformin 500mg</strong>
-                <div class="text-white small">For Diabetes - Take with breakfast</div>
-              </div>
-              <div class="d-flex align-items-center">
-                <span class="reminder-time me-2">8:00 AM</span>
-                <i class="fas fa-bell text-success"></i>
-              </div>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-tablets me-2" style="color: #6bce70;"></i>
-                <strong>Lisinopril 10mg</strong>
-                <div class="text-white small">For Hypertension - Once daily</div>
-              </div>
-              <div class="d-flex align-items-center">
-                <span class="reminder-time me-2">2:00 PM</span>
-                <i class="fas fa-bell text-success"></i>
-              </div>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-inhaler me-2" style="color: #6bce70;"></i>
-                <strong>Ventolin Inhaler</strong>
-                <div class="text-white small">For Asthma - As needed</div>
-              </div>
-              <div class="d-flex align-items-center">
-                <span class="reminder-time me-2">Before Bed</span>
-                <i class="fas fa-bell-slash text-white"></i>
-              </div>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <i class="fas fa-capsules me-2" style="color: #6bce70;"></i>
-                <strong>Atorvastatin 20mg</strong>
-                <div class="text-white small">For Cholesterol - At bedtime</div>
-              </div>
-              <div class="d-flex align-items-center">
-                <span class="reminder-time me-2">10:00 PM</span>
-                <i class="fas fa-bell text-success"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer bg-transparent border-top-0 text-end">
-          <button class="btn btn-sm btn-outline-success">
-            <i class="fas fa-plus me-1"></i>Add Medication
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Vitals & Appointments -->
-  <div class="row mt-4">
-    <div class="col-lg-6">
-      <div class="card h-100">
-        <div class="card-header bg-info text-white">
-          <i class="fas fa-heartbeat icon"></i>Vitals Overview
-        </div>
-        <div class="card-body">
-          <div class="vital-stat">
-            <div>
-              <span class="text-white">Blood Pressure</span>
-              <div class="small text-white">Last reading: Today 8:15 AM</div>
-            </div>
-            <span class="vital-value">120/80 mmHg</span>
-          </div>
-          <div class="vital-stat">
-            <div>
-              <span class="text-white">Blood Sugar</span>
-              <div class="small text-white">Fasting - Last reading: Today 8:00 AM</div>
-            </div>
-            <span class="vital-value">95 mg/dL</span>
-          </div>
-          <div class="vital-stat">
-            <div>
-              <span class="text-white">Heart Rate</span>
-              <div class="small text-white">Resting - Last reading: Today 8:15 AM</div>
-            </div>
-            <span class="vital-value">72 bpm</span>
-          </div>
-          <div class="vital-stat">
-            <div>
-              <span class="text-white">Weight</span>
-              <div class="small text-white">Last reading: Today 8:10 AM</div>
-            </div>
-            <span class="vital-value">68 kg</span>
-          </div>
-          <div class="vital-stat">
-            <div>
-              <span class="text-white">SpO2</span>
-              <div class="small text-white">Oxygen Saturation - Last reading: Yesterday</div>
-            </div>
-            <span class="vital-value">98%</span>
-          </div>
-        </div>
-        <div class="card-footer bg-transparent border-top-0 text-end">
-          <button class="btn btn-sm btn-outline-info">
-            <i class="fas fa-plus me-1"></i>Record New Vitals
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="card h-100">
-        <div class="card-header bg-warning text-dark">
-          <i class="fas fa-calendar-check icon"></i>Upcoming Appointments
-        </div>
-        <div class="card-body p-0">
-          <div class="list-group list-group-flush">
-            <div class="list-group-item">
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <i class="fas fa-user-md me-2" style="color: var(--warning);"></i>
-                  <strong>Endocrinologist</strong>
-                  <div class="text-white small">Dr. Sarah Johnson - Diabetes Management</div>
+              <div class="col-md-4">
+                <label for="energy" class="form-label text-white">Energy Level</label>
+                <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)">
+                <div class="d-flex justify-content-between">
+                  <small>Low</small>
+                  <span id="energyValue" class="fw-bold">5</span>
+                  <small>High</small>
                 </div>
-                <span class="badge bg-warning text-dark appointment-badge">Upcoming</span>
               </div>
-              <div class="mt-2">
-                <i class="far fa-clock me-1"></i>
-                <strong>April 22 @ 9:30 AM</strong>
-                <span class="text-white ms-2">(3 days from now)</span>
+              <div class="col-12">
+                <label for="symptoms" class="form-label text-white">Symptoms or Notes</label>
+                <textarea class="form-control" id="symptoms" rows="2" placeholder="Any symptoms or notes for today..."></textarea>
               </div>
-              <div class="mt-2">
-                <i class="fas fa-map-marker-alt me-1"></i>
-                <span>City Medical Center, Suite 405</span>
-              </div>
-              <div class="mt-3">
-                <button class="btn btn-sm btn-outline-warning me-2">
-                  <i class="fas fa-directions me-1"></i>Get Directions
-                </button>
-                <button class="btn btn-sm btn-outline-secondary">
-                  <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
+              <div class="col-12 text-end mt-2">
+                <button class="btn btn-custom" type="submit">
+                  <i class="fas fa-paper-plane me-2"></i>Submit Check-In
                 </button>
               </div>
             </div>
-            <div class="list-group-item">
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <i class="fas fa-heartbeat me-2" style="color: var(--warning);"></i>
-                  <strong>Cardiologist</strong>
-                  <div class="text-white small">Dr. Michael Chen - Hypertension Follow-up</div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Chronic Diseases & Medications -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-danger text-white">
+              <i class="fas fa-virus icon"></i>Chronic Conditions
+            </div>
+            <div class="card-body">
+              <div class="list-group list-group-flush">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-dna me-2" style="color: #ff6b6b;"></i>
+                    <strong>Diabetes Type 2</strong>
+                    <div class="text-white small">Diagnosed: 2018</div>
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Active</span>
                 </div>
-                <span class="badge bg-warning text-dark appointment-badge">Upcoming</span>
-              </div>
-              <div class="mt-2">
-                <i class="far fa-clock me-1"></i>
-                <strong>May 5 @ 2:00 PM</strong>
-                <span class="text-white ms-2">(16 days from now)</span>
-              </div>
-              <div class="mt-2">
-                <i class="fas fa-map-marker-alt me-1"></i>
-                <span>Heart & Vascular Institute, Floor 2</span>
-              </div>
-              <div class="mt-3">
-                <button class="btn btn-sm btn-outline-warning me-2">
-                  <i class="fas fa-directions me-1"></i>Get Directions
-                </button>
-                <button class="btn btn-sm btn-outline-secondary">
-                  <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
-                </button>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-heartbeat me-2" style="color: #ff6b6b;"></i>
+                    <strong>Hypertension</strong>
+                    <div class="text-white small">Diagnosed: 2019</div>
+                  </div>
+                  <span class="badge bg-danger rounded-pill">Active</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-lungs me-2" style="color: #ff6b6b;"></i>
+                    <strong>Chronic Asthma</strong>
+                    <div class="text-white small">Diagnosed: 2015</div>
+                  </div>
+                  <span class="badge bg-warning text-dark rounded-pill">Controlled</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-chart-line me-2" style="color: #ff6b6b;"></i>
+                    <strong>High Cholesterol</strong>
+                    <div class="text-white small">Diagnosed: 2020</div>
+                  </div>
+                  <span class="badge bg-success rounded-pill">Improving</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-footer bg-transparent border-top-0 text-end">
-          <button class="btn btn-sm btn-outline-warning me-2">
-            <i class="fas fa-plus me-1"></i>Schedule Appointment
-          </button>
-          <button class="btn btn-sm btn-outline-secondary">
-            <i class="fas fa-history me-1"></i>View History
-          </button>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-success text-white">
+              <i class="fas fa-pills icon"></i>Medication Reminders
+            </div>
+            <div class="card-body p-0">
+              <div class="list-group list-group-flush">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-capsules me-2" style="color: #6bce70;"></i>
+                    <strong>Metformin 500mg</strong>
+                    <div class="text-white small">For Diabetes - Take with breakfast</div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="reminder-time me-2">8:00 AM</span>
+                    <i class="fas fa-bell text-success"></i>
+                  </div>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-tablets me-2" style="color: #6bce70;"></i>
+                    <strong>Lisinopril 10mg</strong>
+                    <div class="text-white small">For Hypertension - Once daily</div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="reminder-time me-2">2:00 PM</span>
+                    <i class="fas fa-bell text-success"></i>
+                  </div>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-inhaler me-2" style="color: #6bce70;"></i>
+                    <strong>Ventolin Inhaler</strong>
+                    <div class="text-white small">For Asthma - As needed</div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="reminder-time me-2">Before Bed</span>
+                    <i class="fas fa-bell-slash text-white"></i>
+                  </div>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <i class="fas fa-capsules me-2" style="color: #6bce70;"></i>
+                    <strong>Atorvastatin 20mg</strong>
+                    <div class="text-white small">For Cholesterol - At bedtime</div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="reminder-time me-2">10:00 PM</span>
+                    <i class="fas fa-bell text-success"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-end">
+              <button class="btn btn-sm btn-outline-success">
+                <i class="fas fa-plus me-1"></i>Add Medication
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Emergency & Quick Actions -->
-  <div class="row mt-4">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header bg-danger text-white">
-          <i class="fas fa-exclamation-triangle icon"></i>Emergency & Quick Actions
+      <!-- Vitals & Appointments -->
+      <div class="row mt-4">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-info text-white">
+              <i class="fas fa-heartbeat icon"></i>Vitals Overview
+            </div>
+            <div class="card-body">
+              <div class="vital-stat">
+                <div>
+                  <span class="text-white">Blood Pressure</span>
+                  <div class="small text-white">Last reading: Today 8:15 AM</div>
+                </div>
+                <span class="vital-value">120/80 mmHg</span>
+              </div>
+              <div class="vital-stat">
+                <div>
+                  <span class="text-white">Blood Sugar</span>
+                  <div class="small text-white">Fasting - Last reading: Today 8:00 AM</div>
+                </div>
+                <span class="vital-value">95 mg/dL</span>
+              </div>
+              <div class="vital-stat">
+                <div>
+                  <span class="text-white">Heart Rate</span>
+                  <div class="small text-white">Resting - Last reading: Today 8:15 AM</div>
+                </div>
+                <span class="vital-value">72 bpm</span>
+              </div>
+              <div class="vital-stat">
+                <div>
+                  <span class="text-white">Weight</span>
+                  <div class="small text-white">Last reading: Today 8:10 AM</div>
+                </div>
+                <span class="vital-value">68 kg</span>
+              </div>
+              <div class="vital-stat">
+                <div>
+                  <span class="text-white">SpO2</span>
+                  <div class="small text-white">Oxygen Saturation - Last reading: Yesterday</div>
+                </div>
+                <span class="vital-value">98%</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-end">
+              <button class="btn btn-sm btn-outline-info">
+                <i class="fas fa-plus me-1"></i>Record New Vitals
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="row text-center">
-            <div class="col-md-3 col-6 mb-3">
-              <button class="btn btn-outline-danger btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Call emergency services">
-                <i class="fas fa-ambulance fa-2x"></i>
-              </button>
-              <div class="mt-2">Emergency</div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-warning text-dark">
+              <i class="fas fa-calendar-check icon"></i>Upcoming Appointments
             </div>
-            <div class="col-md-3 col-6 mb-3">
-              <button class="btn btn-outline-warning btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Contact your primary doctor">
-                <i class="fas fa-user-md fa-2x"></i>
-              </button>
-              <div class="mt-2">Contact Doctor</div>
+            <div class="card-body p-0">
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <i class="fas fa-user-md me-2" style="color: var(--warning);"></i>
+                      <strong>Endocrinologist</strong>
+                      <div class="text-white small">Dr. Sarah Johnson - Diabetes Management</div>
+                    </div>
+                    <span class="badge bg-warning text-dark appointment-badge">Upcoming</span>
+                  </div>
+                  <div class="mt-2">
+                    <i class="far fa-clock me-1"></i>
+                    <strong>April 22 @ 9:30 AM</strong>
+                    <span class="text-white ms-2">(3 days from now)</span>
+                  </div>
+                  <div class="mt-2">
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span>City Medical Center, Suite 405</span>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-sm btn-outline-warning me-2">
+                      <i class="fas fa-directions me-1"></i>Get Directions
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary">
+                      <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
+                    </button>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <i class="fas fa-heartbeat me-2" style="color: var(--warning);"></i>
+                      <strong>Cardiologist</strong>
+                      <div class="text-white small">Dr. Michael Chen - Hypertension Follow-up</div>
+                    </div>
+                    <span class="badge bg-warning text-dark appointment-badge">Upcoming</span>
+                  </div>
+                  <div class="mt-2">
+                    <i class="far fa-clock me-1"></i>
+                    <strong>May 5 @ 2:00 PM</strong>
+                    <span class="text-white ms-2">(16 days from now)</span>
+                  </div>
+                  <div class="mt-2">
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span>Heart & Vascular Institute, Floor 2</span>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-sm btn-outline-warning me-2">
+                      <i class="fas fa-directions me-1"></i>Get Directions
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary">
+                      <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-3 col-6 mb-3">
-              <button class="btn btn-outline-info btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Find nearby pharmacies">
-                <i class="fas fa-prescription-bottle-alt fa-2x"></i>
+            <div class="card-footer bg-transparent border-top-0 text-end">
+              <button class="btn btn-sm btn-outline-warning me-2">
+                <i class="fas fa-plus me-1"></i>Schedule Appointment
               </button>
-              <div class="mt-2">Find Pharmacy</div>
+              <button class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-history me-1"></i>View History
+              </button>
             </div>
-            <div class="col-md-3 col-6 mb-3">
-              <button class="btn btn-outline-success btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Log a new symptom">
-                <i class="fas fa-notes-medical fa-2x"></i>
-              </button>
-              <div class="mt-2">Log Symptom</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency & Quick Actions -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header bg-danger text-white">
+              <i class="fas fa-exclamation-triangle icon"></i>Emergency & Quick Actions
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-md-3 col-6 mb-3">
+                  <button class="btn btn-outline-danger btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Call emergency services">
+                    <i class="fas fa-ambulance fa-2x"></i>
+                  </button>
+                  <div class="mt-2">Emergency</div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                  <button class="btn btn-outline-warning btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Contact your primary doctor">
+                    <i class="fas fa-user-md fa-2x"></i>
+                  </button>
+                  <div class="mt-2">Contact Doctor</div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                  <button class="btn btn-outline-info btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Find nearby pharmacies">
+                    <i class="fas fa-prescription-bottle-alt fa-2x"></i>
+                  </button>
+                  <div class="mt-2">Find Pharmacy</div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                  <button class="btn btn-outline-success btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Log a new symptom">
+                    <i class="fas fa-notes-medical fa-2x"></i>
+                  </button>
+                  <div class="mt-2">Log Symptom</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Floating Action Button -->
-<div class="fab" data-bs-toggle="tooltip" data-bs-placement="left" title="Quick Help">
-  <i class="fas fa-question"></i>
+    <!-- Account Page (hidden by default) -->
+    <div class="dashboard" id="accountContent" style="display: none;">
+      <div class="account-container">
+        <div class="card account-card">
+          <div class="account-header">
+            <div class="account-avatar">JD</div>
+          </div>
+          <div class="account-body">
+            <div class="text-center mb-4">
+              <h2>John Doe</h2>
+              <p class="text-muted">Premium Member since 2020</p>
+            </div>
+            
+            <div class="account-info">
+              <h4 class="mb-3"><i class="fas fa-user-circle me-2"></i>Personal Information</h4>
+              <div class="info-item">
+                <span class="info-label">Full Name:</span>
+                <span class="info-value">John Michael Doe</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Date of Birth:</span>
+                <span class="info-value">May 15, 1985</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Gender:</span>
+                <span class="info-value">Male</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Blood Type:</span>
+                <span class="info-value">O+</span>
+              </div>
+            </div>
+            
+            <div class="account-info">
+              <h4 class="mb-3"><i class="fas fa-address-card me-2"></i>Contact Information</h4>
+              <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value">john.doe@example.com</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Phone:</span>
+                <span class="info-value">(555) 123-4567</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Address:</span>
+                <span class="info-value">123 Health St, Apt 4B, Wellness City, WC 12345</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Emergency Contact:</span>
+                <span class="info-value">Jane Doe (Spouse) - (555) 765-4321</span>
+              </div>
+            </div>
+            
+            <div class="account-info">
+              <h4 class="mb-3"><i class="fas fa-shield-alt me-2"></i>Account Security</h4>
+              <div class="info-item">
+                <span class="info-label">Password:</span>
+                <span class="info-value">********** <a href="#" class="text-primary ms-2">Change</a></span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Two-Factor Auth:</span>
+                <span class="info-value">
+                  Enabled <span class="badge bg-success ms-2">Active</span>
+                  <a href="#" class="text-primary ms-2">Manage</a>
+                </span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Last Login:</span>
+                <span class="info-value">Today, 9:42 AM from Chrome on Windows</span>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-edit me-2"></i>Edit Profile
+              </button>
+              <button class="btn btn-outline-danger">
+                <i class="fas fa-trash-alt me-2"></i>Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" data-bs-toggle="tooltip" data-bs-placement="left" title="Quick Help">
+      <i class="fas fa-question"></i>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -794,6 +1400,92 @@
         submitBtn.classList.add('btn-custom');
       }, 2000);
     });
+
+    // Sidebar toggle
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    
+    toggleSidebar.addEventListener('click', function() {
+      sidebar.classList.toggle('sidebar-collapsed');
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        body.setAttribute('data-theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    // Navigation between pages
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dashboardContent = document.getElementById('dashboardContent');
+    const accountContent = document.getElementById('accountContent');
+    
+    menuItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all items
+        menuItems.forEach(i => i.classList.remove('active'));
+        
+        // Add active class to clicked item
+        this.classList.add('active');
+        
+        // Show the appropriate content
+        if (this.getAttribute('href') === '#account') {
+          dashboardContent.style.display = 'none';
+          accountContent.style.display = 'block';
+          document.querySelector('.page-title').textContent = 'Account';
+        } else {
+          dashboardContent.style.display = 'block';
+          accountContent.style.display = 'none';
+          document.querySelector('.page-title').textContent = 'Dashboard';
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.createElement('button');
+    mobileMenuBtn.className = 'btn btn-primary mobile-menu-btn d-lg-none';
+    mobileMenuBtn.style.position = 'fixed';
+    mobileMenuBtn.style.bottom = '20px';
+    mobileMenuBtn.style.left = '20px';
+    mobileMenuBtn.style.zIndex = '1000';
+    mobileMenuBtn.style.width = '50px';
+    mobileMenuBtn.style.height = '50px';
+    mobileMenuBtn.style.borderRadius = '50%';
+    mobileMenuBtn.style.display = 'none';
+    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    
+    document.body.appendChild(mobileMenuBtn);
+    
+    mobileMenuBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('sidebar-mobile-show');
+    });
+
+    // Show/hide mobile menu button based on screen size
+    function checkScreenSize() {
+      if (window.innerWidth < 992) {
+        mobileMenuBtn.style.display = 'flex';
+        mobileMenuBtn.style.alignItems = 'center';
+        mobileMenuBtn.style.justifyContent = 'center';
+        sidebar.classList.add('sidebar-collapsed');
+      } else {
+        mobileMenuBtn.style.display = 'none';
+        sidebar.classList.remove('sidebar-collapsed');
+      }
+    }
+    
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
   });
   
   function updateEnergyValue(value) {
@@ -815,3 +1507,4 @@
 </script>
 </body>
 </html>
+                    
