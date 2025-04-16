@@ -807,6 +807,7 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    
   </style>
 </head>
 <body>
@@ -906,38 +907,39 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card mb-4 pulse" style="animation-delay: 0.5s;">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-primary text-primary">
               <i class="fas fa-chart-line icon"></i>Health Overview
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-3 col-6 text-center">
-                  <h5 class="text-white">Overall Health</h5>
+                  <h5 class="text-primary">Overall Health</h5>
                   <div class="health-indicator excellent mt-2 mb-3"></div>
-                  <h4>Excellent</h4>
-                  <small class="text-white">Last checked: Today</small>
+                  <h4 class="text-info">Excellent</h4>
+                  <small class="text-primary">Last checked: Today</small>
                 </div>
                 <div class="col-md-3 col-6 text-center">
-                  <h5 class="text-white">Medication Adherence</h5>
+                  <h5 class="text-primary">Medication Adherence</h5>
                   <div class="progress mx-auto" style="width: 80%;">
                     <div class="progress-bar" role="progressbar" style="width: 92%;" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="mt-2">92%</h4>
-                  <small class="text-white">This week</small>
+                  <h4 class="mt-2 text-info">92%</h4>
+                  <small class="text-primary">This week</small>
                 </div>
                 <div class="col-md-3 col-6 text-center">
-                  <h5 class="text-white">Activity Level</h5>
+                  <h5 class="text-primary">Activity Level</h5>
                   <div class="progress mx-auto" style="width: 80%;">
                     <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <h4 class="mt-2">75%</h4>
-                  <small class="text-white">Weekly goal</small>
+                  <h4 class="mt-2 text-info">75%</h4>
+
+                  <small class="text-primary">Weekly goal</small>
                 </div>
                 <div class="col-md-3 col-6 text-center">
-                  <h5 class="text-white">Next Appointment</h5>
+                  <h5 class="text-primary">Next Appointment</h5>
                   <i class="fas fa-calendar-alt fa-2x mb-2" style="color: var(--primary);"></i>
-                  <h4>Apr 22</h4>
-                  <small class="text-white">3 days from now</small>
+                  <h4 class="text-info">Apr 22</h4>
+                  <small class="text-primary">3 days from now</small>
                 </div>
               </div>
             </div>
@@ -954,11 +956,11 @@
           <form id="checkinForm">
             <div class="row g-3">
               <div class="col-md-4">
-                <label for="name" class="form-label text-white">Your Name</label>
+                <label for="name" class="form-label text-info">Your Name</label>
                 <input type="text" class="form-control" id="name" placeholder="John Doe" required />
               </div>
               <div class="col-md-4">
-                <label for="mood" class="form-label text-white">Today's Mood</label>
+                <label for="mood" class="form-label text-info">Today's Mood</label>
                 <select class="form-select" id="mood" required>
                   <option value="" disabled selected>Select your mood</option>
                   <option value="happy">😊 Happy</option>
@@ -969,7 +971,7 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label for="energy" class="form-label text-white">Energy Level</label>
+                <label for="energy" class="form-label text-info">Energy Level</label>
                 <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)">
                 <div class="d-flex justify-content-between">
                   <small>Low</small>
@@ -978,7 +980,7 @@
                 </div>
               </div>
               <div class="col-12">
-                <label for="symptoms" class="form-label text-white">Symptoms or Notes</label>
+                <label for="symptoms" class="form-label text-info">Symptoms or Notes</label>
                 <textarea class="form-control" id="symptoms" rows="2" placeholder="Any symptoms or notes for today..."></textarea>
               </div>
               <div class="col-12 text-end mt-2">
@@ -1102,42 +1104,42 @@
       <div class="row mt-4">
         <div class="col-lg-6">
           <div class="card h-100">
-            <div class="card-header bg-info text-white">
+            <div class="card-header bg-info text-success">
               <i class="fas fa-heartbeat icon"></i>Vitals Overview
             </div>
             <div class="card-body">
               <div class="vital-stat">
                 <div>
-                  <span class="text-white">Blood Pressure</span>
-                  <div class="small text-white">Last reading: Today 8:15 AM</div>
+                  <span class="text-success">Blood Pressure</span>
+                  <div class="small text-success">Last reading: Today 8:15 AM</div>
                 </div>
                 <span class="vital-value">120/80 mmHg</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-white">Blood Sugar</span>
-                  <div class="small text-white">Fasting - Last reading: Today 8:00 AM</div>
+                  <span class="text-success">Blood Sugar</span>
+                  <div class="small text-success">Fasting - Last reading: Today 8:00 AM</div>
                 </div>
                 <span class="vital-value">95 mg/dL</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-white">Heart Rate</span>
-                  <div class="small text-white">Resting - Last reading: Today 8:15 AM</div>
+                  <span class="text-success">Heart Rate</span>
+                  <div class="small text-success">Resting - Last reading: Today 8:15 AM</div>
                 </div>
                 <span class="vital-value">72 bpm</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-white">Weight</span>
-                  <div class="small text-white">Last reading: Today 8:10 AM</div>
+                  <span class="text-success">Weight</span>
+                  <div class="small text-success">Last reading: Today 8:10 AM</div>
                 </div>
                 <span class="vital-value">68 kg</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-white">SpO2</span>
-                  <div class="small text-white">Oxygen Saturation - Last reading: Yesterday</div>
+                  <span class="text-success">SpO2</span>
+                  <div class="small text-success">Oxygen Saturation - Last reading: Yesterday</div>
                 </div>
                 <span class="vital-value">98%</span>
               </div>
