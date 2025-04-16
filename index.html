@@ -883,7 +883,19 @@
         <button class="toggle-sidebar" id="toggleSidebar">
           <i class="fas fa-bars"></i>
         </button>
-        <h1 class="page-title">Dashboard</h1>
+        <div style="padding: 20px; text-align: center;">
+          <h1 style="
+            color: #32CD32; /* Darker green */
+            font-size: 26px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #228B22, 0 0 10px #228B22; /* Darker green glow */
+            margin: 0;
+            white-space: nowrap;
+          ">
+            <i class="fas fa-heartbeat" style="margin-right: 10px;"></i>HealthTrack
+          </h1>
+        </div>
+        
       </div>
       <div class="topbar-right">
         <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
@@ -1119,41 +1131,41 @@
       <div class="row mt-4">
         <div class="col-lg-6">
           <div class="card h-100">
-            <div class="card-header bg-info text-success">
+            <div class="card-header bg-info text-white">
               <i class="fas fa-heartbeat icon"></i>Vitals Overview
             </div>
             <div class="card-body">
               <div class="vital-stat">
                 <div>
-                  <span class="text-success">Blood Pressure</span>
+                  <span class="text-info">Blood Pressure</span>
                   <div class="small text-success">Last reading: Today 8:15 AM</div>
                 </div>
                 <span class="vital-value">120/80 mmHg</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-success">Blood Sugar</span>
+                  <span class="text-info">Blood Sugar</span>
                   <div class="small text-success">Fasting - Last reading: Today 8:00 AM</div>
                 </div>
                 <span class="vital-value">95 mg/dL</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-success">Heart Rate</span>
+                  <span class="text-info">Heart Rate</span>
                   <div class="small text-success">Resting - Last reading: Today 8:15 AM</div>
                 </div>
                 <span class="vital-value">72 bpm</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-success">Weight</span>
+                  <span class="text-info">Weight</span>
                   <div class="small text-success">Last reading: Today 8:10 AM</div>
                 </div>
                 <span class="vital-value">68 kg</span>
               </div>
               <div class="vital-stat">
                 <div>
-                  <span class="text-success">SpO2</span>
+                  <span class="text-info">SpO2</span>
                   <div class="small text-success">Oxygen Saturation - Last reading: Yesterday</div>
                 </div>
                 <span class="vital-value">98%</span>
@@ -1295,22 +1307,22 @@
             </div>
             
             <div class="account-info">
-              <h4 class="mb-3"><i class="fas fa-user-circle me-2"></i>Personal Information</h4>
+              <h4 class="mb-3 info-label"><i class="fas fa-user-circle me-2"></i>Personal Information</h4>
               <div class="info-item">
                 <span class="info-label">Full Name:</span>
-                <span class="info-value">John Michael Doe</span>
+                <span class="info-value text-info">John Michael Doe</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Date of Birth:</span>
-                <span class="info-value">May 15, 1985</span>
+                <span class="info-value text-info">May 15, 1985</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Gender:</span>
-                <span class="info-value">Male</span>
+                <span class="info-value text-info">Male</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Blood Type:</span>
-                <span class="info-value">O+</span>
+                <span class="info-value text-info">O+</span>
               </div>
             </div>
             
@@ -1318,38 +1330,38 @@
               <h4 class="mb-3"><i class="fas fa-address-card me-2"></i>Contact Information</h4>
               <div class="info-item">
                 <span class="info-label">Email:</span>
-                <span class="info-value">john.doe@example.com</span>
+                <span class="info-value text-info">john.doe@example.com</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Phone:</span>
-                <span class="info-value">(555) 123-4567</span>
+                <span class="info-value text-info">(555) 123-4567</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Address:</span>
-                <span class="info-value">123 Health St, Apt 4B, Wellness City, WC 12345</span>
+                <span class="info-value text-info">123 Health St, Apt 4B, Wellness City, WC 12345</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Emergency Contact:</span>
-                <span class="info-value">Jane Doe (Spouse) - (555) 765-4321</span>
+                <span class="info-value text-info">Jane Doe (Spouse) - (555) 765-4321</span>
               </div>
             </div>
             
             <div class="account-info">
-              <h4 class="mb-3"><i class="fas fa-shield-alt me-2"></i>Account Security</h4>
+              <h4 class="mb-3 info-label"><i class="fas fa-shield-alt me-2"></i>Account Security</h4>
               <div class="info-item">
                 <span class="info-label">Password:</span>
-                <span class="info-value">********** <a href="#" class="text-primary ms-2">Change</a></span>
+                <span class="info-value text-info">********** <a href="#" class="text-primary ms-2">Change</a></span>
               </div>
               <div class="info-item">
                 <span class="info-label">Two-Factor Auth:</span>
-                <span class="info-value">
+                <span class="info-value text-info">
                   Enabled <span class="badge bg-success ms-2">Active</span>
                   <a href="#" class="text-primary ms-2">Manage</a>
                 </span>
               </div>
               <div class="info-item">
                 <span class="info-label">Last Login:</span>
-                <span class="info-value">Today, 9:42 AM from Chrome on Windows</span>
+                <span class="info-value text-info">Today, 9:42 AM from Chrome on Windows</span>
               </div>
             </div>
             
@@ -1596,53 +1608,97 @@
 
     // Sidebar toggle - fixed functionality
     
-    // Mobile menu toggle - fixed functionality
-    const mobileMenuBtn = document.createElement('button');
-    mobileMenuBtn.className = 'btn btn-primary mobile-menu-btn d-lg-none';
-    mobileMenuBtn.style.position = 'fixed';
-    mobileMenuBtn.style.bottom = '20px';
-    mobileMenuBtn.style.left = '20px';
-    mobileMenuBtn.style.zIndex = '1000';
-    mobileMenuBtn.style.width = '50px';
-    mobileMenuBtn.style.height = '50px';
-    mobileMenuBtn.style.borderRadius = '50%';
-    mobileMenuBtn.style.display = 'none';
-    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    
-    document.body.appendChild(mobileMenuBtn);
-    
-    mobileMenuBtn.addEventListener('click', function() {
-      sidebar.classList.toggle('sidebar-mobile-show');
-    });
+   // Mobile menu toggle - fixed functionality
+const mobileMenuBtn = document.createElement('button');
+mobileMenuBtn.className = 'btn btn-primary mobile-menu-btn d-lg-none';
+mobileMenuBtn.style.position = 'fixed';
+mobileMenuBtn.style.bottom = '20px';
+mobileMenuBtn.style.left = '20px';
+mobileMenuBtn.style.zIndex = '1000';
+mobileMenuBtn.style.width = '50px';
+mobileMenuBtn.style.height = '50px';
+mobileMenuBtn.style.borderRadius = '50%';
+mobileMenuBtn.style.display = 'none';
+mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
 
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(e) {
-      if (window.innerWidth < 992 && 
-          !sidebar.contains(e.target) && 
-          e.target !== mobileMenuBtn && 
-          !mobileMenuBtn.contains(e.target)) {
-        sidebar.classList.remove('sidebar-mobile-show');
-      }
-    });
+document.body.appendChild(mobileMenuBtn);
 
-    // Show/hide mobile menu button based on screen size - fixed functionality
-    function checkScreenSize() {
-      if (window.innerWidth < 992) {
-        mobileMenuBtn.style.display = 'flex';
-        sidebar.classList.add('sidebar-collapsed');
-      } else {
-        mobileMenuBtn.style.display = 'none';
-        sidebar.classList.remove('sidebar-collapsed');
-        sidebar.classList.remove('sidebar-mobile-show');
-      }
+mobileMenuBtn.addEventListener('click', function () {
+  sidebar.classList.toggle('sidebar-mobile-show');
+});
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener('click', function (e) {
+  if (
+    window.innerWidth < 992 &&
+    !sidebar.contains(e.target) &&
+    e.target !== mobileMenuBtn &&
+    !mobileMenuBtn.contains(e.target)
+  ) {
+    sidebar.classList.remove('sidebar-mobile-show');
+  }
+});
+
+function checkScreenSize() {
+  const mainContent = document.querySelector('.main-content');
+
+  if (window.innerWidth < 992) {
+    mobileMenuBtn.style.display = 'flex';
+    
+    // Shrink sidebar
+    sidebar.classList.add('sidebar-mobile-show');
+    sidebar.classList.add('sidebar-icons-only'); // NEW: Add a class for small width
+    sidebar.classList.remove('sidebar-collapsed');
+
+    if (mainContent) {
+      mainContent.style.marginLeft = '60px'; // adjust if needed
     }
-    
-    window.addEventListener('resize', checkScreenSize);
-    checkScreenSize();
+  } else {
+    mobileMenuBtn.style.display = 'none';
+    sidebar.classList.remove('sidebar-mobile-show');
+    sidebar.classList.remove('sidebar-collapsed');
+    sidebar.classList.remove('sidebar-icons-only');
+
+    if (mainContent) {
+      mainContent.style.marginLeft = '0';
+    }
+  }
+}
+
+window.addEventListener('resize', checkScreenSize);
+checkScreenSize();
+
+
 
    
   });
 </script>
+<style>
+  .sidebar-icons-only {
+  width: 60px; /* or 50px, adjust as needed */
+  overflow: hidden;
+}
+
+.sidebar-icons-only .nav-text {
+  display: none; /* hide labels, keep icons only */
+}
+.sidebar-icons-only .sidebar-header {
+  display: none; /* Hide the "Healthtrack" header */
+}
+.sidebar-icons-only .sidebar-header {
+  width: 100%;
+  text-align: center;
+  font-size: 0; /* hide text */
+}
+
+.sidebar-icons-only .sidebar-header i {
+  font-size: 24px; /* show icon if present */
+}
+
+
+
+</style>
+
 </body>
 </html>
                     
