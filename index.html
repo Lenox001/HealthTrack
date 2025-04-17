@@ -51,6 +51,7 @@
       transition: background 0.3s ease;
       overflow-x: hidden;
     }
+    
 
     /* Layout */
     .app-container {
@@ -1225,171 +1226,305 @@
         
       </div>
 
-      <!-- Vitals & Appointments -->
-      <div class="row mt-4">
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-header bg-info text-white">
-              <i class="fas fa-heartbeat icon"></i>Vitals Overview
+    <!-- Vitals & Appointments -->
+<div class="row mt-4 g-4" style="background-color: transparent;">
+
+  <!-- VITALS -->
+  <div class="col-lg-6 mb-4">
+    <div class="card border-0 shadow-sm" style="background-color: #fffdf8; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);">
+      <div class="card-header border-0 bg-transparent">
+        <i class="fas fa-heartbeat me-2 text-info"></i>
+        <span class="fw-bold text-info">Vitals Overview</span>
+      </div>
+      <div class="card-body">
+        <!-- Individual Vital Cards -->
+        <div class="card border-0 shadow mb-3 p-3" style="background-color: #fffefb; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);">
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="text-info fw-semibold">Blood Pressure</span>
+              <div class="small text-success">Today 8:15 AM</div>
             </div>
-            <div class="card-body">
-              <div class="vital-stat">
-                <div>
-                  <span class="text-info">Blood Pressure</span>
-                  <div class="small text-success">Last reading: Today 8:15 AM</div>
-                </div>
-                <span class="vital-value">120/80 mmHg</span>
-              </div>
-              <div class="vital-stat">
-                <div>
-                  <span class="text-info">Blood Sugar</span>
-                  <div class="small text-success">Fasting - Last reading: Today 8:00 AM</div>
-                </div>
-                <span class="vital-value">95 mg/dL</span>
-              </div>
-              <div class="vital-stat">
-                <div>
-                  <span class="text-info">Heart Rate</span>
-                  <div class="small text-success">Resting - Last reading: Today 8:15 AM</div>
-                </div>
-                <span class="vital-value">72 bpm</span>
-              </div>
-              <div class="vital-stat">
-                <div>
-                  <span class="text-info">Weight</span>
-                  <div class="small text-success">Last reading: Today 8:10 AM</div>
-                </div>
-                <span class="vital-value">68 kg</span>
-              </div>
-              <div class="vital-stat">
-                <div>
-                  <span class="text-info">SpO2</span>
-                  <div class="small text-success">Oxygen Saturation - Last reading: Yesterday</div>
-                </div>
-                <span class="vital-value">98%</span>
-              </div>
-            </div>
-            <div class="card-footer bg-transparent border-top-0 text-end">
-              <button class="btn btn-sm btn-outline-info">
-                <i class="fas fa-plus me-1"></i>Record New Vitals
-              </button>
-            </div>
+            <span class="fw-bold">120/80 mmHg</span>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-header bg-warning text-dark">
-              <i class="fas fa-calendar-check icon"></i>Upcoming Appointments
+        <div class="card border-0 shadow mb-3 p-3" style="background-color: #fffefb; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);">
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="text-info fw-semibold">Blood Sugar</span>
+              <div class="small text-success">Fasting - Today 8:00 AM</div>
             </div>
-            <div class="card-body p-0">
-              <div class="list-group list-group-flush">
-                <div class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <i class="fas fa-user-md me-2" style="color: var(--warning);"></i>
-                      <strong>Endocrinologist</strong>
-                      <div class="text-white small">Dr. Sarah Johnson - Diabetes Management</div>
-                    </div>
-                    <span class="badge bg-warning text-dark appointment-badge">Upcoming</span>
-                  </div>
-                  <div class="mt-2">
-                    <i class="far fa-clock me-1"></i>
-                    <strong>April 22 @ 9:30 AM</strong>
-                    <span class="text-white ms-2">(3 days from now)</span>
-                  </div>
-                  <div class="mt-2">
-                    <i class="fas fa-map-marker-alt me-1"></i>
-                    <span>City Medical Center, Suite 405</span>
-                  </div>
-                  <div class="mt-3">
-                    <button class="btn btn-sm btn-outline-warning me-2">
-                      <i class="fas fa-directions me-1"></i>Get Directions
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary">
-                      <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
-                    </button>
-                  </div>
-                </div>
-                <div class="list-group-item">
-                  <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                      <i class="fas fa-heartbeat me-2" style="color: var(--warning);"></i>
-                      <strong>Cardiologist</strong>
-                      <div class="text-white small">Dr. Michael Chen - Hypertension Follow-up</div>
-                    </div>
-                    <span class="badge bg-warning text-dark appointment-badge">Upcoming</span>
-                  </div>
-                  <div class="mt-2">
-                    <i class="far fa-clock me-1"></i>
-                    <strong>May 5 @ 2:00 PM</strong>
-                    <span class="text-white ms-2">(16 days from now)</span>
-                  </div>
-                  <div class="mt-2">
-                    <i class="fas fa-map-marker-alt me-1"></i>
-                    <span>Heart & Vascular Institute, Floor 2</span>
-                  </div>
-                  <div class="mt-3">
-                    <button class="btn btn-sm btn-outline-warning me-2">
-                      <i class="fas fa-directions me-1"></i>Get Directions
-                    </button>
-                    <button class="btn btn-sm btn-outline-secondary">
-                      <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer bg-transparent border-top-0 text-end">
-              <button class="btn btn-sm btn-outline-warning me-2">
-                <i class="fas fa-plus me-1"></i>Schedule Appointment
-              </button>
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-history me-1"></i>View History
-              </button>
-            </div>
+            <span class="fw-bold">95 mg/dL</span>
           </div>
+        </div>
+        <div class="card border-0 shadow mb-3 p-3" style="background-color: #fffefb; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);">
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="text-info fw-semibold">Heart Rate</span>
+              <div class="small text-success">Today 8:15 AM</div>
+            </div>
+            <span class="fw-bold">72 bpm</span>
+          </div>
+        </div>
+        <div class="card border-0 shadow mb-3 p-3" style="background-color: #fffefb; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);">
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="text-info fw-semibold">Weight</span>
+              <div class="small text-success">Today 8:10 AM</div>
+            </div>
+            <span class="fw-bold">68 kg</span>
+          </div>
+        </div>
+        <div class="card border-0 shadow mb-3 p-3" style="background-color: #fffefb; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);">
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="text-info fw-semibold">SpO2</span>
+              <div class="small text-success">Yesterday</div>
+            </div>
+            <span class="fw-bold">98%</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent border-0 text-end">
+        <button class="btn btn-sm btn-outline-info">
+          <i class="fas fa-plus me-1"></i>Record New Vitals
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPOINTMENTS (WITH MODAL POPUP ADDED) -->
+<div class="col-lg-6 mb-4">
+  <div class="card border-0 shadow-sm" style="background-color: #fffdf8; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);">
+    <div class="card-header border-0 bg-transparent">
+      <i class="fas fa-calendar-check me-2 text-warning"></i>
+      <span class="fw-bold text-warning">Upcoming Appointments</span>
+      <p class="text-muted mb-0 small">Your next scheduled visits</p>
+    </div>
+    <div class="card-body">
+
+      <!-- Appointment Card 1 -->
+      <div class="card border-0 shadow mb-4 p-4" style="background-color: #fffefb; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); border-radius: 20px;">
+        <div class="d-flex align-items-center mb-3">
+          <div class="text-center px-3 py-2 me-3 border rounded" style="min-width: 60px; background-color: #fffdf8;">
+            <div class="fw-bold text-muted" style="font-size: 0.8rem;">Apr</div>
+            <div class="fw-bold text-dark" style="font-size: 1.4rem;">22</div>
+          </div>
+          <div>
+            <h6 class="mb-1 fw-bold" style="font-size: 1rem;">9:00 AM</h6>
+            <div class="text-muted small">Dr. Sarah Johnson</div>
+            <div class="text-muted small">Endocrinologist - Diabetes</div>
+          </div>
+        </div>
+        <hr>
+        <div class="text-muted small mb-2">
+          <i class="fas fa-map-marker-alt me-1"></i>City Medical Center, Suite 405
+        </div>
+        <div>
+          <button class="btn btn-sm btn-outline-warning me-2">
+            <i class="fas fa-directions me-1"></i>Get Directions
+          </button>
+          <button class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
+          </button>
         </div>
       </div>
 
-      <!-- Emergency & Quick Actions -->
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header bg-danger text-white">
-              <i class="fas fa-exclamation-triangle icon"></i>Emergency & Quick Actions
-            </div>
-            <div class="card-body">
-              <div class="row text-center">
-                <div class="col-md-3 col-6 mb-3">
-                  <button class="btn btn-outline-danger btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Call emergency services">
-                    <i class="fas fa-ambulance fa-2x"></i>
-                  </button>
-                  <div class="mt-2">Emergency</div>
-                </div>
-                <div class="col-md-3 col-6 mb-3">
-                  <button class="btn btn-outline-warning btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Contact your primary doctor">
-                    <i class="fas fa-user-md fa-2x"></i>
-                  </button>
-                  <div class="mt-2">Contact Doctor</div>
-                </div>
-                <div class="col-md-3 col-6 mb-3">
-                  <button class="btn btn-outline-info btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Find nearby pharmacies">
-                    <i class="fas fa-prescription-bottle-alt fa-2x"></i>
-                  </button>
-                  <div class="mt-2">Find Pharmacy</div>
-                </div>
-                <div class="col-md-3 col-6 mb-3">
-                  <button class="btn btn-outline-success btn-lg rounded-circle p-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Log a new symptom">
-                    <i class="fas fa-notes-medical fa-2x"></i>
-                  </button>
-                  <div class="mt-2">Log Symptom</div>
-                </div>
-              </div>
-            </div>
+      <!-- Appointment Card 2 -->
+      <div class="card border-0 shadow mb-4 p-4" style="background-color: #fffefb; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); border-radius: 20px;">
+        <div class="d-flex align-items-center mb-3">
+          <div class="text-center px-3 py-2 me-3 border rounded" style="min-width: 60px; background-color: #fffdf8;">
+            <div class="fw-bold text-muted" style="font-size: 0.8rem;">May</div>
+            <div class="fw-bold text-dark" style="font-size: 1.4rem;">05</div>
           </div>
+          <div>
+            <h6 class="mb-1 fw-bold" style="font-size: 1rem;">2:00 PM</h6>
+            <div class="text-muted small">Dr. Michael Chen</div>
+            <div class="text-muted small">Cardiologist - Hypertension</div>
+          </div>
+        </div>
+        <hr>
+        <div class="text-muted small mb-2">
+          <i class="fas fa-map-marker-alt me-1"></i>Heart & Vascular Institute, Floor 2
+        </div>
+        <div>
+          <button class="btn btn-sm btn-outline-warning me-2">
+            <i class="fas fa-directions me-1"></i>Get Directions
+          </button>
+          <button class="btn btn-sm btn-outline-secondary">
+            <i class="fas fa-calendar-plus me-1"></i>Add to Calendar
+          </button>
         </div>
       </div>
     </div>
+
+    <div class="card-footer bg-transparent border-0 text-end">
+      <button class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+        <i class="fas fa-plus me-1"></i>Schedule Appointment
+      </button>
+      <button class="btn btn-sm btn-outline-secondary">
+        <i class="fas fa-history me-1"></i>View History
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Appointment Modal (Compact Version) -->
+<div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0" style="background-color: #fffdf8; border: 2px solid #00bcd4; border-radius: 16px;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header border-0 py-2">
+        <h6 class="modal-title fw-bold text-dark" id="scheduleModalLabel">
+          <i class="fas fa-calendar-plus me-2 text-warning"></i>New Appointment
+        </h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body text-dark pt-1">
+        <!-- Provider Info -->
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://i.pravatar.cc/40?img=12" alt="Dr. Sarah Johnson" class="rounded-circle me-2" width="40" height="40">
+          <div>
+            <div class="fw-bold text-dark small">Dr. Sarah Johnson</div>
+            <div class="text-dark small">Endocrinologist</div>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-2">
+          <input type="text" class="form-control form-control-sm text-dark" placeholder="Location"
+            style="background-color: #fffdf8; border: 1px solid #00bcd4;">
+        </div>
+
+        <!-- Date Table -->
+        <div class="mb-2">
+          <label class="form-label text-dark small fw-semibold mb-1">Select Date</label>
+          <table class="table table-bordered text-center table-sm mb-0" style="background-color: #fffefb; font-size: 0.75rem;">
+            <thead class="table-light text-dark">
+              <tr>
+                <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+              </tr>
+            </thead>
+            <tbody class="text-dark">
+              <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+              <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+              <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+              <tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
+              <tr><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Time -->
+        <div class="mb-2">
+          <select class="form-select form-select-sm text-dark" style="background-color: #fffdf8; border: 1px solid #00bcd4;">
+            <option selected>Select Time</option>
+            <option>9:00 AM</option>
+            <option>10:30 AM</option>
+            <option>12:00 PM</option>
+            <option>1:30 PM</option>
+            <option>3:00 PM</option>
+          </select>
+        </div>
+
+        <!-- Notes -->
+        <div class="mb-3">
+          <textarea class="form-control form-control-sm text-dark" rows="2" placeholder="Notes (optional)"
+            style="background-color: #fffdf8; border: 1px solid #00bcd4;"></textarea>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-sm btn-warning text-dark">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+<style>
+  .action-card {
+    background-color: #fffdf8;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    height: 100%;
+  }
+
+  .action-icon-btn {
+    padding: 1.5rem;
+    border-radius: 50%;
+    font-size: 1.75rem;
+  }
+
+  .action-label {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: #222;
+    font-size: 0.9rem;
+  }
+</style>
+
+<!-- Emergency & Quick Actions (No default Bootstrap card styling) -->
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="action-card">
+      <h5 class="text-danger fw-bold mb-3">
+        <i class="fas fa-exclamation-triangle me-2"></i>Emergency & Quick Actions
+      </h5>
+      <div class="row text-center g-3">
+
+        <!-- Emergency -->
+        <div class="col-md-3 col-6">
+          <div class="action-card">
+            <button class="btn btn-outline-danger action-icon-btn">
+              <i class="fas fa-ambulance"></i>
+            </button>
+            <div class="action-label">Emergency</div>
+          </div>
+        </div>
+
+        <!-- Contact Doctor -->
+        <div class="col-md-3 col-6">
+          <div class="action-card">
+            <button class="btn btn-outline-warning action-icon-btn">
+              <i class="fas fa-user-md"></i>
+            </button>
+            <div class="action-label">Contact Doctor</div>
+          </div>
+        </div>
+
+        <!-- Find Pharmacy -->
+        <div class="col-md-3 col-6">
+          <div class="action-card">
+            <button class="btn btn-outline-info action-icon-btn">
+              <i class="fas fa-prescription-bottle-alt"></i>
+            </button>
+            <div class="action-label">Find Pharmacy</div>
+          </div>
+        </div>
+
+        <!-- Log Symptom -->
+        <div class="col-md-3 col-6">
+          <div class="action-card">
+            <button class="btn btn-outline-success action-icon-btn">
+              <i class="fas fa-notes-medical"></i>
+            </button>
+            <div class="action-label">Log Symptom</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- Account Page (hidden by default) -->
     <div class="dashboard" id="accountContent" style="display: none;">
