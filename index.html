@@ -1803,12 +1803,106 @@
 </div>
 
 
-
-   <!-- Floating Action Button with AI Avatar -->
-<div class="fab" data-bs-toggle="tooltip" data-bs-placement="left" title="AI Assistant"
-style="position: fixed; bottom: 30px; right: 30px; width: 64px; height: 64px; background-color: #fffdf8; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050;">
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712038.png" alt="AI Avatar" style="width: 38px; height: 38px;" />
+<!-- Floating Action Button -->
+<div class="fab"
+     data-bs-toggle="modal"
+     data-bs-target="#aiAssistantModal"
+     title="AI Assistant"
+     style="position: fixed; bottom: 30px; right: 30px; width: 64px; height: 64px; background-color: #fffdf8; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1050;">
+  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712038.png"
+       alt="AI Avatar"
+       style="width: 38px; height: 38px;" />
 </div>
+
+<!-- AI Assistant Modal -->
+<div class="modal fade" id="aiAssistantModal" tabindex="-1" aria-labelledby="aiAssistantLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius: 1rem; background-color: #fffdf8; color: #000;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aiAssistantLabel">AI Assistant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          style="filter: none; opacity: 1;"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-column gap-2" style="max-height: 400px; overflow-y: auto;" id="chatContainer">
+        <div class="chat-message bot">
+          👋 Hello! I'm your virtual assistant.
+        </div>
+        <div class="chat-message bot">
+          💬 How can I help you today?
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex" style="gap: 10px;">
+        <input type="text" id="userInput" class="form-control" placeholder="Type your message..."
+          style="flex: 1; background-color: #fff; color: #000; border: 1px solid #ccc;">
+        <button class="btn" onclick="sendMessage()" style="background-color: #fffdf8; color: #000; border: 1px solid #ccc;">
+          Send
+        </button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- JavaScript -->
+<script>
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chatContainer");
+
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    const userMsg = document.createElement("div");
+    userMsg.className = "chat-message user";
+    userMsg.innerHTML = `<strong>You:</strong> ${userText}`;
+    chat.appendChild(userMsg);
+
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(() => {
+      const botMsg = document.createElement("div");
+      botMsg.className = "chat-message bot";
+      botMsg.innerHTML = `<strong>Assistant:</strong> I'm here to help! 😊 (This is a demo response.)`;
+      chat.appendChild(botMsg);
+      chat.scrollTop = chat.scrollHeight;
+    }, 900);
+  }
+</script>
+
+<!-- Styles -->
+<style>
+  /* Enforce dark text everywhere in the modal */
+  #aiAssistantModal,
+  #aiAssistantModal * {
+    color: #000 !important;
+    fill: #000 !important;
+  }
+
+  .chat-message {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 85%;
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+
+  .chat-message.user {
+    background-color: #e6f7ff;
+    align-self: flex-end;
+    text-align: right;
+  }
+
+  .chat-message.bot {
+    background-color: #f0f0f0;
+    align-self: flex-start;
+  }
+</style>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
