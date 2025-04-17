@@ -998,51 +998,67 @@
 </div>
 
 
-      <!-- Check-in -->
-      <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="fas fa-user-check icon"></i>Daily Health Check-In
+<div class="card mb-4" style="background-color: #fefaf4; border: none; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); width: 100%; margin: auto; padding: 32px 24px;">
+  <div class="card-body" style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; gap: 24px;">
+    <h3 class="text-center mb-4" style="font-family: 'Georgia', serif; font-weight: bold; color: #333;">Daily Health Check-In</h3>
+    <form id="checkinForm">
+      <div style="display: flex; flex-direction: column; gap: 24px; align-items: center;">
+        <!-- Name Card -->
+        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); display: flex; align-items: center; gap: 16px; width: 90%; max-width: 800px;">
+          <img src="https://cdn-icons-png.flaticon.com/512/921/921347.png" alt="Avatar" style="width: 48px; height: 48px; border-radius: 50%;">
+          <div style="flex-grow: 1;">
+            <label for="name" class="form-label mb-1" style="font-weight: 600; color: #444; font-size: 0.9rem;">Your Name</label>
+            <input type="text" class="form-control" id="name" placeholder="John Doe" maxlength="100" required
+              style="font-size: 0.9rem; padding: 6px 10px; background-color: #fff; border: 1px solid #ccc; box-shadow: inset 0 0 2px rgba(0,0,0,0.1);">
+          </div>
         </div>
-        <div class="card-body">
-          <form id="checkinForm">
-            <div class="row g-3">
-              <div class="col-md-4">
-                <label for="name" class="form-label text-info">Your Name</label>
-                <input type="text" class="form-control" id="name" placeholder="John Doe" required />
-              </div>
-              <div class="col-md-4">
-                <label for="mood" class="form-label text-info">Today's Mood</label>
-                <select class="form-select" id="mood" required>
-                  <option value="" disabled selected>Select your mood</option>
-                  <option value="happy">😊 Happy</option>
-                  <option value="neutral">😐 Neutral</option>
-                  <option value="stressed">😫 Stressed</option>
-                  <option value="tired">😴 Tired</option>
-                  <option value="sad">😢 Sad</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label for="energy" class="form-label text-info">Energy Level</label>
-                <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)">
-                <div class="d-flex justify-content-between">
-                  <small>Low</small>
-                  <span id="energyValue" class="fw-bold">5</span>
-                  <small>High</small>
-                </div>
-              </div>
-              <div class="col-12">
-                <label for="symptoms" class="form-label text-info">Symptoms or Notes</label>
-                <textarea class="form-control" id="symptoms" rows="2" placeholder="Any symptoms or notes for today..."></textarea>
-              </div>
-              <div class="col-12 text-end mt-2">
-                <button class="btn btn-custom" type="submit">
-                  <i class="fas fa-paper-plane me-2"></i>Submit Check-In
-                </button>
-              </div>
-            </div>
-          </form>
+
+        <!-- Mood Card -->
+        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); width: 90%; max-width: 800px;">
+          <label class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 0.9rem;">Today's Mood</label>
+          <div class="d-flex justify-content-between px-3">
+            <i class="fas fa-frown fa-lg" style="color: #666; cursor: pointer;"></i>
+            <i class="fas fa-meh fa-lg" style="color: #666; cursor: pointer;"></i>
+            <i class="fas fa-smile fa-lg" style="color: #666; cursor: pointer;"></i>
+            <i class="fas fa-laugh-beam fa-lg" style="color: #666; cursor: pointer;"></i>
+          </div>
+        </div>
+
+        <!-- Energy Card -->
+        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); width: 90%; max-width: 800px;">
+          <label for="energy" class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 0.9rem;">Energy Level</label>
+          <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)" style="accent-color: #8aa398;">
+          <div class="d-flex justify-content-between" style="font-size: 0.85rem; color: #555;">
+            <small>Low</small>
+            <span id="energyValue" class="fw-bold">5</span>
+            <small>High</small>
+          </div>
+        </div>
+
+        <!-- Symptoms Card -->
+        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); width: 90%; max-width: 800px;">
+          <label for="symptoms" class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 0.9rem;">Symptoms or Notes</label>
+          <textarea class="form-control" id="symptoms" rows="2" placeholder="Any symptoms or notes for today..."
+            style="font-size: 0.9rem; padding: 6px 10px; background-color: #fff; border: 1px solid #ccc; box-shadow: inset 0 0 2px rgba(0,0,0,0.1);"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-end" style="width: 90%; max-width: 800px;">
+          <button class="btn px-4 py-2" type="submit"
+            style="font-size: 0.95rem; background-color: #8aa398; border: none; border-radius: 12px; color: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+            <i class="fas fa-arrow-right me-2"></i>Submit Check-In
+          </button>
         </div>
       </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function updateEnergyValue(val) {
+    document.getElementById('energyValue').textContent = val;
+  }
+</script>
 
       <!-- Chronic Diseases & Medications -->
       <div class="row">
