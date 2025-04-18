@@ -1064,7 +1064,11 @@
     <div style="display: flex; flex-direction: column; gap: 10px;">
       <a href="#"><i class="fas fa-bell"></i><span>Reminders</span></a>
       <a href="#"><i class="fas fa-cog"></i><span>Settings</span></a>
-      <a href="#account"><i class="fas fa-user"></i><span>Account</span></a>
+     <!-- Anchor link to open account modal -->
+<a href="javascript:void(0);" onclick="openAccountModal()">
+  <i class="fas fa-user"></i><span>Account</span>
+</a>
+
     </div>
   </div>
   
@@ -1122,10 +1126,13 @@
           </div>
           
           <div class="user-dropdown">
-            <a href="#account" class="dropdown-item">
+            <span class="dropdown-item" onclick="openAccountModal()">
               <i class="fas fa-user-circle dropdown-icon"></i>
               <span>My Account</span>
-            </a>
+            </span>
+            
+
+            
             <a href="#" class="dropdown-item">
               <i class="fas fa-cog dropdown-icon"></i>
               <span>Settings</span>
@@ -1742,65 +1749,189 @@
   </div>
 </div>
 
-
-  <!-- Account Page (Updated ID on Container) -->
-<div class="dashboard" id="account" style="display: none; background-color: #fffdf8; font-family: 'Segoe UI', sans-serif; color: #222;">
-  <div class="account-container" style="padding: 1rem;">
-    <div class="card account-card" style="background-color: #fffdf8; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.3); border: none; overflow: hidden;">
+<!-- Optimized Modal with Proper Scrolling -->
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 700px;">
+    <div class="modal-content" style="box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: none; border-radius: 16px; overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;">
+      
       <!-- Header -->
-      <div class="account-header text-center" style="padding: 2rem;">
-        <div class="account-avatar" style="width: 80px; height: 80px; background-color: #f8f1e8; color: #333; font-size: 2rem; font-weight: bold; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
-          JD
+      <div class="modal-header" style="background-color: #FFFBF5; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 1.5rem 2rem; flex-shrink: 0;">
+        <h5 class="modal-title" id="accountModalLabel" style="font-weight: 600; color: #5D4B36; font-size: 1.4rem;">My Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <!-- Scrollable Body -->
+      <div class="modal-body" style="background-color: #FFFBF5; padding: 0 2rem; font-family: 'Segoe UI', -apple-system, sans-serif; overflow-y: auto; flex-grow: 1;">
+        
+       <!-- Profile Header -->
+<div class="profile-header">
+  <div class="account-avatar">
+    JD
+  </div>
+  <div>
+    <h2 style="font-weight: 700; color: #333; margin-bottom: 0.25rem; letter-spacing: 0.3px;">John Doe</h2>
+    <p style="color: #8B7355; margin-bottom: 0.5rem; font-size: 0.95rem;">Premium Member since 2020</p>
+    <div style="display: flex; gap: 1rem;">
+      <button class="btn" style="background-color: #8B7355; color: white; border: none; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 500; font-size: 0.9rem;">
+        <i class="fas fa-edit me-2"></i>Edit Profile
+      </button>
+      <button class="btn" style="background-color: transparent; border: 1px solid #C4A484; color: #8B7355; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 500; font-size: 0.9rem;">
+        <i class="fas fa-cog me-2"></i>Settings
+      </button>
+    </div>
+  </div>
+</div>
+
+
+        <!-- Two-Column Layout -->
+        <div class="row" style="margin-bottom: 2rem;">
+          <!-- Left Column -->
+          <div class="col-md-6" style="padding-right: 1.5rem;">
+            <div class="info-section" style="margin-bottom: 2rem;">
+              <h4 style="font-weight: 600; color: #5D4B36; margin-bottom: 1.25rem; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-user-circle me-2" style="color: #8B7355; font-size: 1.1rem;"></i>
+                Personal Information
+              </h4>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Full Name</div>
+                <div style="color: #333; font-size: 0.95rem;">John Michael Doe</div>
+              </div>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Date of Birth</div>
+                <div style="color: #333; font-size: 0.95rem;">May 15, 1985</div>
+              </div>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Gender</div>
+                <div style="color: #333; font-size: 0.95rem;">Male</div>
+              </div>
+              <div class="info-item">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Blood Type</div>
+                <div style="color: #333; font-size: 0.95rem;">O+</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Column -->
+          <div class="col-md-6" style="padding-left: 1.5rem;">
+            <div class="info-section" style="margin-bottom: 2rem;">
+              <h4 style="font-weight: 600; color: #5D4B36; margin-bottom: 1.25rem; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-address-card me-2" style="color: #8B7355; font-size: 1.1rem;"></i>
+                Contact Information
+              </h4>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Email</div>
+                <div style="color: #333; font-size: 0.95rem;">john.doe@example.com</div>
+              </div>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Phone</div>
+                <div style="color: #333; font-size: 0.95rem;">(555) 123-4567</div>
+              </div>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Address</div>
+                <div style="color: #333; font-size: 0.95rem;">123 Health St, Apt 4B<br>Wellness City, WC 12345</div>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h4 style="font-weight: 600; color: #5D4B36; margin-bottom: 1.25rem; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-shield-alt me-2" style="color: #8B7355; font-size: 1.1rem;"></i>
+                Account Security
+              </h4>
+              <div class="info-item" style="margin-bottom: 1rem;">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Password</div>
+                <div style="color: #333; font-size: 0.95rem;">
+                  ********** 
+                  <a href="#" style="color: #8B7355; text-decoration: none; margin-left: 0.5rem; font-weight: 500;">Change</a>
+                </div>
+              </div>
+              <div class="info-item">
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Last Login</div>
+                <div style="color: #333; font-size: 0.95rem;">Today, 9:42 AM from Chrome on Windows</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Body -->
-      <div class="account-body" style="padding: 0 2rem 2rem;">
-        <div class="text-center mb-4">
-          <h2 style="font-weight: bold; color: #222;">John Doe</h2>
-          <p style="color: #555;">Premium Member since 2020</p>
-        </div>
-
-        <!-- Personal Info -->
-        <div class="account-info" style="margin-bottom: 2rem;">
-          <h4 style="font-weight: bold; margin-bottom: 1rem;"><i class="fas fa-user-circle me-2"></i>Personal Information</h4>
-          <div class="info-item"><span style="font-weight: 500;">Full Name:</span> <span style="color: #444;">John Michael Doe</span></div>
-          <div class="info-item"><span style="font-weight: 500;">Date of Birth:</span> <span style="color: #444;">May 15, 1985</span></div>
-          <div class="info-item"><span style="font-weight: 500;">Gender:</span> <span style="color: #444;">Male</span></div>
-          <div class="info-item"><span style="font-weight: 500;">Blood Type:</span> <span style="color: #444;">O+</span></div>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="account-info" style="margin-bottom: 2rem;">
-          <h4 style="font-weight: bold; margin-bottom: 1rem;"><i class="fas fa-address-card me-2"></i>Contact Information</h4>
-          <div class="info-item"><span style="font-weight: 500;">Email:</span> <span style="color: #444;">john.doe@example.com</span></div>
-          <div class="info-item"><span style="font-weight: 500;">Phone:</span> <span style="color: #444;">(555) 123-4567</span></div>
-          <div class="info-item"><span style="font-weight: 500;">Address:</span> <span style="color: #444;">123 Health St, Apt 4B, Wellness City, WC 12345</span></div>
-          <div class="info-item"><span style="font-weight: 500;">Emergency Contact:</span> <span style="color: #444;">Jane Doe (Spouse) - (555) 765-4321</span></div>
-        </div>
-
-        <!-- Security -->
-        <div class="account-info" style="margin-bottom: 2rem;">
-          <h4 style="font-weight: bold; margin-bottom: 1rem;"><i class="fas fa-shield-alt me-2"></i>Account Security</h4>
-          <div class="info-item"><span style="font-weight: 500;">Password:</span> <span style="color: #444;">********** <a href="#" style="color: #007bff;">Change</a></span></div>
-          <div class="info-item"><span style="font-weight: 500;">Two-Factor Auth:</span> <span style="color: #444;">Enabled <span style="background-color: #28a745; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; margin-left: 0.5rem;">Active</span> <a href="#" style="color: #007bff; margin-left: 0.5rem;">Manage</a></span></div>
-          <div class="info-item"><span style="font-weight: 500;">Last Login:</span> <span style="color: #444;">Today, 9:42 AM from Chrome on Windows</span></div>
-        </div>
-
-        <!-- Buttons -->
-        <div class="d-flex justify-content-between mt-4">
-          <button class="btn" style="background-color: transparent; border: 2px solid #007bff; color: #007bff; padding: 0.5rem 1.5rem; border-radius: 8px;">
-            <i class="fas fa-edit me-2"></i>Edit Profile
-          </button>
-          <button class="btn" style="background-color: transparent; border: 2px solid #dc3545; color: #dc3545; padding: 0.5rem 1.5rem; border-radius: 8px;">
-            <i class="fas fa-trash-alt me-2"></i>Delete Account
-          </button>
-        </div>
-
+      
+      <!-- Footer with Close Button -->
+      <div class="modal-footer" style="background-color: #FFFBF5; border-top: 1px solid rgba(0,0,0,0.05); padding: 1.25rem 2rem; flex-shrink: 0; display: flex; justify-content: flex-end;">
+        <button type="button" class="btn" style="background-color: #8B7355; color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 500;" data-bs-dismiss="modal">
+          Close
+        </button>
+        
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  /* Smooth hover effects */
+  .info-section {
+    transition: all 0.3s ease;
+    padding: 1.5rem;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+  }
+  
+  .info-section:hover {
+    background-color: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  
+  .btn {
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+  }
+  
+  .account-avatar {
+    transition: all 0.3s ease;
+  }
+  
+  .account-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  }
+  
+  /* Custom scrollbar for modal body */
+  .modal-body::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .modal-body::-webkit-scrollbar-thumb {
+    background: #C4A484;
+    border-radius: 10px;
+  }
+  
+  .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #8B7355;
+  }
+  /* Hide avatar on small screens */
+@media (max-width: 575px) {
+  .account-avatar {
+    display: none;
+  }
+}
+
+</style>
+<script>
+  function openAccountModal() {
+  // Show the modal when clicked
+  var myModal = new bootstrap.Modal(document.getElementById('accountModal'));
+  myModal.show();
+}
+
+</script>
 
 
 <!-- Floating Action Button -->
