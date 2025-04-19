@@ -826,7 +826,8 @@
     </style>
 </head>
 
-<body class="container-fluid">
+<body class="container" style="background-color: #333333;">
+
 <div class="app-container ">
   <!-- Sidebar -->
   <style>
@@ -1071,12 +1072,23 @@
 
     </div>
   </div>
+  <style>
+    /* Hide sidebar below 1200px (Bootstrap's lg breakpoint is 992px) */
+    @media (max-width: 1199px) {
+      #sidebar {
+        display: none !important;
+      }
+    }
+  </style>
+  
   
 
   <!-- Main Content -->
-  <div class="main-content bg-dark ">
+  <div class="main-content" style="margin-top: 10px; background-color: transparent;">
+
+
     <!-- Topbar -->
-    <div class="topbar">
+    <div class="topbar" style="border-radius: 16px; background-color: #333333; padding: 10px; margin: 0 20px 20px 20px;">
       <div class="topbar-left">
        
         <div style="padding: 20px; text-align: center;">
@@ -1144,10 +1156,11 @@
 }
 
 </script>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-question-circle dropdown-icon"></i>
-              <span>Help</span>
-            </a>
+<a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#aiAssistantModal">
+  <i class="fas fa-question-circle dropdown-icon"></i>
+  <span>Help</span>
+</a>
+
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item"> 
               <i class="fas fa-sign-out-alt dropdown-icon"></i>
@@ -1159,7 +1172,8 @@
     </div>
 
     <!-- Dashboard Content -->
-    <div class="dashboard  " id="dashboardContent">
+    <div class="dashboard" id="dashboardContent" style="background-color: #333333; margin-top: 0; margin-bottom: 20px; border-radius: 16px;">
+
      
 <!-- Font Awesome CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -1177,112 +1191,134 @@
     }
   }
 </style>
-
 <!-- Health Summary -->
-<div class="row" style="display: flex; justify-content: center; margin: 0; padding: 0; margin-bottom: 40px;">
-  <div class="col-md-12" style="width: 100%; background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); font-family: 'Segoe UI', sans-serif;">
-    <div style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px;">
-      <i class="fas fa-notes-medical" style="margin-right: 8px; color: #e6d3b3;"></i>Health Summary
-    </div>
+<div class="container mt-4 mb-5" style="padding: 0;"> <!-- Added container and reduced top margin -->
 
-    <div class="health-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-
-      <!-- Overall Health -->
-      <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
-        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Overall Health</div>
-        <i class="fas fa-heart-circle-check" style="font-size: 24px; margin: 10px 0; color: #e6d3b3;"></i>
-        <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">Excellent</div>
-        <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">Last checked: Today</div>
+  <div class="row justify-content-center">
+    <div class="col-md-12" style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); font-family: 'Segoe UI', sans-serif;">
+      <div style="font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px;">
+        <i class="fas fa-notes-medical" style="margin-right: 8px; color: #e6d3b3;"></i>Health Summary
       </div>
 
-      <!-- Medication Adherence -->
-      <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
-        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Medication Adherence</div>
-        <i class="fas fa-pills" style="font-size: 24px; margin: 10px 0; color: #e6d3b3;"></i>
-        <div style="height: 8px; width: 80%; margin: 10px auto; background: #e0e0e0; border-radius: 20px;">
-          <div style="width: 92%; height: 100%; background: #e6d3b3; border-radius: 20px;"></div>
+      <div class="health-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+        <!-- Overall Health -->
+        <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
+          <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Overall Health</div>
+          <i class="fas fa-heart-circle-check" style="font-size: 24px; margin: 10px 0; color: #e6d3b3;"></i>
+          <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">Excellent</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">Last checked: Today</div>
         </div>
-        <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">92%</div>
-        <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">This week</div>
-      </div>
 
-      <!-- Activity Level -->
-      <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
-        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Activity Level</div>
-        <div style="position: relative; width: 50px; height: 50px; margin: 10px auto;">
-          <i class="fas fa-circle-notch fa-spin" style="font-size: 50px; color: #e6d3b3;"></i>
-          <i class="fas fa-running" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; color: #1a1a1a;"></i>
+        <!-- Medication Adherence -->
+        <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
+          <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Medication Adherence</div>
+          <i class="fas fa-pills" style="font-size: 24px; margin: 10px 0; color: #e6d3b3;"></i>
+          <div style="height: 8px; width: 80%; margin: 10px auto; background: #e0e0e0; border-radius: 20px;">
+            <div style="width: 92%; height: 100%; background: #e6d3b3; border-radius: 20px;"></div>
+          </div>
+          <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">92%</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">This week</div>
         </div>
-        <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">75%</div>
-        <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">Weekly goal</div>
-      </div>
 
-      <!-- Next Appointment -->
-      <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
-        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Next Appointment</div>
-        <i class="fas fa-calendar-alt" style="font-size: 24px; margin: 10px 0; color: #e6d3b3;"></i>
-        <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">Apr 22</div>
-        <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">3 days from now</div>
-      </div>
+        <!-- Activity Level -->
+        <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
+          <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Activity Level</div>
+          <div style="position: relative; width: 50px; height: 50px; margin: 10px auto;">
+            <i class="fas fa-circle-notch fa-spin" style="font-size: 50px; color: #e6d3b3;"></i>
+            <i class="fas fa-running" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; color: #1a1a1a;"></i>
+          </div>
+          <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">75%</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">Weekly goal</div>
+        </div>
 
+        <!-- Next Appointment -->
+        <div class="health-card" style="background: #ffffff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);">
+          <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">Next Appointment</div>
+          <i class="fas fa-calendar-alt" style="font-size: 24px; margin: 10px 0; color: #e6d3b3;"></i>
+          <div style="font-size: 16px; font-weight: 800; color: #1a1a1a;">Apr 22</div>
+          <div style="font-size: 12px; font-weight: 600; color: #1a1a1a;">3 days from now</div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
 
-
-<div class="card mb-4" style="background-color: #fefaf4; border: none; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); width: 100%; margin: auto; padding: 32px 24px;">
-  <div class="card-body" style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; gap: 24px;">
-    <h3 class="text-center mb-4" style="font-family: 'Georgia', serif; font-weight: bold; color: #333;">Daily Health Check-In</h3>
-    <form id="checkinForm">
-      <div style="display: flex; flex-direction: column; gap: 24px; align-items: center;">
-        <!-- Name Card -->
-        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); display: flex; align-items: center; gap: 16px; width: 90%; max-width: 800px;">
-          <img src="https://cdn-icons-png.flaticon.com/512/921/921347.png" alt="Avatar" style="width: 48px; height: 48px; border-radius: 50%;">
-          <div style="flex-grow: 1;">
-            <label for="name" class="form-label mb-1" style="font-weight: 600; color: #444; font-size: 0.9rem;">Your Name</label>
-            <input type="text" class="form-control" id="name" placeholder="John Doe" maxlength="100" required
-              style="font-size: 0.9rem; padding: 6px 10px; background-color: #fff; border: 1px solid #ccc; box-shadow: inset 0 0 2px rgba(0,0,0,0.1);">
+<div class="row justify-content-center" style="margin-bottom: 80px;">
+  <div class="col-12 col-lg-10 col-xl-8">
+    <div class="card" style="background-color: #fefaf4; border: none; border-radius: 20px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);">
+      <div class="card-body p-4 p-md-5">
+        <h3 class="text-center mb-5" style="font-family: 'Georgia', serif; font-weight: bold; color: #333; font-size: 1.8rem;">Daily Health Check-In</h3>
+        
+        <form id="checkinForm" class="mx-auto" style="max-width: 800px;">
+          <!-- Name Card -->
+          <div class="d-flex align-items-center mb-4 p-4" style="background-color: #fffaf1; border-radius: 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+            <div class="me-4">
+              <img src="https://cdn-icons-png.flaticon.com/512/921/921347.png" alt="Avatar" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="flex-grow-1">
+              <label for="name" class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 1rem;">Your Name</label>
+              <input type="text" class="form-control form-control-lg" id="name" placeholder="John Doe" maxlength="100" required
+                style="font-size: 1rem; padding: 10px 15px; background-color: #fff; border: 1px solid #ddd; border-radius: 10px;">
+            </div>
           </div>
-        </div>
 
-        <!-- Mood Card -->
-        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); width: 90%; max-width: 800px;">
-          <label class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 0.9rem;">Today's Mood</label>
-          <div class="d-flex justify-content-between px-3">
-            <i class="fas fa-frown fa-lg" style="color: #666; cursor: pointer;"></i>
-            <i class="fas fa-meh fa-lg" style="color: #666; cursor: pointer;"></i>
-            <i class="fas fa-smile fa-lg" style="color: #666; cursor: pointer;"></i>
-            <i class="fas fa-laugh-beam fa-lg" style="color: #666; cursor: pointer;"></i>
+          <!-- Mood Card -->
+          <div class="mb-4 p-4" style="background-color: #fffaf1; border-radius: 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+            <label class="form-label mb-3" style="font-weight: 600; color: #444; font-size: 1rem;">Today's Mood</label>
+            <div class="d-flex justify-content-around px-2">
+              <div class="text-center mood-option" data-value="1">
+                <i class="fas fa-frown fa-2x mb-2" style="color: #e74c3c;"></i>
+                <div style="font-size: 0.85rem; color: #555;">Terrible</div>
+              </div>
+              <div class="text-center mood-option" data-value="2">
+                <i class="fas fa-meh fa-2x mb-2" style="color: #f39c12;"></i>
+                <div style="font-size: 0.85rem; color: #555;">Okay</div>
+              </div>
+              <div class="text-center mood-option" data-value="3">
+                <i class="fas fa-smile fa-2x mb-2" style="color: #2ecc71;"></i>
+                <div style="font-size: 0.85rem; color: #555;">Good</div>
+              </div>
+              <div class="text-center mood-option" data-value="4">
+                <i class="fas fa-laugh-beam fa-2x mb-2" style="color: #27ae60;"></i>
+                <div style="font-size: 0.85rem; color: #555;">Great</div>
+              </div>
+            </div>
+            <input type="hidden" id="moodValue" name="mood" value="">
           </div>
-        </div>
 
-        <!-- Energy Card -->
-        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); width: 90%; max-width: 800px;">
-          <label for="energy" class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 0.9rem;">Energy Level</label>
-          <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)" style="accent-color: #8aa398;">
-          <div class="d-flex justify-content-between" style="font-size: 0.85rem; color: #555;">
-            <small>Low</small>
-            <span id="energyValue" class="fw-bold">5</span>
-            <small>High</small>
+          <!-- Energy Card -->
+          <div class="mb-4 p-4" style="background-color: #fffaf1; border-radius: 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+            <label for="energy" class="form-label mb-3" style="font-weight: 600; color: #444; font-size: 1rem;">Energy Level</label>
+            <div class="px-3 mb-2">
+              <input type="range" class="form-range" min="1" max="10" id="energy" oninput="updateEnergyValue(this.value)" 
+                style="accent-color: #8aa398; height: 8px;">
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <small style="font-size: 0.9rem; color: #555;">Low Energy</small>
+              <span id="energyValue" class="fw-bold" style="font-size: 1.1rem; color: #8aa398;">5</span>
+              <small style="font-size: 0.9rem; color: #555;">High Energy</small>
+            </div>
           </div>
-        </div>
 
-        <!-- Symptoms Card -->
-        <div style="background-color: #fffaf1; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); width: 90%; max-width: 800px;">
-          <label for="symptoms" class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 0.9rem;">Symptoms or Notes</label>
-          <textarea class="form-control" id="symptoms" rows="2" placeholder="Any symptoms or notes for today..."
-            style="font-size: 0.9rem; padding: 6px 10px; background-color: #fff; border: 1px solid #ccc; box-shadow: inset 0 0 2px rgba(0,0,0,0.1);"></textarea>
-        </div>
+          <!-- Symptoms Card -->
+          <div class="mb-5 p-4" style="background-color: #fffaf1; border-radius: 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+            <label for="symptoms" class="form-label mb-2" style="font-weight: 600; color: #444; font-size: 1rem;">Symptoms or Notes</label>
+            <textarea class="form-control form-control-lg" id="symptoms" rows="3" placeholder="Any symptoms or notes for today..."
+              style="font-size: 1rem; padding: 12px; background-color: #fff; border: 1px solid #ddd; border-radius: 10px;"></textarea>
+          </div>
 
-        <!-- Submit Button -->
-        <div class="text-end" style="width: 90%; max-width: 800px;">
-          <button class="btn px-4 py-2" type="submit"
-            style="font-size: 0.95rem; background-color: #8aa398; border: none; border-radius: 12px; color: white; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
-            <i class="fas fa-arrow-right me-2"></i>Submit Check-In
-          </button>
-        </div>
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button class="btn px-5 py-3" type="submit"
+              style="font-size: 1.1rem; background-color: #8aa398; border: none; border-radius: 12px; color: white; box-shadow: 0 4px 15px rgba(138, 163, 152, 0.4); transition: all 0.3s;">
+              <i class="fas fa-arrow-right me-2"></i>Submit Check-In
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
@@ -1290,74 +1326,263 @@
   function updateEnergyValue(val) {
     document.getElementById('energyValue').textContent = val;
   }
+
+  // Mood selection functionality
+  document.querySelectorAll('.mood-option').forEach(option => {
+    option.addEventListener('click', function() {
+      // Remove active class from all options
+      document.querySelectorAll('.mood-option').forEach(opt => {
+        opt.style.opacity = '0.6';
+        opt.style.transform = 'scale(1)';
+      });
+      
+      // Add active class to clicked option
+      this.style.opacity = '1';
+      this.style.transform = 'scale(1.1)';
+      
+      // Set the hidden input value
+      document.getElementById('moodValue').value = this.getAttribute('data-value');
+    });
+  });
 </script>
+
+<style>
+  .mood-option {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .mood-option:hover {
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(138, 163, 152, 0.5) !important;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+</style>
+
 
       <!-- Chronic Diseases & Medications -->
       <div class="row">
         <div class="col-lg-6" style="margin-bottom: 40px;">
+  <div class="p-3" style="background-color: #fdfbf6; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);">
+    <h5 class="mb-4 fw-bold" style="font-family: 'Georgia', serif; color: #1c1c1c;">
+      <i class="fas fa-notes-medical me-2 text-danger"></i>Chronic Conditions
+    </h5>
 
-          <div class="p-3" style="background-color: #fdfbf6; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);">
-            <h5 class="mb-4 fw-bold" style="font-family: 'Georgia', serif; color: #1c1c1c;">
-              <i class="fas fa-notes-medical me-2 text-danger"></i>Chronic Conditions
-            </h5>
-        
-            <!-- Condition Item -->
-            <div class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
-              <div class="d-flex align-items-center">
-                <div class="me-3" style="background-color: #ffeeea; border-radius: 50%; padding: 10px;">
-                  <i class="fas fa-tint" style="color: #ec6a5e; font-size: 22px;"></i>
-                </div>
-                <div style="color: #1c1c1c;">
-                  <div class="fw-bold" style="font-size: 18px;">Diabetes<br>Type 2</div>
-                  <small>Diagnosed: 2018</small>
-                </div>
-              </div>
-              <span class="badge rounded-pill" style="background-color: #f9d7cf; color: #912e23; font-weight: 600;">Active</span>
-            </div>
-        
-            <!-- Condition Item -->
-            <div class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
-              <div class="d-flex align-items-center">
-                <div class="me-3" style="background-color: #ffeeea; border-radius: 50%; padding: 10px;">
-                  <i class="fas fa-heartbeat" style="color: #ec6a5e; font-size: 22px;"></i>
-                </div>
-                <div style="color: #1c1c1c;">
-                  <div class="fw-bold" style="font-size: 18px;">Hypertension</div>
-                  <small>Diagnosed: 2019</small>
-                </div>
-              </div>
-              <span class="badge rounded-pill" style="background-color: #f9d7cf; color: #912e23; font-weight: 600;">Active</span>
-            </div>
-        
-            <!-- Condition Item -->
-            <div class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
-              <div class="d-flex align-items-center">
-                <div class="me-3" style="background-color: #fff3e2; border-radius: 50%; padding: 10px;">
-                  <i class="fas fa-lungs" style="color: #e3a03f; font-size: 22px;"></i>
-                </div>
-                <div style="color: #1c1c1c;">
-                  <div class="fw-bold" style="font-size: 18px;">Chronic<br>Asthma</div>
-                  <small>Diagnosed: 2015</small>
-                </div>
-              </div>
-              <span class="badge rounded-pill" style="background-color: #ffe9ba; color: #7a4e00; font-weight: 600;">Controlled</span>
-            </div>
-        
-            <!-- Condition Item -->
-            <div class="d-flex justify-content-between align-items-center p-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
-              <div class="d-flex align-items-center">
-                <div class="me-3" style="background-color: #e6f4eb; border-radius: 50%; padding: 10px;">
-                  <i class="fas fa-pills" style="color: #519a76; font-size: 22px;"></i>
-                </div>
-                <div style="color: #1c1c1c;">
-                  <div class="fw-bold" style="font-size: 18px;">High<br>Cholesterol</div>
-                  <small>Diagnosed: 2020</small>
-                </div>
-              </div>
-              <span class="badge rounded-pill" style="background-color: #c5ead5; color: #1a6b42; font-weight: 600;">Improving</span>
-            </div>
-          </div>
+    <!-- Condition Item -->
+    <div class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+      <div class="d-flex align-items-center">
+        <div class="me-3" style="background-color: #ffeeea; border-radius: 50%; padding: 10px;">
+          <i class="fas fa-tint" style="color: #ec6a5e; font-size: 22px;"></i>
         </div>
+        <div style="color: #1c1c1c;">
+          <div class="fw-bold" style="font-size: 18px;">Diabetes<br>Type 2</div>
+          <small>Diagnosed: 2018</small>
+        </div>
+      </div>
+      <span class="badge rounded-pill" style="background-color: #f9d7cf; color: #912e23; font-weight: 600;">Active</span>
+    </div>
+
+    <!-- Condition Item -->
+    <div class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+      <div class="d-flex align-items-center">
+        <div class="me-3" style="background-color: #ffeeea; border-radius: 50%; padding: 10px;">
+          <i class="fas fa-heartbeat" style="color: #ec6a5e; font-size: 22px;"></i>
+        </div>
+        <div style="color: #1c1c1c;">
+          <div class="fw-bold" style="font-size: 18px;">Hypertension</div>
+          <small>Diagnosed: 2019</small>
+        </div>
+      </div>
+      <span class="badge rounded-pill" style="background-color: #f9d7cf; color: #912e23; font-weight: 600;">Active</span>
+    </div>
+
+    <!-- Condition Item -->
+    <div class="d-flex justify-content-between align-items-center p-3 mb-3" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+      <div class="d-flex align-items-center">
+        <div class="me-3" style="background-color: #fff3e2; border-radius: 50%; padding: 10px;">
+          <i class="fas fa-lungs" style="color: #e3a03f; font-size: 22px;"></i>
+        </div>
+        <div style="color: #1c1c1c;">
+          <div class="fw-bold" style="font-size: 18px;">Chronic<br>Asthma</div>
+          <small>Diagnosed: 2015</small>
+        </div>
+      </div>
+      <span class="badge rounded-pill" style="background-color: #ffe9ba; color: #7a4e00; font-weight: 600;">Controlled</span>
+    </div>
+
+    <!-- Condition Item -->
+    <div class="d-flex justify-content-between align-items-center p-3 mb-4" style="background-color: white; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+      <div class="d-flex align-items-center">
+        <div class="me-3" style="background-color: #e6f4eb; border-radius: 50%; padding: 10px;">
+          <i class="fas fa-pills" style="color: #519a76; font-size: 22px;"></i>
+        </div>
+        <div style="color: #1c1c1c;">
+          <div class="fw-bold" style="font-size: 18px;">High<br>Cholesterol</div>
+          <small>Diagnosed: 2020</small>
+        </div>
+      </div>
+      <span class="badge rounded-pill" style="background-color: #c5ead5; color: #1a6b42; font-weight: 600;">Improving</span>
+    </div>
+
+    <!-- Add Condition Button at Bottom -->
+    <div class="text-end">
+      <button id="openConditionModal" class="btn" style="background-color: #f5e8e0; color: #2a2a2a; font-weight: 600; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #d4c4b8;">
+        <i class="fas fa-plus-circle me-2"></i>Add Condition
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Condition Modal -->
+<div id="customConditionModal" class="custom-modal">
+  <div class="custom-modal-content">
+    <span id="closeConditionModal" class="close">&times;</span>
+    <h5><i class="fas fa-diagnoses me-2"></i>Add New Condition</h5>
+    <form>
+      <div class="mb-3">
+        <label for="conditionName" class="form-label"><i class="fas fa-disease me-2"></i>Condition Name</label>
+        <input type="text" class="form-control" id="conditionName" placeholder="e.g., Diabetes Type 2">
+      </div>
+      <div class="mb-3">
+        <label for="diagnosisDate" class="form-label"><i class="fas fa-calendar-alt me-2"></i>Diagnosis Date</label>
+        <input type="date" class="form-control" id="diagnosisDate">
+      </div>
+      <div class="mb-3">
+        <label for="conditionStatus" class="form-label"><i class="fas fa-heartbeat me-2"></i>Status</label>
+        <select class="form-select" id="conditionStatus">
+          <option value="active">Active</option>
+          <option value="controlled">Controlled</option>
+          <option value="resolved">Resolved</option>
+          <option value="improving">Improving</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="conditionNotes" class="form-label"><i class="fas fa-notes-medical me-2"></i>Additional Notes</label>
+        <textarea class="form-control" id="conditionNotes" rows="3" placeholder="Any additional information about this condition"></textarea>
+      </div>
+      <div class="text-end">
+        <button type="button" class="btn btn-outline-secondary me-2" id="cancelConditionBtn">
+          <i class="fas fa-times me-1"></i> Cancel
+        </button>
+        <button type="submit" class="btn" style="background-color: #d4a373; color: #2a2a2a; font-weight: 600;">
+          <i class="fas fa-save me-1"></i> Save Condition
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal CSS (same as before) -->
+<style>
+  .custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .custom-modal-content {
+    background-color: #f5e8e0;
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    position: relative;
+    color: #2a2a2a;
+    border: 1px solid #d4c4b8;
+  }
+
+  .close {
+    color: #7a6b5f;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: #2a2a2a;
+  }
+
+  .form-control, .form-select {
+    background-color: #fffcf9;
+    border: 1px solid #d4c4b8;
+    color: #2a2a2a;
+  }
+
+  .form-control:focus, .form-select:focus {
+    background-color: #fffcf9;
+    border-color: #b8a99d;
+    box-shadow: 0 0 0 0.25rem rgba(180, 160, 140, 0.25);
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #3a3a3a;
+  }
+
+  h5 {
+    color: #3a3a3a;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d4c4b8;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+</style>
+
+<!-- Modal JS -->
+<script>
+  // Condition Modal Functionality
+  const openConditionBtn = document.getElementById("openConditionModal");
+  const conditionModal = document.getElementById("customConditionModal");
+  const closeConditionBtn = document.getElementById("closeConditionModal");
+  const cancelConditionBtn = document.getElementById("cancelConditionBtn");
+
+  openConditionBtn.addEventListener("click", () => {
+    conditionModal.style.display = "block";
+  });
+
+  closeConditionBtn.addEventListener("click", () => {
+    conditionModal.style.display = "none";
+  });
+
+  cancelConditionBtn.addEventListener("click", () => {
+    conditionModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === conditionModal) {
+      conditionModal.style.display = "none";
+    }
+  });
+</script>
         
         <div class="col-lg-6">
           <div class="p-3" style="background-color: #fdfbf6; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);">
@@ -1447,15 +1672,138 @@
             </div>
         
             <!-- Add Medication Button -->
-            <div class="text-end">
-              <button class="btn" style="background-color: #e8f5ef; color: #1c1c1c; font-weight: 600; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
-                <i class="fas fa-plus me-1"></i> Add Medication
-              </button>
-            </div>
+           <div class="text-end">
+  <button id="openMedicationModal" class="btn" style="background-color: #f5e8e0; color: #2a2a2a; font-weight: 600; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #d4c4b8;">
+    <i class="fas fa-pills me-2"></i> Add Medication
+  </button>
+</div>
           </div>
         </div>
         
       </div>
+      <!-- Custom Modal -->
+<div id="customMedicationModal" class="custom-modal">
+  <div class="custom-modal-content">
+    <span id="closeMedicationModal" class="close">&times;</span>
+    <h5><i class="fas fa-prescription-bottle-alt me-2"></i>Add Medication</h5>
+    <form>
+      <div class="mb-3">
+        <label for="medicationName" class="form-label"><i class="fas fa-medkit me-2"></i>Medication Name</label>
+        <input type="text" class="form-control" id="medicationName" placeholder="Enter medication name">
+      </div>
+      <div class="mb-3">
+        <label for="dosage" class="form-label"><i class="fas fa-syringe me-2"></i>Dosage</label>
+        <input type="text" class="form-control" id="dosage" placeholder="e.g., 500mg">
+      </div>
+      <div class="mb-3">
+        <label for="schedule" class="form-label"><i class="fas fa-clock me-2"></i>Schedule</label>
+        <input type="text" class="form-control" id="schedule" placeholder="e.g., Twice a day">
+      </div>
+      <div class="text-end">
+        <button type="button" class="btn btn-outline-secondary me-2" id="cancelBtn">
+          <i class="fas fa-times me-1"></i> Cancel
+        </button>
+        <button type="submit" class="btn" style="background-color: #d4a373; color: #2a2a2a; font-weight: 600;">
+          <i class="fas fa-save me-1"></i> Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal CSS -->
+<style>
+  .custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .custom-modal-content {
+    background-color: #f5e8e0;
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    position: relative;
+    color: #2a2a2a;
+    border: 1px solid #d4c4b8;
+  }
+
+  .close {
+    color: #7a6b5f;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: #2a2a2a;
+  }
+
+  .form-control {
+    background-color: #fffcf9;
+    border: 1px solid #d4c4b8;
+    color: #2a2a2a;
+  }
+
+  .form-control:focus {
+    background-color: #fffcf9;
+    border-color: #b8a99d;
+    box-shadow: 0 0 0 0.25rem rgba(180, 160, 140, 0.25);
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #3a3a3a;
+  }
+
+  h5 {
+    color: #3a3a3a;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d4c4b8;
+  }
+</style>
+
+<!-- Modal JS -->
+<script>
+  const openBtn = document.getElementById("openMedicationModal");
+  const modal = document.getElementById("customMedicationModal");
+  const closeBtn = document.getElementById("closeMedicationModal");
+  const cancelBtn = document.getElementById("cancelBtn");
+
+  openBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
 
     <!-- Vitals & Appointments -->
 <div class="row mt-4 g-4" style="background-color: transparent;">
@@ -1516,12 +1864,142 @@
         </div>
       </div>
       <div class="card-footer bg-transparent border-0 text-end">
-        <button class="btn btn-sm btn-outline-info">
+        <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#vitalsModal">
           <i class="fas fa-plus me-1"></i>Record New Vitals
         </button>
       </div>
     </div>
   </div>
+<!-- Vitals Modal -->
+<div id="vitalsModal" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-height: 70vh;">
+    <div class="modal-content" style="background-color: #fffdf8; max-height: 70vh; overflow-y: auto;">
+      <div class="modal-header border-0" style="background-color: #fffdf8;">
+        <h5 class="modal-title text-dark fw-bold">
+          <i class="fas fa-heartbeat me-2" style="color: #8b7355;"></i>Record New Vitals
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-dark">
+        <form id="vitalsForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="bloodPressure" class="form-label fw-semibold">Blood Pressure</label>
+              <input type="text" class="form-control" id="bloodPressure" placeholder="120/80" style="background-color: #fffefb;">
+            </div>
+            <div class="col-md-6">
+              <label for="bloodSugar" class="form-label fw-semibold">Blood Sugar</label>
+              <input type="number" class="form-control" id="bloodSugar" placeholder="95" style="background-color: #fffefb;">
+            </div>
+            <div class="col-md-6">
+              <label for="heartRate" class="form-label fw-semibold">Heart Rate</label>
+              <input type="number" class="form-control" id="heartRate" placeholder="72" style="background-color: #fffefb;">
+            </div>
+            <div class="col-md-6">
+              <label for="weight" class="form-label fw-semibold">Weight</label>
+              <input type="number" class="form-control" id="weight" placeholder="68" style="background-color: #fffefb;">
+            </div>
+            <div class="col-md-6">
+              <label for="spo2" class="form-label fw-semibold">SpO2</label>
+              <input type="number" class="form-control" id="spo2" placeholder="98" style="background-color: #fffefb;">
+            </div>
+            <div class="col-md-6">
+              <label for="vitalsDate" class="form-label fw-semibold">Date & Time</label>
+              <input type="datetime-local" class="form-control" id="vitalsDate" style="background-color: #fffefb;">
+            </div>
+            <div class="col-12">
+              <label for="notes" class="form-label fw-semibold">Notes</label>
+              <textarea class="form-control" id="notes" rows="2" style="background-color: #fffefb;"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0" style="background-color: #fffdf8;">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn text-white" id="saveVitals" style="background-color: #8b7355;">Save Vitals</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="vitalsToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #8b7355;">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="fas fa-check-circle me-2"></i> Vitals recorded successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize elements
+    const vitalsModal = document.getElementById('vitalsModal');
+    const vitalsForm = document.getElementById('vitalsForm');
+    const saveVitalsBtn = document.getElementById('saveVitals');
+    const vitalsToast = new bootstrap.Toast(document.getElementById('vitalsToast'));
+    
+    // Handle form submission
+    saveVitalsBtn.addEventListener('click', function() {
+      // Get form values
+      const bloodPressure = document.getElementById('bloodPressure').value;
+      const bloodSugar = document.getElementById('bloodSugar').value;
+      const heartRate = document.getElementById('heartRate').value;
+      const weight = document.getElementById('weight').value;
+      const spo2 = document.getElementById('spo2').value;
+      const vitalsDate = document.getElementById('vitalsDate').value;
+      const notes = document.getElementById('notes').value;
+      
+      // Here you would typically send this data to your server
+      console.log('Vitals recorded:', {
+        bloodPressure,
+        bloodSugar,
+        heartRate,
+        weight,
+        spo2,
+        vitalsDate,
+        notes
+      });
+      
+      // Show success toast notification
+      vitalsToast.show();
+      
+      // Close modal and reset form
+      bootstrap.Modal.getInstance(vitalsModal).hide();
+      vitalsForm.reset();
+      
+      // In a real app, you would update the UI with the new vitals here
+      // For example, you could refresh the vitals display or add the new entry
+    });
+  });
+  </script>
+  <style>
+    /* Modal styling */
+.modal-content {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+/* Input focus styling */
+.form-control:focus {
+  border-color: #0dcaf0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+  background-color: #fffefb;
+}
+
+/* Button styling */
+.btn-info {
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+}
+
+.btn-info:hover {
+  background-color: #0aa2c0;
+  border-color: #0aa2c0;
+}
+  </style>
 
   <!-- APPOINTMENTS (WITH MODAL POPUP ADDED) -->
 <div class="col-lg-6 mb-4">
