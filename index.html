@@ -1941,58 +1941,97 @@
 </script>
 <!-- Settings Modal -->
 <div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content border-0" style="background-color: #f8f4e9; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+      <div class="modal-header border-0" style="background-color: #e8d8b8;">
+        <h5 class="modal-title fw-bold" style="color: #2a2a2a;">
           <i class="fas fa-cog me-2"></i>Account Settings
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
-        <!-- Profile Info -->
-        <h6 class="fw-bold mb-3"><i class="fas fa-user me-2"></i>Profile</h6>
-        <div class="mb-3">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-control" placeholder="John Doe">
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-control" placeholder="john@example.com">
-        </div>
-
-        <!-- Password -->
-        <h6 class="fw-bold mb-3"><i class="fas fa-key me-2"></i>Change Password</h6>
-        <div class="mb-3">
-          <label class="form-label">Current Password</label>
-          <input type="password" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">New Password</label>
-          <input type="password" class="form-control">
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Confirm New Password</label>
-          <input type="password" class="form-control">
+      <div class="modal-body p-4">
+        <!-- Profile Info Card -->
+        <div class="card shadow mb-4 border-0" style="background-color: #fff9ee;">
+          <div class="card-body p-4">
+            <h6 class="fw-bold mb-3" style="color: #2a2a2a;"><i class="fas fa-user me-2"></i>Profile Information</h6>
+            <div class="mb-3">
+              <label class="form-label fw-medium" style="color: #333;">Full Name</label>
+              <input type="text" class="form-control p-3 shadow-sm border-0" style="background-color: #fffdf8;" placeholder="John Doe">
+            </div>
+            <div class="mb-0">
+              <label class="form-label fw-medium" style="color: #333;">Email Address</label>
+              <input type="email" class="form-control p-3 shadow-sm border-0" style="background-color: #fffdf8;" placeholder="john@example.com">
+            </div>
+          </div>
         </div>
 
-        <!-- 2FA -->
-        <h6 class="fw-bold mb-3"><i class="fas fa-shield-alt me-2"></i>Two-Factor Authentication</h6>
-        <div class="form-check form-switch mb-4">
-          <input class="form-check-input" type="checkbox" id="2faSwitch">
-          <label class="form-check-label" for="2faSwitch">Enable 2FA (via email or app)</label>
+        <!-- Password Card -->
+        <div class="card shadow mb-4 border-0" style="background-color: #fff9ee;">
+          <div class="card-body p-4">
+            <h6 class="fw-bold mb-3" style="color: #2a2a2a;"><i class="fas fa-key me-2"></i>Change Password</h6>
+            <div class="mb-3">
+              <label class="form-label fw-medium" style="color: #333;">Current Password</label>
+              <input type="password" class="form-control p-3 shadow-sm border-0" style="background-color: #fffdf8;">
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-medium" style="color: #333;">New Password</label>
+              <input type="password" class="form-control p-3 shadow-sm border-0" style="background-color: #fffdf8;">
+            </div>
+            <div class="mb-0">
+              <label class="form-label fw-medium" style="color: #333;">Confirm New Password</label>
+              <input type="password" class="form-control p-3 shadow-sm border-0" style="background-color: #fffdf8;">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2FA Card -->
+        <div class="card shadow mb-0 border-0" style="background-color: #fff9ee;">
+          <div class="card-body p-4">
+            <h6 class="fw-bold mb-3" style="color: #2a2a2a;"><i class="fas fa-shield-alt me-2"></i>Two-Factor Authentication</h6>
+            <div class="form-check form-switch ps-0">
+              <input class="form-check-input ms-0 me-2" type="checkbox" id="2faSwitch" style="width: 3em; height: 1.5em;">
+              <label class="form-check-label fw-medium" for="2faSwitch" style="color: #333;">Enable 2FA (via email or app)</label>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Save Changes</button>
+      <div class="modal-footer border-0" style="background-color: #e8d8b8;">
+        <button type="button" class="btn btn-lg btn-outline-secondary shadow-sm px-4" data-bs-dismiss="modal" style="color: #333; border-color: #333;">Cancel</button>
+        <button type="button" class="btn btn-lg btn-primary shadow-sm px-4" style="background-color: #c4a97c; border-color: #b39a70; color: #2a2a2a;">Save Changes</button>
       </div>
     </div>
   </div>
 </div>
 
+<style>
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .modal-dialog {
+      margin: 1rem auto;
+    }
+    .card-body {
+      padding: 1.5rem !important;
+    }
+    .btn-lg {
+      padding: 0.5rem 1rem !important;
+      font-size: 1rem;
+    }
+  }
+  
+  /* Enhanced input focus state */
+  .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(196, 169, 124, 0.25) !important;
+    border-color: #c4a97c !important;
+  }
+  
+  /* Better switch styling */
+  .form-check-input:checked {
+    background-color: #c4a97c !important;
+    border-color: #b39a70 !important;
+  }
+</style>
 
 
 
