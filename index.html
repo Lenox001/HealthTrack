@@ -3015,6 +3015,75 @@ checkScreenSize();
 
 </style>
 
+<!-- Back to Top Button -->
+<button onclick="scrollToTop()" id="backToTopBtn">
+  <i class="fas fa-arrow-circle-up"></i>
+</button>
+
+<style>
+  #backToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(0, 123, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    display: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #backToTopBtn:hover {
+    background: rgba(0, 86, 179, 0.9);
+    transform: scale(1.1);
+  }
+
+  #backToTopBtn:focus {
+    outline: none;
+  }
+
+  /* Hide on desktop screens */
+  @media (min-width: 1025px) {
+    #backToTopBtn {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Only run this code on mobile devices
+  function isMobile() {
+    return window.innerWidth <= 1024;
+  }
+
+  window.onscroll = function() {
+    if (!isMobile()) return;
+    
+    const btn = document.getElementById("backToTopBtn");
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const pageHeight = document.body.offsetHeight;
+    
+    // Show button when scrolled to bottom (with 50px threshold)
+    btn.style.display = (scrollPosition >= pageHeight - 50) ? "block" : "none";
+  };
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // Also check on window resize
+  window.addEventListener('resize', function() {
+    if (!isMobile()) {
+      document.getElementById("backToTopBtn").style.display = 'none';
+    }
+  });
+</script>
 
 
 </body>
