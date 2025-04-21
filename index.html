@@ -2185,53 +2185,52 @@
     font-size: 0.9rem;
   }
 </style>
-
-<!-- Emergency & Quick Actions (No default Bootstrap card styling) -->
-<div class="row mt-4">
-  <div class="col-md-12">
-    <div class="action-card">
+<!-- Emergency & Quick Actions (Custom Styling with Modals) -->
+<div class="container mt-4 mb-5" style="font-family: Georgia, serif; font-size: 18px; margin-left: auto; margin-right: auto;">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12" style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); margin-left: 20px; margin-right: 20px;">
       <h5 class="text-danger fw-bold mb-3">
         <i class="fas fa-exclamation-triangle me-2"></i>Emergency & Quick Actions
       </h5>
       <div class="row text-center g-3">
-
+        
         <!-- Emergency -->
         <div class="col-md-3 col-6">
-          <div class="action-card">
+          <div class="action-card" style="border: 2px solid #b30000; background: #f8d7da; border-radius: 12px; padding: 16px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);" data-bs-toggle="modal" data-bs-target="#emergencyModal">
             <button class="btn btn-outline-danger action-icon-btn">
               <i class="fas fa-ambulance"></i>
             </button>
-            <div class="action-label">Emergency</div>
+            <div class="action-label mt-2">Emergency</div>
           </div>
         </div>
 
         <!-- Contact Doctor -->
         <div class="col-md-3 col-6">
-          <div class="action-card">
+          <div class="action-card" style="border: 2px solid #e6a900; background: #fff3cd; border-radius: 12px; padding: 16px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);" data-bs-toggle="modal" data-bs-target="#contactDoctorModal">
             <button class="btn btn-outline-warning action-icon-btn">
               <i class="fas fa-user-md"></i>
             </button>
-            <div class="action-label">Contact Doctor</div>
+            <div class="action-label mt-2">Contact Doctor</div>
           </div>
         </div>
 
         <!-- Find Pharmacy -->
         <div class="col-md-3 col-6">
-          <div class="action-card">
+          <div class="action-card" style="border: 2px solid #0062cc; background: #d1ecf1; border-radius: 12px; padding: 16px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);" data-bs-toggle="modal" data-bs-target="#findPharmacyModal">
             <button class="btn btn-outline-info action-icon-btn">
               <i class="fas fa-prescription-bottle-alt"></i>
             </button>
-            <div class="action-label">Find Pharmacy</div>
+            <div class="action-label mt-2">Find Pharmacy</div>
           </div>
         </div>
 
         <!-- Log Symptom -->
         <div class="col-md-3 col-6">
-          <div class="action-card">
+          <div class="action-card" style="border: 2px solid #28a745; background: #d4edda; border-radius: 12px; padding: 16px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);" data-bs-toggle="modal" data-bs-target="#logSymptomModal">
             <button class="btn btn-outline-success action-icon-btn">
               <i class="fas fa-notes-medical"></i>
             </button>
-            <div class="action-label">Log Symptom</div>
+            <div class="action-label mt-2">Log Symptom</div>
           </div>
         </div>
 
@@ -2239,6 +2238,92 @@
     </div>
   </div>
 </div>
+
+<!-- Modal for Emergency -->
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: #f8f9fa;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emergencyModalLabel">Emergency Action</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background: #f7e7d3; color: #333;">
+        <p>In case of an emergency, please contact local authorities or call an ambulance immediately.</p>
+        <button class="btn btn-danger">Call Emergency Services</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Contact Doctor -->
+<div class="modal fade" id="contactDoctorModal" tabindex="-1" aria-labelledby="contactDoctorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: #f8f9fa;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactDoctorModalLabel">Contact Doctor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background: #fff3cd; color: #333;">
+        <p>To contact your doctor, please click the button below or visit your nearest clinic.</p>
+        <button class="btn btn-warning">Contact Your Doctor</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Find Pharmacy -->
+<div class="modal fade" id="findPharmacyModal" tabindex="-1" aria-labelledby="findPharmacyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: #f8f9fa;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="findPharmacyModalLabel">Find Pharmacy</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background: #d1ecf1; color: #333;">
+        <p>Find the nearest pharmacy to get your prescriptions filled or other necessary medical supplies.</p>
+        <button class="btn btn-info">Locate Nearest Pharmacy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Log Symptom -->
+<div class="modal fade" id="logSymptomModal" tabindex="-1" aria-labelledby="logSymptomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: #f8f9fa;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logSymptomModalLabel">Log Symptom</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="background: #fdf5e6; color: #333;">
+        <form>
+          <div class="mb-3">
+            <label for="symptomDescription" class="form-label">Describe Your Symptom</label>
+            <textarea class="form-control" id="symptomDescription" rows="4" placeholder="e.g. Headache, nausea..."></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="symptomDuration" class="form-label">Duration</label>
+            <input type="text" class="form-control" id="symptomDuration" placeholder="e.g. 2 days">
+          </div>
+          <div class="mb-3">
+            <label for="symptomSeverity" class="form-label">Severity</label>
+            <select class="form-select" id="symptomSeverity">
+              <option selected disabled>Select severity</option>
+              <option value="mild">Mild</option>
+              <option value="moderate">Moderate</option>
+              <option value="severe">Severe</option>
+            </select>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-success">Submit Symptom</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- Optimized Modal with Proper Scrolling -->
 <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
