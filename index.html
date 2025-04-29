@@ -1047,15 +1047,25 @@
   </style>
  <script>
   window.onload = function() {
-    // Show a message while the check is in progress
-    document.body.innerHTML = '<div style="font-size: 20px; text-align: center; margin-top: 50vh;">Please log in first, redirecting...</div>';
-
-    // Check if the user is logged in by checking sessionStorage
-    if (!sessionStorage.getItem('isLoggedIn')) {
-      // Redirect to login page after a short delay (optional)
+    // Log to check if the script is running
+    console.log('Checking if user is logged in...');
+    
+    // Check if the user is logged in by verifying tokens in localStorage
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    
+    // Log the tokens to make sure they're set correctly
+    console.log('Access Token:', accessToken);
+    console.log('Refresh Token:', refreshToken);
+    
+    // If either token is missing, redirect to login page
+    if (!accessToken || !refreshToken) {
+      console.log('Tokens not found, redirecting to login...');
+      
+      // Delay of 1 second before redirect to let the user see the message
       setTimeout(function() {
         window.location.href = 'login.html'; // Redirect to login page
-      }, 1000);  // Delay of 1 second
+      }, 1000);
     }
   }
 </script>
@@ -1248,54 +1258,6 @@
   }
 </style>
 
-<script>
-  // Show notification function
-  function showNotification(message, isError = false) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.classList.add('show');
-    if (isError) {
-      notification.classList.add('error');
-    } else {
-      notification.classList.remove('error');
-    }
-
-    // Hide after 3 seconds
-    setTimeout(() => {
-      notification.classList.remove('show');
-    }, 3000);
-  }
-
-  // Check authentication
-  const isAuthenticated = localStorage.getItem('access_token') !== null;
-
-  if (isAuthenticated) {
-    document.getElementById('login-link').style.display = 'none';
-    document.getElementById('register-link').style.display = 'none';
-    document.getElementById('logout-btn').style.display = 'block';
-  } else {
-    document.getElementById('login-link').style.display = 'block';
-    document.getElementById('register-link').style.display = 'block';
-    document.getElementById('logout-btn').style.display = 'none';
-  }
-
-  // Logout event
-  document.getElementById('logout-btn').addEventListener('click', function(e) {
-    e.preventDefault();
-
-    // Clear tokens
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-
-    // Show logout notification
-    showNotification('You have been logged out.');
-
-    // Redirect after a small delay (enough to let the user see the message)
-    setTimeout(() => {
-      window.location.href = 'https://hetrack.netlify.app/login.html';
-    }, 1500); // 1.5 seconds delay before redirect
-  });
-</script>
 
 
 

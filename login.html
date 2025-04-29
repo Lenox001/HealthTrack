@@ -93,7 +93,7 @@
           localStorage.setItem('refresh_token', data.refresh_token);
 
           showNotification('Login successful! Redirecting...');
-          window.location.href = 'https://hetrack.netlify.app/';  // Redirect to homepage or dashboard
+          window.location.href = 'http://localhost:5500';  // Redirect to homepage or dashboard
         } else {
           showNotification('Login failed: ' + (data.error || 'Unknown error'), true);
         }
