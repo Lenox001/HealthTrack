@@ -3313,12 +3313,10 @@ document.addEventListener('DOMContentLoaded', function () {
         
         <!-- Profile Header -->
         <div class="profile-header">
-          <div class="account-avatar" id="userAvatar" style="width: 80px; height: 80px; border-radius: 50%; background-color: #8B7355; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold;">
-            <!-- Avatar initials will be populated here -->
-          </div>
+          
           <div>
             <h2 id="userFullName" style="font-weight: 700; color: #333; margin-bottom: 0.25rem; letter-spacing: 0.3px;">Loading...</h2>
-            <p id="userSince" style="color: #8B7355; margin-bottom: 0.5rem; font-size: 0.95rem;">Member</p>
+            
             <div style="display: flex; gap: 1rem;">
               <button id="editProfileBtn" class="btn" style="background-color: #8B7355; color: white; border: none; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 500; font-size: 0.9rem;">
                 <i class="fas fa-edit me-2"></i>Edit Profile
@@ -3338,19 +3336,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 Personal Information
               </h4>
               <div class="info-item" style="margin-bottom: 1rem;">
-                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Full Name</div>
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Full Name:</div>
                 <div id="userFullNameInfo" style="color: #333; font-size: 0.95rem;">Loading...</div>
               </div>
               <div class="info-item" style="margin-bottom: 1rem;">
-                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Date of Birth</div>
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Date of Birth:</div>
                 <div id="userDob" style="color: #333; font-size: 0.95rem;">--</div>
               </div>
-              <div class="info-item" style="margin-bottom: 1rem;">
-                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Gender</div>
-                <div id="userGender" style="color: #333; font-size: 0.95rem;">--</div>
-              </div>
+             
               <div class="info-item">
-                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Blood Type</div>
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Blood Type:</div>
                 <div id="userBloodType" style="color: #333; font-size: 0.95rem;">--</div>
               </div>
             </div>
@@ -3383,14 +3378,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 Account Security
               </h4>
               <div class="info-item" style="margin-bottom: 1rem;">
-                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Password</div>
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Password:</div>
                 <div style="color: #333; font-size: 0.95rem;">
                   ********** 
-                  <a href="#" id="changePasswordBtn" style="color: #8B7355; text-decoration: none; margin-left: 0.5rem; font-weight: 500;">Change</a>
+                  <a href="#" id="changePasswordBtn" style="color: #8B7355; text-decoration: none; margin-left: 0.5rem; font-weight: 500;"></a>
                 </div>
               </div>
               <div class="info-item">
-                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Last Login</div>
+                <div style="font-weight: 500; color: #777; font-size: 0.9rem; margin-bottom: 0.25rem;">Last Login:</div>
                 <div id="lastLogin" style="color: #333; font-size: 0.95rem;">--</div>
               </div>
             </div>
@@ -3534,13 +3529,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Render user profile data
     function renderUserProfile(user) {
         // Avatar and name
-        document.getElementById('userAvatar').textContent = getUserInitials(user.first_name, user.last_name);
+        
         document.getElementById('userFullName').textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'User';
         document.getElementById('userFullNameInfo').textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || '--';
         
-        // Member since (using user ID as proxy for account creation time)
-        const memberSince = 2020 + (user.id % 3); // Just for demo
-        document.getElementById('userSince').textContent = `Member since ${memberSince}`;
+      
         
         // Personal info
         document.getElementById('userDob').textContent = formatDate(user.date_of_birth);
