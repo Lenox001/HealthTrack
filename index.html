@@ -1045,6 +1045,21 @@
       }
     }
   </style>
+ <script>
+  window.onload = function() {
+    // Show a message while the check is in progress
+    document.body.innerHTML = '<div style="font-size: 20px; text-align: center; margin-top: 50vh;">Please log in first, redirecting...</div>';
+
+    // Check if the user is logged in by checking sessionStorage
+    if (!sessionStorage.getItem('isLoggedIn')) {
+      // Redirect to login page after a short delay (optional)
+      setTimeout(function() {
+        window.location.href = 'login.html'; // Redirect to login page
+      }, 1000);  // Delay of 1 second
+    }
+  }
+</script>
+
   
   
   <!-- Sidebar Markup -->
