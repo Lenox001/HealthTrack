@@ -1064,7 +1064,7 @@
       
       // Delay of 1 second before redirect to let the user see the message
       setTimeout(function() {
-        window.location.href = 'login.html'; // Redirect to login page
+        window.location.href = '/login'; // Redirect to login page
       }, 1000);
     }
   }
@@ -1201,12 +1201,12 @@
 
 <div class="dropdown-divider"></div>
 
-<a href="https://hetrack.netlify.app/login.html" id="login-link" class="dropdown-item"> 
+<a href="https://hetrack.netlify.app/login" id="login-link" class="dropdown-item"> 
   <i class="fas fa-sign-in-alt dropdown-icon"></i>
   <span>Login</span>
 </a>
 
-<a href="https://hetrack.netlify.app/register.html" id="register-link" class="dropdown-item"> 
+<a href="https://hetrack.netlify.app/register" id="register-link" class="dropdown-item"> 
   <i class="fas fa-user-plus dropdown-icon"></i>
   <span>Register</span>
 </a>
@@ -1241,7 +1241,7 @@
       e.preventDefault();
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      window.location.href = 'login.html'; // Redirect to login after logout
+      window.location.href = '/login'; // Redirect to login after logout
     });
   });
 </script>
