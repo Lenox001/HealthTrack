@@ -23,6 +23,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
+      padding: 20px;
     }
     
     .healthtrack-header {
@@ -32,21 +33,24 @@
     }
     
     .container {
+      width: 100%;
       max-width: 500px;
       background-color: white;
-      padding: 40px;
+      padding: 30px;
       border-radius: 12px;
       box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--secondary-color);
+      margin: 0 auto;
     }
     
     h2 {
       color: var(--accent-color);
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       font-weight: 600;
       position: relative;
       padding-bottom: 15px;
+      font-size: 1.75rem;
     }
     
     h2:after {
@@ -71,6 +75,7 @@
       border-radius: 6px;
       padding: 12px 15px;
       background-color: var(--light-cream);
+      font-size: 1rem;
     }
     
     .form-control:focus {
@@ -88,6 +93,7 @@
       transition: all 0.3s;
       width: 100%;
       margin-top: 10px;
+      font-size: 1rem;
     }
     
     .btn-primary:hover {
@@ -138,6 +144,7 @@
       right: 20px;
       z-index: 9999;
       max-width: 300px;
+      width: calc(100% - 40px);
     }
     
     .notification {
@@ -177,19 +184,79 @@
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .container {
-        margin: 20px;
-        padding: 25px;
+      body {
+        padding: 15px;
+        display: block;
       }
       
-      body {
-        display: block;
-        padding-top: 40px;
+      .container {
+        padding: 25px 20px;
+        margin: 0 auto;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+      
+      .form-control {
+        padding: 10px 12px;
+      }
+      
+      .btn-primary {
+        padding: 10px 20px;
       }
       
       .notification-container {
         right: 10px;
-        max-width: 250px;
+        left: 10px;
+        max-width: none;
+        width: auto;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        padding: 20px 15px;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+      
+      .form-label {
+        font-size: 0.9rem;
+      }
+      
+      .form-control {
+        font-size: 0.9rem;
+      }
+      
+      .btn-primary {
+        font-size: 0.9rem;
+      }
+      
+      p {
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      h2 {
+        font-size: 1.2rem;
+      }
+      
+      .healthtrack-logo {
+        width: 25px;
+        height: 25px;
+      }
+      
+      .healthtrack-logo:before {
+        font-size: 16px;
       }
     }
   </style>
