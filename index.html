@@ -3699,47 +3699,85 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="background: #f8f9fa;">
       <div class="modal-header">
-        <h5 class="modal-title" id="emergencyModalLabel">Emergency Action</h5>
+        <h5 class="modal-title" id="emergencyModalLabel">Emergency Contacts</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="this.blur();"></button>
-
       </div>
       <div class="modal-body" style="background: #f7e7d3; color: #333;">
-        <p>In case of an emergency, please contact local authorities or call an ambulance immediately.</p>
-        <button class="btn btn-danger">Call Emergency Services</button>
+        <div id="emergencyContactsList">
+          <div class="text-center py-3">
+            <div class="spinner-border text-danger" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <button class="btn btn-danger" onclick="callEmergency()">
+            <i class="fas fa-phone me-2"></i>Call Emergency Services
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal for Contact Doctor -->
-<div class="modal fade" id="contactDoctorModal" tabindex="-1" aria-labelledby="contactDoctorModalLabel" >
+<div class="modal fade" id="contactDoctorModal" tabindex="-1" aria-labelledby="contactDoctorModalLabel">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="background: #f8f9fa;">
       <div class="modal-header">
-        <h5 class="modal-title" id="contactDoctorModalLabel">Contact Doctor</h5>
+        <h5 class="modal-title" id="contactDoctorModalLabel">Available Doctors</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="this.blur();"></button>
-
       </div>
       <div class="modal-body" style="background: #fff3cd; color: #333;">
-        <p>To contact your doctor, please click the button below or visit your nearest clinic.</p>
-        <button class="btn btn-warning">Contact Your Doctor</button>
+        <div class="mb-3">
+          <label for="doctorSpecialization" class="form-label">Filter by Specialization:</label>
+          <select class="form-select" id="doctorSpecialization" onchange="filterDoctors()">
+            <option value="">All Specializations</option>
+            <option value="GP">General Practitioner</option>
+            <option value="CAR">Cardiologist</option>
+            <option value="DER">Dermatologist</option>
+            <option value="PED">Pediatrician</option>
+            <option value="ORT">Orthopedist</option>
+            <option value="NEU">Neurologist</option>
+            <option value="ONC">Oncologist</option>
+            <option value="PSY">Psychiatrist</option>
+            <option value="OTH">Other</option>
+          </select>
+        </div>
+        <div id="doctorsList">
+          <div class="text-center py-3">
+            <div class="spinner-border text-warning" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal for Find Pharmacy -->
-<div class="modal fade" id="findPharmacyModal" tabindex="-1" aria-labelledby="findPharmacyModalLabel" >
+<div class="modal fade" id="findPharmacyModal" tabindex="-1" aria-labelledby="findPharmacyModalLabel">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="background: #f8f9fa;">
       <div class="modal-header">
-        <h5 class="modal-title" id="findPharmacyModalLabel">Find Pharmacy</h5>
+        <h5 class="modal-title" id="findPharmacyModalLabel">Nearby Pharmacies</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="this.blur();"></button>
-
       </div>
       <div class="modal-body" style="background: #d1ecf1; color: #333;">
-        <p>Find the nearest pharmacy to get your prescriptions filled or other necessary medical supplies.</p>
-        <button class="btn btn-info">Locate Nearest Pharmacy</button>
+        <div class="mb-3">
+          <button class="btn btn-sm btn-info mb-2" onclick="getLocationAndPharmacies()">
+            <i class="fas fa-location-arrow me-1"></i>Use My Current Location
+          </button>
+          <div id="locationStatus" class="small text-muted"></div>
+        </div>
+        <div id="pharmaciesList">
+          <div class="text-center py-3">
+            <div class="spinner-border text-info" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3752,7 +3790,6 @@
       <div class="modal-header">
         <h5 class="modal-title" id="logSymptomModalLabel">Log Symptom</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="this.blur();"></button>
-
       </div>
       <div class="modal-body" style="background: #fdf5e6; color: #333;">
         <form id="symptomForm">
@@ -3768,9 +3805,9 @@
             <label for="symptomSeverity" class="form-label">Severity</label>
             <select class="form-select" id="symptomSeverity" required>
               <option value="" selected disabled>Select severity</option>
-              <option value="mild">Mild</option>
-              <option value="moderate">Moderate</option>
-              <option value="severe">Severe</option>
+              <option value="MILD">Mild</option>
+              <option value="MOD">Moderate</option>
+              <option value="SEV">Severe</option>
             </select>
           </div>
           <div class="mb-3">
@@ -3788,82 +3825,401 @@
 </div>
 
 <script>
+// Global variables
+let currentLocation = null;
+
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize modals
+    const emergencyModal = new bootstrap.Modal(document.getElementById('emergencyModal'));
+    const contactDoctorModal = new bootstrap.Modal(document.getElementById('contactDoctorModal'));
+    const findPharmacyModal = new bootstrap.Modal(document.getElementById('findPharmacyModal'));
+    const logSymptomModal = new bootstrap.Modal(document.getElementById('logSymptomModal'));
+
+    // Load data when modals are shown
+    document.getElementById('emergencyModal').addEventListener('shown.bs.modal', loadEmergencyContacts);
+    document.getElementById('contactDoctorModal').addEventListener('shown.bs.modal', loadDoctors);
+    document.getElementById('findPharmacyModal').addEventListener('shown.bs.modal', loadPharmacies);
+    
+    // Handle symptom form submission
     const symptomForm = document.getElementById('symptomForm');
     const symptomResponse = document.getElementById('symptomResponse');
-    const logSymptomModalEl = document.getElementById('logSymptomModal');
-    let logSymptomModal = new bootstrap.Modal(logSymptomModalEl);
+    
+    symptomForm.addEventListener('submit', handleSymptomSubmit);
+});
 
-    symptomForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+function loadEmergencyContacts() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+        showLoginPrompt('emergencyContactsList');
+        return;
+    }
 
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            showResponse('Please log in first', 'danger');
+    fetch('https://healthtrack.pythonanywhere.com/api/emergency-contacts/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        const container = document.getElementById('emergencyContactsList');
+        if (data.length === 0) {
+            container.innerHTML = `
+                <div class="alert alert-warning">
+                    No emergency contacts found. Please contact your local emergency services.
+                </div>
+            `;
             return;
         }
 
-        const symptomData = {
-            description: document.getElementById('symptomDescription').value,
-            duration: document.getElementById('symptomDuration').value,
-            severity: document.getElementById('symptomSeverity').value,
-            notes: document.getElementById('symptomNotes').value
-        };
-
-        fetch('https://healthtrack.pythonanywhere.com/api/symptoms/', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(symptomData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw err; });
-            }
-            return response.json();
-        })
-        .then(data => {
-            showResponse('Symptom logged successfully!', 'success');
-            symptomForm.reset();
-
-            setTimeout(() => {
-                logSymptomModal.hide();
-
-                // Ensure close button is blurred to prevent focus issues
-                setTimeout(() => {
-                    const closeBtn = logSymptomModalEl.querySelector('.btn-close');
-                    if (closeBtn) closeBtn.blur();
-                }, 300); // allow modal to fully hide before blurring
-            }, 1500);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            const errorMsg = error?.detail || error?.message || 'Failed to log symptom';
-            showResponse(errorMsg, 'danger');
+        let html = '<div class="list-group">';
+        data.forEach(contact => {
+            html += `
+                <div class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">${contact.name}</h6>
+                        <small>${contact.location || 'No location specified'}</small>
+                    </div>
+                    <p class="mb-1">${contact.description || 'No description available'}</p>
+                    <small><a href="tel:${contact.phone_number}" class="text-danger"><i class="fas fa-phone me-1"></i>${contact.phone_number}</a></small>
+                </div>
+            `;
         });
-    });
-
-    function showResponse(message, type) {
-        symptomResponse.style.display = 'block';
-        symptomResponse.innerHTML = `
-            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        html += '</div>';
+        container.innerHTML = html;
+    })
+    .catch(error => {
+        console.error('Error loading emergency contacts:', error);
+        document.getElementById('emergencyContactsList').innerHTML = `
+            <div class="alert alert-danger">
+                Failed to load emergency contacts. ${error.detail || error.message || ''}
             </div>
         `;
-        setTimeout(() => {
-            symptomResponse.style.display = 'none';
-        }, 5000);
+    });
+}
+
+function loadDoctors() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+        showLoginPrompt('doctorsList');
+        return;
     }
 
-    logSymptomModalEl.addEventListener('hidden.bs.modal', function () {
-        symptomForm.reset();
-        symptomResponse.style.display = 'none';
+    fetch('https://healthtrack.pythonanywhere.com/api/doctors/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        window.doctorsData = data; // Store for filtering
+        renderDoctors(data);
+    })
+    .catch(error => {
+        console.error('Error loading doctors:', error);
+        document.getElementById('doctorsList').innerHTML = `
+            <div class="alert alert-danger">
+                Failed to load doctors. ${error.detail || error.message || ''}
+            </div>
+        `;
     });
-});
+}
 
+function filterDoctors() {
+    const specialization = document.getElementById('doctorSpecialization').value;
+    if (!window.doctorsData) return;
+
+    let filteredDoctors = window.doctorsData;
+    if (specialization) {
+        filteredDoctors = window.doctorsData.filter(doctor => doctor.specialization === specialization);
+    }
+    
+    renderDoctors(filteredDoctors);
+}
+
+function renderDoctors(doctors) {
+    const container = document.getElementById('doctorsList');
+    if (doctors.length === 0) {
+        container.innerHTML = `
+            <div class="alert alert-warning">
+                No doctors available matching your criteria.
+            </div>
+        `;
+        return;
+    }
+
+    let html = '<div class="list-group">';
+    doctors.forEach(doctor => {
+        html += `
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">Dr. ${doctor.name}</h6>
+                    <small class="badge bg-warning text-dark">${doctor.specialization_display}</small>
+                </div>
+                <p class="mb-1">
+                    <span class="badge bg-${doctor.is_available ? 'success' : 'secondary'}">
+                        ${doctor.is_available ? 'Available' : 'Not Available'}
+                    </span>
+                    ${doctor.hospital ? ` · ${doctor.hospital}` : ''}
+                </p>
+                <p class="mb-1 small">${doctor.address || 'Address not specified'}</p>
+                <small>
+                    <a href="tel:${doctor.phone_number}" class="text-primary me-3"><i class="fas fa-phone me-1"></i>${doctor.phone_number}</a>
+                    ${doctor.email ? `<a href="mailto:${doctor.email}" class="text-primary"><i class="fas fa-envelope me-1"></i>Email</a>` : ''}
+                </small>
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function loadPharmacies() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+        showLoginPrompt('pharmaciesList');
+        return;
+    }
+
+    // If we already have location, use it
+    if (currentLocation) {
+        fetchPharmaciesWithLocation(currentLocation.lat, currentLocation.lng);
+    } else {
+        // Show message to get location
+        document.getElementById('pharmaciesList').innerHTML = `
+            <div class="alert alert-info">
+                Please enable location services to find nearby pharmacies.
+            </div>
+        `;
+    }
+}
+
+function getLocationAndPharmacies() {
+    const statusElement = document.getElementById('locationStatus');
+    statusElement.textContent = 'Getting your location...';
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                currentLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                statusElement.innerHTML = `
+                    <i class="fas fa-check-circle text-success"></i> 
+                    Location found (${currentLocation.lat.toFixed(4)}, ${currentLocation.lng.toFixed(4)})
+                `;
+                fetchPharmaciesWithLocation(currentLocation.lat, currentLocation.lng);
+            },
+            error => {
+                console.error('Error getting location:', error);
+                statusElement.innerHTML = `
+                    <i class="fas fa-exclamation-circle text-danger"></i> 
+                    Could not get your location: ${error.message}
+                `;
+                // Fallback to loading all pharmacies
+                fetchPharmacies();
+            }
+        );
+    } else {
+        statusElement.innerHTML = `
+            <i class="fas fa-exclamation-circle text-danger"></i> 
+            Geolocation is not supported by this browser.
+        `;
+        // Fallback to loading all pharmacies
+        fetchPharmacies();
+    }
+}
+
+function fetchPharmaciesWithLocation(lat, lng) {
+    const accessToken = localStorage.getItem('access_token');
+    fetch(`https://healthtrack.pythonanywhere.com/api/pharmacies/nearest/?lat=${lat}&lng=${lng}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        renderPharmacies(data);
+    })
+    .catch(error => {
+        console.error('Error loading pharmacies with location:', error);
+        // Fallback to loading all pharmacies
+        fetchPharmacies();
+    });
+}
+
+function fetchPharmacies() {
+    const accessToken = localStorage.getItem('access_token');
+    fetch('https://healthtrack.pythonanywhere.com/api/pharmacies/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        renderPharmacies(data);
+    })
+    .catch(error => {
+        console.error('Error loading pharmacies:', error);
+        document.getElementById('pharmaciesList').innerHTML = `
+            <div class="alert alert-danger">
+                Failed to load pharmacies. ${error.detail || error.message || ''}
+            </div>
+        `;
+    });
+}
+
+function renderPharmacies(pharmacies) {
+    const container = document.getElementById('pharmaciesList');
+    if (pharmacies.length === 0) {
+        container.innerHTML = `
+            <div class="alert alert-warning">
+                No pharmacies found in your area.
+            </div>
+        `;
+        return;
+    }
+
+    let html = '<div class="list-group">';
+    pharmacies.forEach(pharmacy => {
+        const distanceInfo = pharmacy.distance ? 
+            `<small class="text-muted">~${pharmacy.distance.toFixed(1)} km away</small>` : 
+            '';
+        
+        html += `
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">${pharmacy.name}</h6>
+                    ${pharmacy.is_24_hours ? '<span class="badge bg-success">24/7</span>' : ''}
+                </div>
+                <p class="mb-1">${pharmacy.address}</p>
+                <small>
+                    <a href="tel:${pharmacy.phone_number}" class="text-primary me-3">
+                        <i class="fas fa-phone me-1"></i>${pharmacy.phone_number}
+                    </a>
+                    ${distanceInfo}
+                </small>
+                ${pharmacy.website ? `
+                    <div class="mt-1">
+                        <a href="${pharmacy.website}" target="_blank" class="text-info small">
+                            <i class="fas fa-globe me-1"></i>Website
+                        </a>
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function handleSymptomSubmit(e) {
+    e.preventDefault();
+    
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+        showLoginPrompt('symptomResponse');
+        return;
+    }
+
+    const symptomData = {
+        description: document.getElementById('symptomDescription').value,
+        duration: document.getElementById('symptomDuration').value,
+        severity: document.getElementById('symptomSeverity').value,
+        notes: document.getElementById('symptomNotes').value
+    };
+
+    const symptomResponse = document.getElementById('symptomResponse');
+    symptomResponse.style.display = 'none';
+
+    fetch('https://healthtrack.pythonanywhere.com/api/symptoms/', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(symptomData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
+        }
+        return response.json();
+    })
+    .then(data => {
+        showResponse('Symptom logged successfully!', 'success');
+        document.getElementById('symptomForm').reset();
+        
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('logSymptomModal'));
+            modal.hide();
+        }, 1500);
+    })
+    .catch(error => {
+        console.error('Error logging symptom:', error);
+        const errorMsg = error?.detail || error?.message || 'Failed to log symptom';
+        showResponse(errorMsg, 'danger');
+    });
+}
+
+function callEmergency() {
+    // This would ideally call the first emergency contact or a default number
+    const emergencyContacts = document.querySelectorAll('#emergencyContactsList a[href^="tel:"]');
+    if (emergencyContacts.length > 0) {
+        window.location.href = emergencyContacts[0].getAttribute('href');
+    } else {
+        // Fallback to a general emergency number (US: 911, UK: 999, etc.)
+        window.location.href = 'tel:911';
+    }
+}
+
+function showResponse(message, type) {
+    const responseElement = document.getElementById('symptomResponse');
+    responseElement.style.display = 'block';
+    responseElement.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+}
+
+function showLoginPrompt(elementId) {
+    const container = document.getElementById(elementId);
+    container.innerHTML = `
+        <div class="alert alert-danger">
+            Please <a href="/login/" class="alert-link">log in</a> to access this feature.
+        </div>
+    `;
+}
 </script>
 
 
