@@ -3964,9 +3964,9 @@ function renderDoctors(doctors) {
     let html = '<div class="list-group">';
     doctors.forEach(doctor => {
         html += `
-            <div class="list-group-item list-group-item-action">
+            <div class="list-group-item">
                 <div class="d-flex w-100 justify-content-between">
-                    <h6 class="mb-1">Dr. ${doctor.name}</h6>
+                    <h6 class="mb-1" style="color: #000000 !important;">Dr. ${doctor.name}</h6>
                     <small class="badge bg-warning text-dark">${doctor.specialization_display}</small>
                 </div>
                 <p class="mb-1">
@@ -3975,7 +3975,7 @@ function renderDoctors(doctors) {
                     </span>
                     ${doctor.hospital ? ` · ${doctor.hospital}` : ''}
                 </p>
-                <p class="mb-1 small">${doctor.address || 'Address not specified'}</p>
+                <p class="mb-1 small" style="color: #000000 !important;">${doctor.address || 'Address not specified'}</p>
                 <small>
                     <a href="tel:${doctor.phone_number}" class="text-primary me-3"><i class="fas fa-phone me-1"></i>${doctor.phone_number}</a>
                     ${doctor.email ? `<a href="mailto:${doctor.email}" class="text-primary"><i class="fas fa-envelope me-1"></i>Email</a>` : ''}
