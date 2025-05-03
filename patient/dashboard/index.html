@@ -4599,21 +4599,52 @@ function showLoginPrompt(elementId) {
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize modals once
-    const accountModalEl = document.getElementById('accountModal');
-    const accountModal = new bootstrap.Modal(accountModalEl);
-    const editProfileModalEl = document.getElementById('editProfileModal');
-    const editProfileModal = new bootstrap.Modal(editProfileModalEl);
-    const deleteConfirmModalEl = document.getElementById('deleteConfirmModal');
-    const deleteConfirmModal = new bootstrap.Modal(deleteConfirmModalEl);
+    // Initialize modals with proper configuration
+    const accountModal = new bootstrap.Modal(document.getElementById('accountModal'), {
+        backdrop: 'static',
+        keyboard: false,
+        focus: true
+    });
     
+    const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'), {
+        backdrop: 'static',
+        keyboard: false,
+        focus: true
+    });
+    
+    const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'), {
+        backdrop: 'static',
+        keyboard: false,
+        focus: true
+    });
+
+    // Initialize toast without backdrop
     const toastEl = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastEl, {
         autohide: true,
         delay: 5000,
         backdrop: false
     });
-    
+
+    // Add CSS fixes dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+        body.modal-open {
+            overflow: auto;
+            padding-right: 0 !important;
+        }
+        .modal-backdrop {
+            display: none !important;
+        }
+    `;
+    document.head.appendChild(style);
+
     // Elements
     const editProfileBtn = document.getElementById('editProfileBtn');
     const deleteAccountBtn = document.getElementById('deleteAccountBtn');
@@ -4625,28 +4656,33 @@ function showLoginPrompt(elementId) {
 
     // Show toast notification
     function showToast(title, message, isError = false) {
+        // Remove any existing backdrops
+        const backdrops = document.querySelectorAll('.modal-backdrop, .toast-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
+
         const toastTitle = document.getElementById('toast-title');
         const toastMessage = document.getElementById('toast-message');
         
         toastTitle.textContent = title;
         toastMessage.textContent = message;
         
-        if (isError) {
-            toastTitle.style.color = '#dc3545';
-        } else {
-            toastTitle.style.color = '#28a745';
-        }
+        toastTitle.style.color = isError ? '#dc3545' : '#28a745';
         
+        // Ensure toast appears above everything
+        toastEl.style.zIndex = '1100';
         toast.show();
+        
+        // Force focus to body to prevent focus traps
+        setTimeout(() => document.body.focus(), 100);
     }
-    
+
     // Format date for display
     function formatDate(dateString) {
         if (!dateString) return '--';
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     }
-    
+
     // Fetch user profile from API
     async function fetchUserProfile() {
         try {
@@ -4658,9 +4694,7 @@ function showLoginPrompt(elementId) {
                 }
             });
             
-            if (!response.ok) {
-                throw new Error('Failed to fetch profile');
-            }
+            if (!response.ok) throw new Error('Failed to fetch profile');
             
             const userData = await response.json();
             renderUserProfile(userData);
@@ -4669,23 +4703,16 @@ function showLoginPrompt(elementId) {
             showToast('Error', 'Failed to load profile. Please try again.', true);
         }
     }
-    
+
     // Render user profile data
     function renderUserProfile(user) {
-        // Avatar and name
         document.getElementById('userFullName').textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'User';
         document.getElementById('userFullNameInfo').textContent = `${user.first_name || ''} ${user.last_name || ''}`.trim() || '--';
-        
-        // Personal info
         document.getElementById('userDob').textContent = formatDate(user.date_of_birth);
         document.getElementById('userBloodType').textContent = user.blood_type || '--';
-        
-        // Contact info
         document.getElementById('userEmail').textContent = user.email || '--';
         document.getElementById('userPhone').textContent = user.phone_number || '--';
         document.getElementById('userAddress').textContent = user.address || '--';
-        
-        // Last login (mock data)
         document.getElementById('lastLogin').textContent = 'Today, ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' from Chrome on ' + (navigator.platform.includes('Win') ? 'Windows' : 'Mac');
         
         // Populate edit form
@@ -4697,31 +4724,30 @@ function showLoginPrompt(elementId) {
         document.getElementById('phone').value = user.phone_number || '';
         document.getElementById('address').value = user.address || '';
     }
-    
-    // Handle edit profile button
+
+    // Event handlers with proper focus management
     editProfileBtn.addEventListener('click', function() {
         this.blur();
         accountModal.hide();
         setTimeout(() => {
+            document.activeElement?.blur();
             editProfileModal.show();
-        }, 300); // Small delay to ensure modal is properly hidden
+        }, 150);
     });
-    
-    // Handle delete account button
+
     deleteAccountBtn.addEventListener('click', function() {
         this.blur();
         accountModal.hide();
         setTimeout(() => {
+            document.activeElement?.blur();
             deleteConfirmModal.show();
-        }, 300); // Small delay to ensure modal is properly hidden
+        }, 150);
     });
-    
-    // Handle delete confirmation checkbox
+
     confirmDeleteCheck.addEventListener('change', function() {
         confirmDeleteBtn.disabled = !this.checked;
     });
-    
-    // Handle confirm delete button
+
     confirmDeleteBtn.addEventListener('click', async function() {
         const token = localStorage.getItem('access_token');
         
@@ -4734,14 +4760,11 @@ function showLoginPrompt(elementId) {
                 }
             });
             
-            if (!response.ok) {
-                throw new Error('Failed to delete account');
-            }
+            if (!response.ok) throw new Error('Failed to delete account');
             
             deleteConfirmModal.hide();
             showToast('Success', 'Your account has been deleted successfully.');
             
-            // Redirect to login page after 2 seconds
             setTimeout(() => {
                 localStorage.removeItem('access_token');
                 window.location.href = '/patient/login';
@@ -4751,20 +4774,17 @@ function showLoginPrompt(elementId) {
             console.error('Error deleting account:', error);
             showToast('Error', 'Failed to delete account. Please try again.', true);
             deleteConfirmModal.hide();
-            setTimeout(() => {
-                accountModal.show();
-            }, 300);
+            setTimeout(() => accountModal.show(), 150);
         }
     });
-    
-    // Handle change password button
+
     changePasswordBtn.addEventListener('click', function(e) {
         e.preventDefault();
         showToast('Info', 'Password change functionality would be implemented here');
     });
-    
-    // Handle save profile
+
     saveProfileBtn.addEventListener('click', async function() {
+        this.blur();
         const token = localStorage.getItem('access_token');
         const formData = {
             first_name: document.getElementById('firstName').value,
@@ -4786,40 +4806,29 @@ function showLoginPrompt(elementId) {
                 body: JSON.stringify(formData)
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to update profile');
-            }
+            if (!response.ok) throw new Error('Failed to update profile');
 
-            const updatedUser = await response.json();
-            
-            // Hide the modal first
             editProfileModal.hide();
-            
-            // Then fetch and show the account modal
             setTimeout(() => {
+                document.activeElement?.blur();
                 fetchUserProfile();
                 accountModal.show();
                 showToast('Success', 'Profile updated successfully!');
-            }, 300);
-
+            }, 150);
         } catch (error) {
             console.error('Error updating profile:', error);
             showToast('Error', 'Failed to update profile. Please try again.', true);
         }
     });
-    
-    // When account modal is shown, fetch profile data
-    accountModalEl.addEventListener('shown.bs.modal', fetchUserProfile);
-    
-    // Reset delete confirmation when modal hides
-    deleteConfirmModalEl.addEventListener('hidden.bs.modal', function() {
+
+    // Modal event listeners for cleanup
+    document.getElementById('accountModal').addEventListener('shown.bs.modal', fetchUserProfile);
+    document.getElementById('deleteConfirmModal').addEventListener('hidden.bs.modal', function() {
         confirmDeleteCheck.checked = false;
         confirmDeleteBtn.disabled = true;
     });
-    
-    // Reset form when edit modal hides
-    editProfileModalEl.addEventListener('hidden.bs.modal', function() {
-        fetchUserProfile(); // Reset form with current data
+    document.getElementById('editProfileModal').addEventListener('hidden.bs.modal', function() {
+        fetchUserProfile();
     });
 });
   </script>
