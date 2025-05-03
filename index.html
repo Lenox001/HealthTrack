@@ -190,7 +190,6 @@
       </div>
     </button>
   </div>
-
   <script>
     function parseJwt(token) {
       try {
@@ -210,7 +209,7 @@
     window.onload = function() {
       const accessToken = localStorage.getItem('access_token');
       const refreshToken = localStorage.getItem('refresh_token');
-      const isRedirected = localStorage.getItem('is_redirected');  // Track if the user has been redirected already.
+      const isRedirected = sessionStorage.getItem('is_redirected');  // Use sessionStorage for temporary flag
   
       console.log('Access Token:', accessToken);  // Log to check if the token is present
       console.log('Refresh Token:', refreshToken);  // Log to check if the refresh token is present
@@ -224,16 +223,16 @@
         console.log('Decoded JWT payload:', payload);  // Log the decoded payload
   
         if (payload && payload.role === 'patient') {
-          localStorage.setItem('is_redirected', 'true');  // Set redirect flag
+          sessionStorage.setItem('is_redirected', 'true');  // Set redirect flag
           console.log('Redirecting to patient dashboard...');
           window.location.href = '/patient/dashboard';
         } else if (payload && payload.role === 'doctor') {
-          localStorage.setItem('is_redirected', 'true');  // Set redirect flag
+          sessionStorage.setItem('is_redirected', 'true');  // Set redirect flag
           console.log('Redirecting to doctor dashboard...');
           window.location.href = '/doctor/dashboard';
         } else {
           console.warn('Unknown role, redirecting to role selection...');
-          localStorage.setItem('is_redirected', 'true');  // Set redirect flag
+          sessionStorage.setItem('is_redirected', 'true');  // Set redirect flag
           window.location.href = '/role';
         }
       } else {
@@ -241,6 +240,7 @@
       }
     };
   </script>
+  
   
 </body>
 </html>
