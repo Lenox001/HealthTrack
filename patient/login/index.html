@@ -283,17 +283,28 @@
   <div class="notification-container" id="notification-container"></div>
 
   <script>
-    // Check if the user is already logged in (if token exists)
-    window.addEventListener('load', function() {
-      const token = localStorage.getItem('access_token');
+    function showNotification(message, isError = false) {
+      const container = document.getElementById('notification-container');
+      const notification = document.createElement('div');
+      notification.className = `notification ${isError ? 'error' : 'success'}`;
+      notification.innerHTML = `    
+        <span class="notification-icon">${isError ? '⚠️' : '✓'}</span>
+        <span>${message}</span>
+      `;
       
-      if (token) {
-        // Token exists, redirect to the appropriate dashboard
-        window.location.href = 'https://hetrack.netlify.app/patient/dashboard';
-      }
-    });
+      container.appendChild(notification);
+      
+      // Trigger reflow to enable animation
+      void notification.offsetWidth;
+      
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 400);
+      }, 5000);
+    }
   
-    // Handle the login form submission
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
   
