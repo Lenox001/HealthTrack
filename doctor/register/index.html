@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Register</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: linear-gradient(to bottom, #ffffff, #e8f5e9);
+    }
+    
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 120, 0, 0.1);
+      padding: 30px;
+      width: 350px;
+      border-top: 5px solid #4caf50;
+    }
+    
+    h2 {
+      color: #388e3c;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 8px 0;
+      border: 1px solid #c8e6c9;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #4caf50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+    
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #388e3c;
+    }
+    
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+    
+    .login-link a {
+      color: #4caf50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    ::placeholder {
+      color: #a5d6a7;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Doctor Register</h2>
+    <form action="/doctor/dashboard" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="password" name="password" placeholder="Create Password" required>
+      <input type="text" name="license" placeholder="Medical License Number" required>
+      <input type="text" name="hospital" placeholder="Affiliated Hospital" required>
+      <input type="text" name="specialization" placeholder="Specialization" required>
+      <button type="submit">Register</button>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="/doctor/login">Login Here</a>
+    </div>
+  </div>
+</body>
+</html>

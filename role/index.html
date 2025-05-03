@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthrack - Get Started</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --healthrack-light-jungle: #a8e6b3;
+      --healthrack-jungle: #7ac78a;
+      --healthrack-dark-jungle: #5a9e6a;
+      --healthrack-white: #ffffff;
+      --healthrack-light-gray: #f5f7fa;
+      --healthrack-dark: #34495e;
+      --healthrack-text: #2c3e50;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--healthrack-light-gray);
+      color: var(--healthrack-text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: linear-gradient(135deg, rgba(168, 230, 179, 0.1) 0%, rgba(255, 255, 255, 0.3) 100%);
+    }
+    
+    .container {
+      background-color: var(--healthrack-white);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(122, 199, 138, 0.15);
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--healthrack-light-jungle), var(--healthrack-jungle));
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 25px;
+      background-color: var(--healthrack-jungle);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(122, 199, 138, 0.3);
+    }
+    
+    h2 {
+      color: var(--healthrack-dark-jungle);
+      margin-bottom: 30px;
+      font-weight: 600;
+      font-size: 28px;
+    }
+    
+    .role-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .role-btn {
+      display: block;
+      padding: 14px 20px;
+      background-color: var(--healthrack-light-jungle);
+      color: var(--healthrack-text);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    
+    .role-btn:hover {
+      background-color: var(--healthrack-jungle);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(122, 199, 138, 0.4);
+    }
+    
+    .auth-options {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .auth-link {
+      display: block;
+      padding: 12px 20px;
+      background-color: white;
+      color: var(--healthrack-dark-jungle);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 2px solid var(--healthrack-light-jungle);
+    }
+    
+    .auth-link:hover {
+      background-color: var(--healthrack-light-jungle);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(122, 199, 138, 0.3);
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--healthrack-dark-jungle);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .back-btn:hover {
+      color: var(--healthrack-jungle);
+      text-decoration: underline;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+        margin: 20px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      .role-btn, .auth-link {
+        padding: 12px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">HR</div>
+    <h2 id="title">Welcome to Healthrack</h2>
+    
+    <div id="roleSelection">
+      <p>Please select your role to continue</p>
+      <div class="role-options">
+        <button class="role-btn" onclick="showAuthOptions('patient')">I'm a Patient</button>
+        <button class="role-btn" onclick="showAuthOptions('doctor')">I'm a Doctor</button>
+      </div>
+    </div>
+    
+    <div id="authSelection" style="display: none;">
+      <p id="authPrompt">How would you like to continue?</p>
+      <div class="auth-options" id="authOptions">
+        <!-- Will be populated by JavaScript -->
+      </div>
+      <a class="back-btn" onclick="backToRoles()">← Back to role selection</a>
+    </div>
+  </div>
+
+  <script>
+    let currentRole = '';
+    
+    function showAuthOptions(role) {
+      currentRole = role;
+      document.getElementById('roleSelection').style.display = 'none';
+      document.getElementById('authSelection').style.display = 'block';
+      document.getElementById('title').textContent = `${role.charAt(0).toUpperCase() + role.slice(1)} Access`;
+      document.getElementById('authPrompt').textContent = `${role.charAt(0).toUpperCase() + role.slice(1)}s: How would you like to continue?`;
+      
+      const authOptions = document.getElementById('authOptions');
+      authOptions.innerHTML = `
+        <a href="/${role}/login/" class="auth-link">Login to My Account</a>
+        <a href="/${role}/register/" class="auth-link">Register New Account</a>
+      `;
+      authOptions.style.display = 'flex';
+    }
+    
+    function backToRoles() {
+      currentRole = '';
+      document.getElementById('authSelection').style.display = 'none';
+      document.getElementById('roleSelection').style.display = 'block';
+      document.getElementById('title').textContent = 'Welcome to Healthrack';
+      document.getElementById('authOptions').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
