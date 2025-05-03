@@ -187,6 +187,48 @@
   <script>
     let currentRole = '';
     
+    // Function to parse the JWT and extract the payload
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+  
+      return JSON.parse(jsonPayload);
+    }
+
+    // On page load, check if the user is already authenticated
+    window.onload = function() {
+      const accessToken = localStorage.getItem('access_token');
+
+      if (accessToken) {
+        const decodedToken = parseJwt(accessToken);
+
+        if (decodedToken && decodedToken.role) {
+          // Redirect to the appropriate dashboard based on the role
+          if (decodedToken.role === 'patient') {
+            window.location.href = '/patient/dashboard';
+          } else if (decodedToken.role === 'doctor') {
+            window.location.href = '/doctor/dashboard';
+          }
+        } else {
+          // If no role found in the token, show the role selection page
+          showRoleSelection();
+        }
+      } else {
+        // No token found, show the role selection page
+        showRoleSelection();
+      }
+    };
+
+    // Show the role selection interface
+    function showRoleSelection() {
+      document.getElementById('roleSelection').style.display = 'block';
+      document.getElementById('authSelection').style.display = 'none';
+    }
+
+    // Show the authentication options based on the selected role
     function showAuthOptions(role) {
       currentRole = role;
       document.getElementById('roleSelection').style.display = 'none';
@@ -195,13 +237,14 @@
       document.getElementById('authPrompt').textContent = `${role.charAt(0).toUpperCase() + role.slice(1)}s: How would you like to continue?`;
       
       const authOptions = document.getElementById('authOptions');
-      authOptions.innerHTML = `
+      authOptions.innerHTML = ` 
         <a href="/${role}/login/" class="auth-link">Login to My Account</a>
         <a href="/${role}/register/" class="auth-link">Register New Account</a>
       `;
       authOptions.style.display = 'flex';
     }
-    
+
+    // Go back to role selection
     function backToRoles() {
       currentRole = '';
       document.getElementById('authSelection').style.display = 'none';
