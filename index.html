@@ -199,35 +199,40 @@
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
-  
+    
         return JSON.parse(jsonPayload);
       } catch (e) {
         console.error('Failed to decode token', e);
         return null;
       }
     }
-  
+    
     window.onload = function() {
       const accessToken = localStorage.getItem('access_token');
       const refreshToken = localStorage.getItem('refresh_token');
+      const isRedirected = localStorage.getItem('is_redirected');  // Track if the user has been redirected already.
   
       if (!accessToken || !refreshToken) {
         console.log('Tokens not found, redirecting to role selection...');
         setTimeout(() => window.location.href = '/role', 1000);
-      } else {
+      } else if (accessToken && !isRedirected) {
         const payload = parseJwt(accessToken);
         console.log('Decoded JWT payload:', payload);
   
         if (payload && payload.role === 'patient') {
+          localStorage.setItem('is_redirected', 'true');  // Set redirect flag
           window.location.href = '/patient/dashboard';
         } else if (payload && payload.role === 'doctor') {
+          localStorage.setItem('is_redirected', 'true');  // Set redirect flag
           window.location.href = '/doctor/dashboard';
         } else {
           console.warn('Unknown role, redirecting to role selection...');
+          localStorage.setItem('is_redirected', 'true');  // Set redirect flag
           window.location.href = '/role';
         }
       }
     };
   </script>
+  
 </body>
 </html>
