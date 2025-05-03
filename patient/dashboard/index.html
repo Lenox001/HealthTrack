@@ -4604,7 +4604,9 @@ function showLoginPrompt(elementId) {
       const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
       const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
       const toastEl = document.getElementById('liveToast');
-      const toast = new bootstrap.Toast(toastEl);
+      const toast = new bootstrap.Toast(toastEl, {
+    backdrop: false // This prevents the dim background
+});
       
       const editProfileBtn = document.getElementById('editProfileBtn');
       const deleteAccountBtn = document.getElementById('deleteAccountBtn');
@@ -4750,7 +4752,7 @@ function showLoginPrompt(elementId) {
       
       
     // Handle save profile
-    saveProfileBtn.addEventListener('click', async function() {
+saveProfileBtn.addEventListener('click', async function() {
     this.blur(); // Remove focus from the button
 
     const token = localStorage.getItem('access_token');
