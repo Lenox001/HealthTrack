@@ -3683,9 +3683,10 @@
         <!-- Log Symptom -->
         <div class="col-md-3 col-6">
           <div class="action-card" style="border: 2px solid #28a745; background: #d4edda; border-radius: 12px; padding: 16px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);" data-bs-toggle="modal" data-bs-target="#logSymptomModal">
-            <button class="btn btn-outline-success action-icon-btn">
+            <button class="btn btn-outline-success action-icon-btn" onclick="this.blur()">
               <i class="fas fa-notes-medical"></i>
             </button>
+            
             <div class="action-label mt-2">Log Symptom</div>
           </div>
         </div>
@@ -3816,7 +3817,8 @@
             <textarea class="form-control" id="symptomNotes" rows="2"></textarea>
           </div>
           <div class="text-end">
-            <button type="submit" class="btn btn-success">Submit Symptom</button>
+            <button type="submit" class="btn btn-success" onclick="this.blur()">Submit Symptom</button>
+
           </div>
         </form>
         <div id="symptomResponse" class="mt-3" style="display: none;"></div>
@@ -4141,7 +4143,6 @@ function renderPharmacies(pharmacies) {
     html += '</div>';
     container.innerHTML = html;
 }
-
 function handleSymptomSubmit(e) {
     e.preventDefault();
     
@@ -4178,11 +4179,24 @@ function handleSymptomSubmit(e) {
     .then(data => {
         showResponse('Symptom logged successfully!', 'success');
         document.getElementById('symptomForm').reset();
-        
-        setTimeout(() => {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('logSymptomModal'));
-            modal.hide();
-        }, 1500);
+
+        const modalElement = document.getElementById('logSymptomModal');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        modal.hide();
+
+        // Wait until modal is actually hidden before cleanup
+        modalElement.addEventListener('hidden.bs.modal', () => {
+            // Fully clean up backdrop and scrolling state
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = ''; // In case Bootstrap added it
+
+            const backdrops = document.querySelectorAll('.modal-backdrop');
+            backdrops.forEach(b => b.remove());
+
+            // Remove focus
+            document.activeElement?.blur();
+        }, { once: true }); // Run only once
     })
     .catch(error => {
         console.error('Error logging symptom:', error);
