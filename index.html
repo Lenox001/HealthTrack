@@ -176,20 +176,12 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">HR</div>
-    <div class="message">
-      <h1>Welcome to Healthrack</h1>
-      <p>Your personalized health companion. If you're logged in, we'll redirect you to your dashboard shortly.</p>
-    </div>
-    <button class="button">
-      <div class="loading-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </button>
+  <div class="message">
+    <h1>Welcome to Healthrack</h1>
+    <p>Checking your health profile...</p>
+    <div class="spinner"></div>
   </div>
+  
   <script>
     function parseJwt(token) {
       try {
@@ -284,6 +276,22 @@
     window.onload = handleRedirection;
   </script>
   
-  </script>
+ <style>
+  .spinner {
+  border: 5px solid #d5f5e3;
+  border-top: 5px solid #2ecc71;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 30px auto 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+ </style>
 </body>
 </html>
