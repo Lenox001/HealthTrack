@@ -205,44 +205,91 @@
         return null;
       }
     }
-  
-    window.onload = function() {
-      const accessToken = localStorage.getItem('access_token');
+    
+    function isTokenExpired(token) {
+      if (!token) return true;
+      const payload = parseJwt(token);
+      if (!payload || !payload.exp) return true;
+      return Date.now() >= payload.exp * 1000;
+    }
+    
+    async function refreshAccessToken() {
       const refreshToken = localStorage.getItem('refresh_token');
-  
-      // Check if the tokens exist
-      if (!accessToken || !refreshToken) {
-        console.log('Tokens not found, redirecting to role selection...');
-        setTimeout(() => window.location.href = '/role', 1000);
-        return;  // Exit if tokens are not found
+      if (!refreshToken) return null;
+      
+      try {
+        const response = await fetch('/api/auth/refresh', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ refresh_token: refreshToken })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Token refresh failed');
+        }
+        
+        const data = await response.json();
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('refresh_token', data.refresh_token);
+        return data.access_token;
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        // Clear invalid tokens
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        return null;
       }
+    }
   
+    async function handleRedirection() {
+      let accessToken = localStorage.getItem('access_token');
+      const refreshToken = localStorage.getItem('refresh_token');
+      
+      // Check if access token is expired but refresh token exists
+      if (isTokenExpired(accessToken) && refreshToken) {
+        accessToken = await refreshAccessToken();
+      }
+      
+      // If no valid tokens, go to role selection
+      if (!accessToken || !refreshToken || isTokenExpired(accessToken)) {
+        console.log('No valid tokens, redirecting to role selection...');
+        window.location.href = '/role';
+        return;
+      }
+      
       // Decode the JWT to retrieve user role
       const payload = parseJwt(accessToken);
       console.log('Decoded JWT payload:', payload);
-  
+      
       // If no role is found in the JWT, redirect to role selection
       if (!payload || !payload.role) {
         console.warn('No role found in token, redirecting to role selection...');
         window.location.href = '/role';
         return;
       }
-  
+      
       // Handle redirection based on user role
-      if (payload.role === 'patient') {
-        console.log('Redirecting to patient dashboard...');
-        window.location.href = '/patient/dashboard';
-      } else if (payload.role === 'doctor') {
-        console.log('Redirecting to doctor dashboard...');
-        window.location.href = '/doctor/dashboard';
-      } else {
-        console.warn('Unknown role, redirecting to role selection...');
-        window.location.href = '/role';
+      switch(payload.role.toLowerCase()) {
+        case 'patient':
+          console.log('Redirecting to patient dashboard...');
+          window.location.href = '/patient/dashboard';
+          break;
+        case 'doctor':
+          console.log('Redirecting to doctor dashboard...');
+          window.location.href = '/doctor/dashboard';
+          break;
+        default:
+          console.warn('Unknown role, redirecting to role selection...');
+          window.location.href = '/role';
       }
+    }
+  
+    window.onload = function() {
+      // Start the redirection process immediately
+      handleRedirection();
     };
   </script>
-  
-  
-  
 </body>
 </html>
