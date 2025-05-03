@@ -4827,6 +4827,25 @@ function showLoginPrompt(elementId) {
 
 <style>
   /* Smooth hover effects */
+  /* Prevent any backdrop dimming */
+.modal-backdrop {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+/* Toast positioning */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+}
+
+/* Ensure body stays interactive */
+body.modal-open {
+    overflow: auto !important;
+    padding-right: 0 !important;
+}
   .info-section {
     transition: all 0.3s ease;
     padding: 1.5rem;
