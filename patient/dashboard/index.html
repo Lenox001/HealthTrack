@@ -4748,11 +4748,11 @@ function showLoginPrompt(elementId) {
           showToast('Info', 'Password change functionality would be implemented here');
       });
       
-      // Handle save profile
+      
     // Handle save profile
-saveProfileBtn.addEventListener('click', async function() {
+    saveProfileBtn.addEventListener('click', async function() {
     this.blur(); // Remove focus from the button
-    
+
     const token = localStorage.getItem('access_token');
     const formData = {
         first_name: document.getElementById('firstName').value,
@@ -4763,7 +4763,7 @@ saveProfileBtn.addEventListener('click', async function() {
         phone_number: document.getElementById('phone').value || '',
         address: document.getElementById('address').value || ''
     };
-    
+
     try {
         const response = await fetch('https://healthtrack.pythonanywhere.com/api/profile/', {
             method: 'PUT',
@@ -4773,21 +4773,33 @@ saveProfileBtn.addEventListener('click', async function() {
             },
             body: JSON.stringify(formData)
         });
-        
+
         if (!response.ok) {
             throw new Error('Failed to update profile');
         }
-        
+
         const updatedUser = await response.json();
-        editProfileModal.hide();
-        fetchUserProfile(); // Refresh the profile data
+
+        // Properly close the modal
+        const editProfileModalEl = document.getElementById('editProfileModal');
+        const editProfileModal = bootstrap.Modal.getInstance(editProfileModalEl);
+        if (editProfileModal) {
+            editProfileModal.hide();
+        }
+
+        fetchUserProfile(); // Refresh profile data
+
+        const accountModalEl = document.getElementById('accountModal');
+        const accountModal = new bootstrap.Modal(accountModalEl);
         accountModal.show();
+
         showToast('Success', 'Profile updated successfully!');
     } catch (error) {
         console.error('Error updating profile:', error);
         showToast('Error', 'Failed to update profile. Please try again.', true);
     }
 });
+
 
       
       // When account modal is shown, fetch profile data
