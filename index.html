@@ -205,41 +205,43 @@
         return null;
       }
     }
-    
+  
     window.onload = function() {
       const accessToken = localStorage.getItem('access_token');
       const refreshToken = localStorage.getItem('refresh_token');
-      const isRedirected = sessionStorage.getItem('is_redirected');  // Use sessionStorage for temporary flag
   
-      console.log('Access Token:', accessToken);  // Log to check if the token is present
-      console.log('Refresh Token:', refreshToken);  // Log to check if the refresh token is present
-      console.log('Is Redirected:', isRedirected);  // Log to check if the user has been redirected before
-  
+      // Check if the tokens exist
       if (!accessToken || !refreshToken) {
         console.log('Tokens not found, redirecting to role selection...');
         setTimeout(() => window.location.href = '/role', 1000);
-      } else if (accessToken && !isRedirected) {
-        const payload = parseJwt(accessToken);
-        console.log('Decoded JWT payload:', payload);  // Log the decoded payload
+        return;  // Exit if tokens are not found
+      }
   
-        if (payload && payload.role === 'patient') {
-          sessionStorage.setItem('is_redirected', 'true');  // Set redirect flag
-          console.log('Redirecting to patient dashboard...');
-          window.location.href = '/patient/dashboard';
-        } else if (payload && payload.role === 'doctor') {
-          sessionStorage.setItem('is_redirected', 'true');  // Set redirect flag
-          console.log('Redirecting to doctor dashboard...');
-          window.location.href = '/doctor/dashboard';
-        } else {
-          console.warn('Unknown role, redirecting to role selection...');
-          sessionStorage.setItem('is_redirected', 'true');  // Set redirect flag
-          window.location.href = '/role';
-        }
+      // Decode the JWT to retrieve user role
+      const payload = parseJwt(accessToken);
+      console.log('Decoded JWT payload:', payload);
+  
+      // If no role is found in the JWT, redirect to role selection
+      if (!payload || !payload.role) {
+        console.warn('No role found in token, redirecting to role selection...');
+        window.location.href = '/role';
+        return;
+      }
+  
+      // Handle redirection based on user role
+      if (payload.role === 'patient') {
+        console.log('Redirecting to patient dashboard...');
+        window.location.href = '/patient/dashboard';
+      } else if (payload.role === 'doctor') {
+        console.log('Redirecting to doctor dashboard...');
+        window.location.href = '/doctor/dashboard';
       } else {
-        console.log('User has already been redirected, no further action.');
+        console.warn('Unknown role, redirecting to role selection...');
+        window.location.href = '/role';
       }
     };
   </script>
+  
   
   
 </body>
