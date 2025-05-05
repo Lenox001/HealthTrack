@@ -114,150 +114,17 @@
       text-decoration: underline;
     }
     
-    /* HealthTrack logo style */
-    .healthtrack-logo {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      background-color: var(--primary-color);
-      border-radius: 50%;
-      position: relative;
-      margin-right: 10px;
-      vertical-align: middle;
+    /* Disabled input and button */
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
     }
-    
-    .healthtrack-logo:before {
-      content: "+";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    
-    /* Notification system */
-    .notification-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      max-width: 300px;
-      width: calc(100% - 40px);
-    }
-    
-    .notification {
-      padding: 15px 20px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      transform: translateX(100%);
-      transition: all 0.4s ease-in-out;
-      display: flex;
-      align-items: center;
-    }
-    
-    .notification.show {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .notification.error {
-      background-color: var(--error-color);
-      color: white;
-      border-left: 5px solid #A94442;
-    }
-    
-    .notification.success {
-      background-color: var(--success-color);
-      color: white;
-      border-left: 5px solid #4F7942;
-    }
-    
-    .notification-icon {
-      margin-right: 12px;
-      font-size: 18px;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      body {
-        padding: 15px;
-        display: block;
-      }
-      
-      .container {
-        padding: 25px 20px;
-        margin: 0 auto;
-      }
-      
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-      }
-      
-      .form-control {
-        padding: 10px 12px;
-      }
-      
-      .btn-primary {
-        padding: 10px 20px;
-      }
-      
-      .notification-container {
-        right: 10px;
-        left: 10px;
-        max-width: none;
-        width: auto;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-      
-      .container {
-        padding: 20px 15px;
-      }
-      
-      h2 {
-        font-size: 1.3rem;
-      }
-      
-      .form-label {
-        font-size: 0.9rem;
-      }
-      
-      .form-control {
-        font-size: 0.9rem;
-      }
-      
-      .btn-primary {
-        font-size: 0.9rem;
-      }
-      
-      p {
-        font-size: 0.9rem;
-      }
-    }
-    
-    @media (max-width: 360px) {
-      h2 {
-        font-size: 1.2rem;
-      }
-      
-      .healthtrack-logo {
-        width: 25px;
-        height: 25px;
-      }
-      
-      .healthtrack-logo:before {
-        font-size: 16px;
-      }
+
+    .disabled-message {
+      color: var(--error-color);
+      font-size: 1.2rem;
+      text-align: center;
+      margin-top: 50px;
     }
   </style>
 </head>
@@ -265,105 +132,25 @@
   <div class="container">
     <h2><span class="healthtrack-logo"></span>HealthTrack Login</h2>
     
+    <!-- Disabled message for login -->
+    <div class="disabled-message">
+      Login is temporarily disabled for maintenance. Please check back later.
+    </div>
+    
+    <!-- Disabled form inputs and button -->
     <form id="login-form" class="mt-4">
       <div class="mb-4">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" required>
+        <input type="email" class="form-control disabled" id="email" disabled>
       </div>
       <div class="mb-4">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" required>
+        <input type="password" class="form-control disabled" id="password" disabled>
       </div>
-      <button type="submit" class="btn btn-primary">Login to HealthTrack</button>
+      <button type="submit" class="btn btn-primary disabled" disabled>Login Disabled</button>
     </form>
     
     <p class="mt-4 text-center">Don't have an account? <a href="https://hetrack.netlify.app/patient/register">Register here</a></p>
   </div>
-
-  <div class="notification-container" id="notification-container"></div>
-
-  <script>
-    // Check if the user is already logged in (if token exists)
-    window.addEventListener('load', function() {
-      const token = localStorage.getItem('access_token');
-      
-      if (token) {
-        // Token exists, redirect to the appropriate dashboard
-        window.location.href = 'https://hetrack.netlify.app/patient/dashboard';
-      }
-    });
-  
-    // Handle the login form submission
-    document.getElementById('login-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-  
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-  
-      // Show loading notification before sending the request
-      showNotification('Logging in...', false);
-  
-      fetch('https://healthtrack.pythonanywhere.com/api/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password })
-      })
-      .then(response => {
-        if (!response.ok) {
-          // Handle HTTP errors
-          return response.json().then(data => {
-            throw new Error(data.error || 'Login failed');
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.access_token) {
-          // Successful login
-          localStorage.setItem('access_token', data.access_token);
-          localStorage.setItem('refresh_token', data.refresh_token);
-          showNotification('Login successful! Redirecting...');
-          setTimeout(() => {
-            window.location.href = 'https://hetrack.netlify.app/patient/dashboard';
-          }, 1500);
-        } else {
-          // Invalid credentials
-          showNotification('Login failed: Invalid credentials', true);
-        }
-      })
-      .catch(error => {
-        // Catch network errors or unexpected errors
-        console.error('Error:', error);
-        showNotification(error.message || 'There was an error with the login request', true);
-      });
-    });
-  </script>
-  <script>
-    function showNotification(message, isError = false) {
-      const container = document.getElementById('notification-container');
-  
-      const notification = document.createElement('div');
-      notification.classList.add('notification', isError ? 'error' : 'success', 'show');
-  
-      const icon = document.createElement('span');
-      icon.classList.add('notification-icon');
-      icon.innerHTML = isError ? '&#9888;' : '&#10003;'; // Warning or check icon
-  
-      notification.appendChild(icon);
-      notification.appendChild(document.createTextNode(message));
-      container.appendChild(notification);
-  
-      setTimeout(() => {
-        notification.classList.remove('show');
-        notification.addEventListener('transitionend', () => {
-          notification.remove();
-        });
-      }, 3000);
-    }
-  </script>
-  
-  
 </body>
 </html>
