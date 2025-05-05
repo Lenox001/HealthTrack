@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HealthTrack - Doctor Register</title>
+  <title>HealthTrack - Register</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@
       font-size: 0.95rem;
     }
     
-    .form-control, .form-select {
+    .form-control {
       border: 1px solid var(--secondary-color);
       border-radius: 6px;
       padding: 12px 15px;
@@ -80,7 +80,7 @@
       font-size: 1rem;
     }
     
-    .form-control:focus, .form-select:focus {
+    .form-control:focus {
       border-color: var(--primary-color);
       box-shadow: 0 0 0 0.2rem rgba(109, 139, 116, 0.25);
     }
@@ -199,31 +199,6 @@
       transition: width 0.3s ease;
     }
     
-    /* Date input styling */
-    input[type="date"] {
-      position: relative;
-    }
-    
-    input[type="date"]:before {
-      content: attr(placeholder);
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--light-cream);
-      color: #495057;
-      display: flex;
-      align-items: center;
-      padding-left: 15px;
-      pointer-events: none;
-    }
-    
-    input[type="date"]:focus:before,
-    input[type="date"]:not([value=""]):before {
-      display: none;
-    }
-    
     /* Responsive adjustments */
     @media (max-width: 768px) {
       body {
@@ -241,7 +216,7 @@
         margin-bottom: 20px;
       }
       
-      .form-control, .form-select {
+      .form-control {
         padding: 10px 12px;
       }
       
@@ -280,7 +255,7 @@
         font-size: 0.9rem;
       }
       
-      .form-control, .form-select {
+      .form-control {
         font-size: 0.9rem;
       }
       
@@ -322,6 +297,31 @@
       }
     }
     
+    /* Date input styling for mobile */
+    input[type="date"] {
+      position: relative;
+    }
+    
+    input[type="date"]:before {
+      content: attr(placeholder);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--light-cream);
+      color: #495057;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      pointer-events: none;
+    }
+    
+    input[type="date"]:focus:before,
+    input[type="date"]:not([value=""]):before {
+      display: none;
+    }
+    
     /* Spinner for loading state */
     .spinner-border {
       vertical-align: middle;
@@ -333,43 +333,13 @@
       content: " *";
       color: var(--error-color);
     }
-    /* Input group styling */
-.input-group-text {
-  background-color: var(--secondary-color);
-  color: var(--accent-color);
-  border: 1px solid var(--secondary-color);
-  font-weight: 500;
-}
-
-.input-group .form-control {
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-}
-
-.input-group-text {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-}
   </style>
 </head>
 <body>
   <div class="container">
-    <h2><span class="healthtrack-logo"></span>HealthTrack Doctor Registration</h2>
+    <h2><span class="healthtrack-logo"></span>HealthTrack Registration</h2>
     
-    <form id="register-form" class="mt-4" novalidate>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="first_name" class="form-label required-field">First Name</label>
-          <input type="text" class="form-control" id="first_name" required>
-          <div class="invalid-feedback">Please provide your first name.</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="last_name" class="form-label required-field">Last Name</label>
-          <input type="text" class="form-control" id="last_name" required>
-          <div class="invalid-feedback">Please provide your last name.</div>
-        </div>
-      </div>
-      
+    <form id="register-form" class="mt-4">
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="email" class="form-label required-field">Email</label>
@@ -389,76 +359,46 @@
       
       <div class="row">
         <div class="col-md-6 mb-3">
+          <label for="first_name" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="first_name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="last_name" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="last_name">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
           <label for="date_of_birth" class="form-label required-field">Date of Birth</label>
-          <input type="date" class="form-control" id="date_of_birth" placeholder="Select date" required>
+          <input type="date" class="form-control" id="date_of_birth" placeholder="Select date" required max="">
           <div class="invalid-feedback">Please provide your date of birth.</div>
         </div>
         <div class="col-md-6 mb-3">
-          <label for="phone_number" class="form-label required-field">Phone Number</label>
-          <input type="tel" class="form-control" id="phone_number" pattern="[0-9]{10,15}" required>
-          <div class="invalid-feedback">Please provide a valid phone number (10-15 digits).</div>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="license_number" class="form-label required-field">Medical License Number</label>
-          <input type="text" class="form-control" id="license_number" required>
-          <div class="invalid-feedback">Please provide your medical license number.</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="specialization" class="form-label required-field">Specialization</label>
-          <select class="form-select" id="specialization" required>
-            <option value="" selected disabled>Select your specialization</option>
-            <option value="GP">General Practitioner</option>
-            <option value="CAR">Cardiologist</option>
-            <option value="DER">Dermatologist</option>
-            <option value="PED">Pediatrician</option>
-            <option value="ORT">Orthopedist</option>
-            <option value="NEU">Neurologist</option>
-            <option value="ONC">Oncologist</option>
-            <option value="PSY">Psychiatrist</option>
-            <option value="OTH">Other</option>
-          </select>
-          <div class="invalid-feedback">Please select your specialization.</div>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="hospital" class="form-label required-field">Affiliated Hospital</label>
-          <input type="text" class="form-control" id="hospital" required>
-          <div class="invalid-feedback">Please provide your hospital affiliation.</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="address" class="form-label required-field">Address</label>
-          <input type="text" class="form-control" id="address" required>
-          <div class="invalid-feedback">Please provide your address.</div>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-6 mb-3">
           <label for="blood_type" class="form-label">Blood Type</label>
-          <select class="form-select" id="blood_type">
-            <option value="" selected disabled>Select blood type</option>
+          <select class="form-control" id="blood_type">
+            <option value="" selected>Select your blood type</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
             <option value="B-">B-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
             <option value="O+">O+</option>
             <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
           </select>
         </div>
+      </div>
+      
+      <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="consultation_fee" class="form-label required-field">Consultation Fee (KSh)</label>
-          <div class="input-group">
-            <span class="input-group-text">KSh</span>
-            <input type="number" class="form-control" id="consultation_fee" min="0" step="100" required>
-          </div>
-          <div class="invalid-feedback">Please provide a valid consultation fee (minimum 0 KSh).</div>
+          <label for="phone_number" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="phone_number" pattern="[0-9]{10,15}">
+          <div class="invalid-feedback">Please provide a valid phone number.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input type="text" class="form-control" id="address">
         </div>
       </div>
       
@@ -470,10 +410,10 @@
         <div class="invalid-feedback">You must agree to the terms and conditions.</div>
       </div>
       
-      <button type="submit" class="btn btn-primary" id="register-button">Register as Doctor</button>
+      <button type="submit" class="btn btn-primary">Create HealthTrack Account</button>
     </form>
     
-    <p class="mt-4 text-center">Already have an account? <a href="/doctor/login">Login here</a></p>
+    <p class="mt-4 text-center">Already have an account? <a href="https://hetrack.netlify.app/patient/login">Login here</a></p>
   </div>
 
   <!-- Terms and Conditions Modal -->
@@ -486,7 +426,7 @@
         </div>
         <div class="modal-body">
           <h6>1. Acceptance of Terms</h6>
-          <p>By registering as a doctor on HealthTrack, you agree to these terms and conditions...</p>
+          <p>By registering for HealthTrack, you agree to these terms and conditions...</p>
           <!-- Add full terms content here -->
         </div>
         <div class="modal-footer">
@@ -502,6 +442,10 @@
   <script>
     // Initialize form validation and submission
     document.addEventListener('DOMContentLoaded', function() {
+      // Set max date for date of birth (today)
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('date_of_birth').setAttribute('max', today);
+      
       // Password strength indicator
       const passwordInput = document.getElementById('password');
       const strengthBar = document.getElementById('password-strength-bar');
@@ -512,34 +456,8 @@
         strengthBar.style.backgroundColor = strength.color;
       });
       
-      // Date of birth input handling
-      const dateInput = document.getElementById('date_of_birth');
-      if (dateInput) {
-        // Set max date to today
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute('max', today);
-        
-        // Mobile placeholder handling
-        dateInput.addEventListener('focus', function() {
-          this.type = 'date';
-          if (!this.value) {
-            // Set a default value if empty (e.g., 25 years ago)
-            const defaultDate = new Date();
-            defaultDate.setFullYear(defaultDate.getFullYear() - 25);
-            this.value = defaultDate.toISOString().split('T')[0];
-          }
-        });
-        
-        dateInput.addEventListener('blur', function() {
-          if (!this.value) {
-            this.type = 'text';
-          }
-        });
-      }
-      
       // Form submission handler
       const form = document.getElementById('register-form');
-      const registerButton = document.getElementById('register-button');
       
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -552,110 +470,86 @@
           return;
         }
         
-        // Validate consultation fee
-        const consultationFee = parseFloat(document.getElementById('consultation_fee').value);
-        if (isNaN(consultationFee) || consultationFee < 0) {
-          showNotification('Please enter a valid consultation fee (minimum 0 KSh)', true);
-          document.getElementById('consultation_fee').focus();
+        // Validate age (at least 13 years old)
+        const dob = new Date(document.getElementById('date_of_birth').value);
+        const today = new Date();
+        const minAgeDate = new Date(today.getFullYear() - 13, today.getMonth(), today.getDate());
+        
+        if (dob > minAgeDate) {
+          showNotification('You must be at least 13 years old to register', true);
           return;
         }
         
         try {
           // Show loading state
-          registerButton.disabled = true;
-          registerButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...';
+          const submitBtn = form.querySelector('button[type="submit"]');
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...';
           
-          // Format date properly
-          const dateObj = new Date(document.getElementById('date_of_birth').value);
-          const formattedDate = dateObj.toISOString().split('T')[0];
-          
-          // Prepare form data
+          // Prepare form data (without timezone)
           const formData = {
             email: document.getElementById('email').value.trim(),
             password: document.getElementById('password').value,
             first_name: document.getElementById('first_name').value.trim(),
             last_name: document.getElementById('last_name').value.trim(),
-            date_of_birth: formattedDate,
-            blood_type: document.getElementById('blood_type').value || '',
+            date_of_birth: document.getElementById('date_of_birth').value,
+            blood_type: document.getElementById('blood_type').value,
             address: document.getElementById('address').value.trim(),
-            phone_number: document.getElementById('phone_number').value.trim(),
-            specialization: document.getElementById('specialization').value,
-            hospital: document.getElementById('hospital').value.trim(),
-            license_number: document.getElementById('license_number').value.trim(),
-            consultation_fee: consultationFee
+            phone_number: document.getElementById('phone_number').value.trim()
           };
           
           // Send registration request
-          const response = await fetch('https://healthtrack.pythonanywhere.com/api/register/doctor/', {
+          const response = await fetch('https://healthtrack.pythonanywhere.com/api/register/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Accept': 'application/json'
             },
             body: JSON.stringify(formData),
           });
           
-          // Check response content type
-          const contentType = response.headers.get('content-type');
-          if (!contentType || !contentType.includes('application/json')) {
-            const text = await response.text();
-            throw new Error(text || 'Server returned an invalid response');
-          }
-          
-          const responseData = await response.json();
+          const data = await response.json();
           
           if (!response.ok) {
-            // Handle specific field errors
-            let errorMessage = 'Registration failed. Please check your information and try again.';
-            
-            if (responseData.license_number) {
-              errorMessage = Array.isArray(responseData.license_number) 
-                ? responseData.license_number[0]
-                : responseData.license_number;
-              // Highlight license field if duplicate
-              document.getElementById('license_number').classList.add('is-invalid');
-            } 
-            else if (responseData.email) {
-              errorMessage = Array.isArray(responseData.email)
-                ? responseData.email[0]
-                : responseData.email;
-            }
-            else if (responseData.non_field_errors) {
-              errorMessage = Array.isArray(responseData.non_field_errors)
-                ? responseData.non_field_errors[0]
-                : responseData.non_field_errors;
-            }
-            else if (responseData.detail) {
-              errorMessage = responseData.detail;
-            }
-            
-            throw new Error(errorMessage);
+            throw new Error(data.detail || data.message || 'Registration failed');
           }
           
           // Handle successful registration
-          if (responseData.access_token && responseData.refresh_token) {
-            localStorage.setItem('access_token', responseData.access_token);
-            localStorage.setItem('refresh_token', responseData.refresh_token);
-            
-            showNotification('Registration successful! Welcome to HealthTrack');
-            
-            // Redirect to dashboard after 1.5 seconds
-            setTimeout(() => {
-              window.location.href = '/doctor/dashboard';
-            }, 1500);
-          } else {
-            throw new Error('Registration successful but missing tokens. Please login.');
-          }
+          localStorage.setItem('access_token', data.access_token);
+          localStorage.setItem('refresh_token', data.refresh_token);
+          
+          showNotification('Registration successful! Welcome to HealthTrack');
+          
+          // Redirect to dashboard after 1.5 seconds
+          setTimeout(() => {
+            window.location.href = 'https://hetrack.netlify.app/patient/dashboard';
+          }, 1500);
           
         } catch (error) {
           console.error('Registration error:', error);
           showNotification(error.message || 'Registration failed. Please try again.', true);
           
           // Reset submit button
-          registerButton.disabled = false;
-          registerButton.textContent = 'Register as Doctor';
+          const submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Create HealthTrack Account';
+          }
         }
       });
+      
+      // Mobile date input handling
+      const dateInput = document.getElementById('date_of_birth');
+      if (dateInput) {
+        dateInput.addEventListener('focus', function() {
+          this.type = 'date';
+        });
+        
+        dateInput.addEventListener('blur', function() {
+          if (!this.value) {
+            this.type = 'text';
+          }
+        });
+      }
     });
     
     // Calculate password strength
