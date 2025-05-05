@@ -333,6 +333,23 @@
       content: " *";
       color: var(--error-color);
     }
+    /* Input group styling */
+.input-group-text {
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
+  border: 1px solid var(--secondary-color);
+  font-weight: 500;
+}
+
+.input-group .form-control {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.input-group-text {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
   </style>
 </head>
 <body>
@@ -436,6 +453,16 @@
           </select>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="consultation_fee" class="form-label required-field">Consultation Fee (KSh)</label>
+          <div class="input-group">
+            <span class="input-group-text">KSh</span>
+            <input type="number" class="form-control" id="consultation_fee" min="0" step="100" required>
+          </div>
+          <div class="invalid-feedback">Please provide a valid consultation fee.</div>
+        </div>
+      </div>
       
       <div class="form-check mb-3">
         <input class="form-check-input" type="checkbox" id="terms" required>
@@ -526,6 +553,14 @@
           return;
         }
         
+        // Validate consultation fee
+        const consultationFee = document.getElementById('consultation_fee').value;
+        if (isNaN(consultationFee) || consultationFee < 0) {
+          showNotification('Please enter a valid consultation fee (minimum 0 KSh)', true);
+          document.getElementById('consultation_fee').focus();
+          return;
+        }
+        
         try {
           // Show loading state
           const submitBtn = form.querySelector('button[type="submit"]');
@@ -548,7 +583,8 @@
             phone_number: document.getElementById('phone_number').value.trim(),
             specialization: document.getElementById('specialization').value,
             hospital: document.getElementById('hospital').value.trim(),
-            license_number: document.getElementById('license_number').value.trim()
+            license_number: document.getElementById('license_number').value.trim(),
+            consultation_fee: document.getElementById('consultation_fee').value
           };
           
           // Send registration request
