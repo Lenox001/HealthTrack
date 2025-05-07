@@ -3064,7 +3064,8 @@ medicationForm.addEventListener('submit', async function(e) {
         <h6 class="modal-title fw-bold text-dark" id="scheduleModalLabel">
           <i class="fas fa-calendar-plus me-2 text-warning"></i>New Appointment
         </h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="this.blur()"></button>
+
       </div>
       <div class="modal-body text-dark pt-1">
         <form id="appointmentForm">
@@ -3100,7 +3101,8 @@ medicationForm.addEventListener('submit', async function(e) {
       </div>
       <div class="modal-footer border-0 pt-0">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onfocus="this.blur()">Cancel</button>
-        <button type="button" class="btn btn-sm btn-warning text-dark" id="saveAppointment">Confirm</button>
+        <button type="button" class="btn btn-sm btn-warning text-dark" id="saveAppointment" onclick="this.blur()">Confirm</button>
+
       </div>
     </div>
   </div>
